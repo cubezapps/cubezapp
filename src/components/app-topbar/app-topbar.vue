@@ -19,40 +19,33 @@ export default {
 <style lang='scss' scoped>
 $border-color-module: red;
 $height: 30px;
+$logowidth: 50px;
 $buttonswidth: 100px;
-$logowidth: 80px;
 .app-topbar {
     position: relative;
-    height: $height;
     background: #141822;
     background-size: cover;
     border-bottom: 1px solid $border-color-module;
     user-select: none;
     margin: auto;
-    display: block;
+    width: 100%;
+    flex: 0 0 $height;
+    display: -webkit-flex;
+    display: flex;
   }
 .app-topbar-logo {
       position: relative;
-      width: $logowidth;
-      height: $height;
       background-color:#b0e0e6;
       margin: 0px;
-      display: inline-block;
-      float: left;
+      flex: 0 0 $logowidth
+      /*display: inline-block;*/
    }
 .app-topbar-space {
-      margin: 0px;
-      width: auto;
-      height: $height;
-      background-color:#BBBBBB;
-      display: inline-block;
+      background-color:#FFFFFF;
+      flex: 1 1 auto;
    }
 .app-topbar-buttons {
-      margin: 0px;
-      width: $buttonswidth;
-      height: $height;
-      background-color:#CCCCCC;
-      display: inline-block;
-      float: right;
+      background-color: green;
+      flex: 0 0 $buttonswidth;
    }
 </style>
