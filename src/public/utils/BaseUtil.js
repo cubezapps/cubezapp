@@ -399,22 +399,3 @@ export function doubleDecode (str) {
 
   return result
 }
-
-/**
- * 自动获取当前语言对应的文本
- * @param  val json格式字符串："{"ru": "xxx", "en": "yyy", "cn": "zzz"}"
- * @returns 当前语言对应的文本
- */
-export function getI18nStr (val) {
-  let ret
-  try {
-    const obj = JSON.parse(decodeURIComponent(val || '{}'))
-    if (i18n.locale === 'cn') {
-      i18n.locale = 'zh'
-    }
-    ret = obj[i18n.locale] || obj['ru'] || obj['en'] || obj['zh'] || obj['cn'] || val
-  } catch (e) {
-    ret = val
-  }
-  return ret
-}

@@ -17,7 +17,7 @@ export default {
 <style lang='scss' scoped>
 $border-color-module: red;
 $height: 90px;
-$color: #DDDCCC;
+$color: rgb(158, 157, 148);
 .app-info {
     position: relative;
     background: $color;

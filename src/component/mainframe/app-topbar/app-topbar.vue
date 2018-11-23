@@ -12,12 +12,15 @@ export default {
     return {
 
     }
+  },
+  methods: {
+
   }
 }
 </script>
 
 <style lang='scss' scoped>
-$border-color-module: red;
+$border-color-module: rgb(124, 117, 117);
 $height: 30px;
 $logowidth: 50px;
 $buttonswidth: 100px;
@@ -35,17 +38,17 @@ $buttonswidth: 100px;
   }
 .app-topbar-logo {
       position: relative;
-      background-color:#b0e0e6;
+      background-color:#6e7f81;
       margin: 0px;
       flex: 0 0 $logowidth
       /*display: inline-block;*/
    }
 .app-topbar-space {
-      background-color:#FFFFFF;
+      background-color:rgb(122, 106, 106);
       flex: 1 1 auto;
    }
 .app-topbar-buttons {
-      background-color: green;
+      background-color: rgb(70, 87, 70);
       flex: 0 0 $buttonswidth;
    }
 </style>

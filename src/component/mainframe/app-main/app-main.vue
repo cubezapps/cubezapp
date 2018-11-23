@@ -1,5 +1,5 @@
 <template>
-  <div class="app-bottombar">
+  <div class="app-main">
     
   </div>
 </template>
@@ -16,15 +16,15 @@ export default {
 
 <style lang='scss' scoped>
 $border-color-module: red;
-$height: 20px;
-$color: gray;
-.app-bottombar {
+$height: 250px;
+$color: rgb(140, 140, 148);
+.app-main {
     position: relative;
     background: $color;
     background-size: cover;
     border-bottom: 1px solid $border-color-module;
     margin: auto;
     width: 100%;
-    flex: 0 0 $height;
+    flex: 1 1 $height;
   }
 </style>

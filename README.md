@@ -31,3 +31,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 npm install node-sass --save-dev
 npm install sass-loader --save-dev
 npm install --save @efox/websdk
+npm install vue-router

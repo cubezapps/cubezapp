@@ -18,6 +18,7 @@ export default {
     this.$WebSDK('win.resize', 500, 350)
     this.$WebSDK('win.move', 4)
     this.setCaptionArea()
+    this.$WebSDK('win.show')
   },
   methods: {
     closeWindow () {

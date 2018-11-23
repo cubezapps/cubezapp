@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import apptopbar from './components/app-topbar/app-topbar.vue'
-import appinfo from './components/app-info/app-info.vue'
-import appmain from './components/app-main/app-main.vue'
-import appbottombar from './components/app-bottombar/app-bottombar.vue'
+import apptopbar from './app-topbar/app-topbar.vue'
+import appinfo from './app-info/app-info.vue'
+import appmain from './app-main/app-main.vue'
+import appbottombar from './app-bottombar/app-bottombar.vue'
 
 export default {
   name: 'app',
@@ -28,6 +28,8 @@ export default {
     this.$WebSDK('win.setResizeBorderWidth', 2)
     this.$WebSDK('win.setMinSize', 300, 550)
     this.$WebSDK('win.needResizable')
+    this.$WebSDK('win.show')
+    this.$WebSDK('win.needShadow')
   },
   methods: {
     closeWindow () {
@@ -48,7 +50,7 @@ html, body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: lightblue;
+  color: rgb(189, 205, 211);
   padding: 0;
   width: 100%;
   height: 100%;
