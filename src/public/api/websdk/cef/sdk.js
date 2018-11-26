@@ -8,10 +8,10 @@ export default {
   },
   // this.$WebSDK('sdk.openWindow', url, '_blank', param)
   openWindow () {
-    return window.YY.sdk.open(...arguments)
+    return YY.sdk.open(...arguments)
   },
   getSdkVersion () {
-    return window.YY.sdk.getSdkVersion(...arguments)
+    return YY.sdk.getSdkVersion(...arguments)
   },
   getCurLang () {
     return YY.sdk.getCurLang(...arguments)

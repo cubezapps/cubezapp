@@ -14,7 +14,7 @@ export default {
   },
    methods: {
     onClick() {
-       this.$router.push('/about')
+       this.$WebSDK('sdk.openWindow', '/about', 'aboutframe', 'resizable:0,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0')
     }
   }
 }

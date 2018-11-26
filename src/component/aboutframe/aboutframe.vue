@@ -9,6 +9,16 @@
 
 <script>
 export default {
+  metaInfo: {
+        title: 'my vue app aboutframe', // set a title
+        meta: [{                 // set meta
+          name: 'keyWords',
+          content: 'My Example App'
+         }],
+        htmlAttrs: {
+          lang: 'zh-CN'
+        }
+  },
   data () {
     return {
 
@@ -19,6 +29,7 @@ export default {
     this.$WebSDK('win.move', 4)
     this.setCaptionArea()
     this.$WebSDK('win.show')
+    this.$WebSDK('needResizable', false)
   },
   methods: {
     closeWindow () {
@@ -31,6 +42,10 @@ export default {
   }
 }
 </script>
+
+<style lang='scss'>
+@import '@/css/index.scss';
+</style>
 
 <style lang='scss' scoped>
 .app-about{

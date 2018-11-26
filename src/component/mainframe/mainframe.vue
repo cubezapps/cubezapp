@@ -15,6 +15,16 @@ import appbottombar from './app-bottombar/app-bottombar.vue'
 
 export default {
   name: 'app',
+  metaInfo: {
+        title: 'my vue app mainframe', // set a title
+        meta: [{                 // set meta
+          name: 'keyWords',
+          content: 'My Example App'
+         }],
+        htmlAttrs: {
+          lang: 'zh-CN'
+        }
+  },
   components: {
     apptopbar,
     appinfo,
@@ -40,11 +50,10 @@ export default {
 </script>
 
 <style lang='scss'>
-html, body{
-  margin:0;
-  padding:0;
-  height: 100%;
-}
+@import '@/css/index.scss';
+</style>
+
+<style lang='scss' scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

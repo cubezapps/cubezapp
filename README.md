@@ -32,3 +32,5 @@ npm install node-sass --save-dev
 npm install sass-loader --save-dev
 npm install --save @efox/websdk
 npm install vue-router
+npm install vue-meta
+npm install vue-clipboard2
