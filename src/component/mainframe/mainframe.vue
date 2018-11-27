@@ -34,7 +34,6 @@ export default {
   mounted () {
     this.$WebSDK('win.resize', 300, 550)
     this.$WebSDK('win.move', 4)
-    this.$WebSDK('win.setDragArea', [[0, 0, 300, 30]])
     this.$WebSDK('win.setResizeBorderWidth', 2)
     this.$WebSDK('win.setMinSize', 300, 550)
     this.$WebSDK('win.needResizable')
