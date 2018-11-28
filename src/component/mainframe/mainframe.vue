@@ -37,6 +37,7 @@ export default {
     this.$WebSDK('win.setResizeBorderWidth', 2)
     this.$WebSDK('win.setMinSize', 300, 550)
     this.$WebSDK('win.needResizable')
+    this.$WebSDK('sdk.hideLoading')
     this.$WebSDK('win.show')
     this.$WebSDK('win.needShadow')
   },

@@ -1,6 +1,4 @@
-/**
- * Created by Simon on 2017/8/24.
- */
+/* eslint-disable */
 import WebSDK from '@/public/api/websdk'
 
 class Logger {

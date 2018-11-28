@@ -24,6 +24,9 @@ export default {
   },
   methods: {
     init() {
+      window.onresize = () => {
+        this.resetCaptionArea()
+      }
       this.resetCaptionArea()
     },
     resetCaptionArea () {
@@ -34,12 +37,13 @@ export default {
     onCloseBtnClick () {
       this.$WebSDK('win.minimize')
       this.$WebSDK('win.hide')
+      window.close()
     },
     onMinBtnClick () {
       this.$WebSDK('win.minimize')
     },
     onSettingBtnClick() {
-
+      this.$WebSDK('sdk.openWindow', '/setting', 'settingframe', 'resizable:0,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
     }
   }
 }
@@ -82,7 +86,7 @@ $buttonswidth: 80px;
     width: 14px;
     height: 14px;
     margin: 0;
-    background: url(./imgs/settting.png) 50% 50% no-repeat;
+    background: url(./img/settting.png) 50% 50% no-repeat;
     cursor: pointer;
     &:hover {
       filter: brightness(2);
@@ -93,7 +97,7 @@ $buttonswidth: 80px;
     width: 14px;
     height: 14px;
     margin: 0;
-    background: url(./imgs/window_min.png) 50% 50% no-repeat;
+    background: url(./img/window_min.png) 50% 50% no-repeat;
     cursor: pointer;
     &:hover {
       filter: brightness(2);
@@ -104,7 +108,7 @@ $buttonswidth: 80px;
     width: 14px;
     height: 14px;
     margin: 0;
-    background: url(./imgs/window_close.png) 50% 50% no-repeat;
+    background: url(./img/window_close.png) 50% 50% no-repeat;
     &:hover {
       filter: brightness(2);
     }

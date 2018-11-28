@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 const MainFrame = () => import('@/component/mainframe/mainframe.vue')
 const AboutFrame = () => import('@/component/aboutframe/aboutframe.vue')
+const SettingFrame = () => import('@/component/settingframe/settingframe.vue')
 
 Vue.use(VueRouter)
 
@@ -14,6 +15,10 @@ const routes = [
   {
     path: '/about',
     component: AboutFrame
+  },
+  {
+    path: '/setting',
+    component: SettingFrame
   }
 ]
 

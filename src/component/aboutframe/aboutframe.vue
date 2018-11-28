@@ -29,7 +29,7 @@ export default {
     this.$WebSDK('win.move', 4)
     this.setCaptionArea()
     this.$WebSDK('win.show')
-    this.$WebSDK('needResizable', false)
+    this.$WebSDK('needResizable', true)
   },
   methods: {
     closeWindow () {
@@ -60,7 +60,7 @@ export default {
     width: 12px;
     height: 12px;
     margin: 0;
-    background: url('./src/imgs/close-bt.png');
+    background: url('./img/close-bt.png');
     background-position: 0px -72px;
     position: absolute;
     top: 10px;
