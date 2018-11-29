@@ -29,7 +29,7 @@ export default {
     this.$WebSDK('win.move', 4)
     this.setCaptionArea()
     this.$WebSDK('win.show')
-    this.$WebSDK('needResizable', true)
+    this.$WebSDK('win.needResizable', true)
   },
   methods: {
     closeWindow () {

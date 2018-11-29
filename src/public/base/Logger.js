@@ -13,4 +13,11 @@ class Logger {
     WebSDK('common.print', type, value)
   }
 }
+
+export const LoggerPlugin = {
+  install (Vue) {
+    Vue.prototype.$Logger = Logger
+  }
+}
+
 export { Logger as default }

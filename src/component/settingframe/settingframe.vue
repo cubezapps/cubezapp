@@ -28,7 +28,7 @@ export default {
     init() {
       this.$WebSDK('win.resize', 400, 400)
       this.$WebSDK('win.move', 4)
-      this.$WebSDK('needResizable', true)
+      this.$WebSDK('win.needResizable', true)
       this.$WebSDK('win.show')
       window.onresize = () => {
         this.resetCaptionArea()
@@ -36,9 +36,8 @@ export default {
       this.resetCaptionArea()
       // eslint-disable-next-line
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
-        alert(uri)
       switch (uri) {
-        case this.$DataUri.DataUri_CloseWindow_SettingFrame:
+        case this.$DataUri.SettingFrame_CloseWindow:
           window.close()
           break
       }

@@ -4,9 +4,9 @@
     <div class="app-topbar-space"></div>
     <div class="app-topbar-buttons" ref="buttonsArea">
       <ul> 
-        <li><input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="Close"/></li> 
-        <li><input type="button" @click="onMinBtnClick()" class="window-min-btn" v-tooltip="Minimize"/></li>
-        <li><input type="button" @click="onSettingBtnClick()" class="window-setting-btn" v-tooltip="Setting"/></li>
+        <li><input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="'Close'"/></li> 
+        <li><input type="button" @click="onMinBtnClick()" class="window-min-btn" v-tooltip="'Minimize'"/></li>
+        <li><input type="button" @click="onSettingBtnClick()" class="window-setting-btn" v-tooltip="'Setting'"/></li>
       </ul>
     </div>
   </div>

@@ -14,7 +14,7 @@ export default {
   },
    methods: {
     onClick() {
-       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.DataUri_CloseWindow_SettingFrame, '')
+       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.CloseWindow_SettingFrame, '')
        this.$WebSDK('sdk.openWindow', '/about', 'aboutframe', 'resizable:0,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,guardapp:0')
     }
   }

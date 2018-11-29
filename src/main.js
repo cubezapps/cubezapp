@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import App from '@/module/App.vue'
+import router from './router/index'
+import install from '@/component/common'
 import { WebSDKPlugin } from './public/api/websdk'
 import { DataUriPlugin }  from '@/public/common/DataUri'
-import router from './router/index'
-import Logger from '@/public/base/Logger'
-import install from '@/component/common'
+import Logger, { LoggerPlugin } from '@/public/base/Logger'
+import { TrayIconPlugin } from '@/public/common/TrayIcon'
 
 Vue.config.productionTip = false
 Vue.use(WebSDKPlugin)
 Vue.use(DataUriPlugin)
+Vue.use(LoggerPlugin)
+Vue.use(TrayIconPlugin)
 install(Vue)
 Logger.log('start to new Vue')
 new Vue({

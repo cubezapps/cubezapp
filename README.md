@@ -34,4 +34,4 @@ npm install --save @efox/websdk
 npm install vue-router
 npm install vue-meta
 npm install vue-clipboard2
-npm install eslint-config-standard
+npm install --save v-tooltip

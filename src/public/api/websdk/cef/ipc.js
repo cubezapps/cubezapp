@@ -14,7 +14,6 @@ export default {
     // return new Promise()
   },
   dispatchWindowEvent (uri, data) {
-    console.log('使用封装了的方法', uri)
     YY.Common.transfer('', '', uri, data)
     // return new Promise()
   },

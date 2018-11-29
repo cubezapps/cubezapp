@@ -36,10 +36,11 @@ export default {
     this.$WebSDK('win.move', 4)
     this.$WebSDK('win.setResizeBorderWidth', 2)
     this.$WebSDK('win.setMinSize', 300, 550)
-    this.$WebSDK('win.needResizable')
+    this.$WebSDK('win.needResizable', true)
     this.$WebSDK('sdk.hideLoading')
     this.$WebSDK('win.show')
     this.$WebSDK('win.needShadow')
+    this.$TrayIcon.init()
   },
   methods: {
     closeWindow () {
