@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 const MainFrame = () => import('@/component/mainframe/mainframe.vue')
 const AboutFrame = () => import('@/component/aboutframe/aboutframe.vue')
 const SettingFrame = () => import('@/component/settingframe/settingframe.vue')
+const TrayMenu = () => import('@/component/traymenuframe/traymenuframe.vue')
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,10 @@ const routes = [
   {
     path: '/setting',
     component: SettingFrame
+  },
+  {
+    path: '/traymenu',
+    component: TrayMenu
   }
 ]
 

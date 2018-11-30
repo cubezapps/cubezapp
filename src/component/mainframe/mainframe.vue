@@ -37,10 +37,28 @@ export default {
     this.$WebSDK('win.setResizeBorderWidth', 2)
     this.$WebSDK('win.setMinSize', 300, 550)
     this.$WebSDK('win.needResizable', true)
+    this.$WebSDK('win.needTaskBar', true)
     this.$WebSDK('sdk.hideLoading')
-    this.$WebSDK('win.show')
     this.$WebSDK('win.needShadow')
-    this.$TrayIcon.init()
+    this.$WebSDK('win.show')
+   // this.$TrayIcon.init()
+   // this.$TrayIcon.setTrayToolTip("My Cubez")
+    this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
+      switch (uri) {
+        case this.$DataUri.MainFrame_ShowWindow:
+          this.$WebSDK('win.restore')
+          this.$WebSDK('win.forefront')
+          this.$WebSDK('win.show')
+          break
+      }
+    }, this)
+    this.$WebSDK('common.trayIconLeftClickListener', () => {
+        this.$WebSDK('win.restore')
+        this.$WebSDK('win.forefront')
+        this.$WebSDK('win.show')
+    }, this)
+    this.$WebSDK('common.trayIconShow')
+    this.$WebSDK('common.trayIconToolTip', 'My Cubez')
   },
   methods: {
     closeWindow () {

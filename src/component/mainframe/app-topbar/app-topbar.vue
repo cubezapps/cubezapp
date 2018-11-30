@@ -37,13 +37,12 @@ export default {
     onCloseBtnClick () {
       this.$WebSDK('win.minimize')
       this.$WebSDK('win.hide')
-      window.close()
     },
     onMinBtnClick () {
       this.$WebSDK('win.minimize')
     },
     onSettingBtnClick() {
-      this.$WebSDK('sdk.openWindow', '/setting', 'settingframe', 'resizable:0,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
+      this.$WebSDK('sdk.openWindow', '/setting', 'settingframe', 'resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
     }
   }
 }

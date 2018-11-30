@@ -6,11 +6,11 @@ export default class TrayIcon {
   static init () {
     this.listenTrayLeftClick()
     this.listenTrayRightClick()
-    //this.listenHover()
+   // this.listenHover()
     WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case DataUri.TrayIcon_UpdateTips:
-          this.setTrayToolTip('My Cubez')
+          this.setTrayToolTip(data)
           break
       }
     }, this)
