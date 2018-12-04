@@ -41,14 +41,15 @@ export default {
     this.$WebSDK('sdk.hideLoading')
     this.$WebSDK('win.needShadow')
     this.$WebSDK('win.show')
-   // this.$TrayIcon.init()
-   // this.$TrayIcon.setTrayToolTip("My Cubez")
     this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.MainFrame_ShowWindow:
           this.$WebSDK('win.restore')
           this.$WebSDK('win.forefront')
           this.$WebSDK('win.show')
+          break
+        case this.$DataUri.App_CloseAllWindow:
+          window.close()
           break
       }
     }, this)
@@ -57,6 +58,7 @@ export default {
         this.$WebSDK('win.forefront')
         this.$WebSDK('win.show')
     }, this)
+    this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
     this.$WebSDK('common.trayIconShow')
     this.$WebSDK('common.trayIconToolTip', 'My Cubez')
   },
@@ -74,7 +76,6 @@ export default {
 
 <style lang='scss' scoped>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

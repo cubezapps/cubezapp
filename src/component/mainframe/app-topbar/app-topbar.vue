@@ -42,7 +42,7 @@ export default {
       this.$WebSDK('win.minimize')
     },
     onSettingBtnClick() {
-      this.$WebSDK('sdk.openWindow', '/setting', 'settingframe', 'resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
+      this.$WebSDK('sdk.openWindow', '/setting', 'settingframe', 'resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
     }
   }
 }

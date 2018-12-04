@@ -25,15 +25,22 @@ export default {
     }
   },
   mounted () {
-    this.$WebSDK('win.resize', 500, 350)
-    this.$WebSDK('win.move', 4)
-    this.setCaptionArea()
-    this.$WebSDK('win.show')
-    this.$WebSDK('win.needResizable', true)
+    this.init()
   },
   methods: {
-    closeWindow () {
-      window.close()
+    init () {
+      this.$WebSDK('win.resize', 500, 350)
+      this.$WebSDK('win.move', 4)
+      this.setCaptionArea()
+      this.$WebSDK('win.show')
+      this.$WebSDK('win.needResizable', true)
+      this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
+      switch (uri) {
+        case this.$DataUri.$App_CloseAllWindow:
+          window.close()
+          break
+      }
+    }, this)
     },
     setCaptionArea () {
       const w = 500 - 35

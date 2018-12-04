@@ -1,42 +1,124 @@
 <template>
   <div class="app-menu">
     <ul ref="appmenu"  class="dropdown-menu">
-        <li class="about" @click.stop="showMainFrame">'Show MainFrame'</li>
-        <li class="quit" @click.stop="quitClick">'Exit'</li>
+        <li class="about" @click.stop="showMainFrame">Show MainFrame</li>
+        <li class="quit" @click.stop="quitClick">Exit</li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'traymenu',
+  metaInfo: {
+        title: 'traymenuframe', // set a title
+        meta: [{                 // set meta
+          name: 'keyWords',
+          content: 'My Example App'
+         }],
+        htmlAttrs: {
+          lang: 'zh-CN'
+        }
+  },
   mounted () {
     this.init()
   },
   methods: {
     init () {
-      //this.$WebSDK('win.setResizeBorderWidth', 0)
-      this.$WebSDK('win.needTaskBar', false)
-      this.$WebSDK('win.needResizable', false)
       let tmp = this.$refs.appmenu
       this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
       document.body.style = 'overflow: hidden'
-      document.onmousemove = (e) => {
-      
-      }
+
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
-       
+       switch (uri) {
+         case this.$DataUri.$App_CloseAllWindow:
+           window.close()
+           break
+        }
       }, this)
-      document.addEventListener('mouseleave', (e) => {
-        alert('ddddddddddddddd')
-      }, false)
+      this.$WebSDK('common.trayIconRightClickListener', () => {
+        this.$WebSDK('win.restore')
+        this.$WebSDK('win.forefront')
+        this.PoupuMenu()
+        this.$WebSDK('win.show')
+       }, this)
+
+      this.$WebSDK('common.trayIconHoverEnterListener', () => {
+        this._trayenter = true
+        this.clearDelay()
+      }, this)
+      this.$WebSDK('common.trayIconHoverLeaveListener', () => {
+        this._trayenter = false
+        this.delayHide()
+      }, this)
+
+      this.$WebSDK('win.regEvent', 'MouseEnter', () => {
+        this.clearDelay()
+        this._mouseenter = true
+      }, this)
+      this.$WebSDK('win.regEvent', 'MouseLeave', () => {
+        this._mouseenter = false
+        this.delayHide()
+      }, this)
+
       document.body.oncontextmenu = (e) => {
         return false
       }
-      this.$WebSDK('win.move', 4)
-      this.$WebSDK('win.show')
     },
     quitClick () {
-      
+       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.App_CloseAllWindow, '')
+    },
+    showMainFrame() {
+       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.MainFrame_ShowWindow, '')
+    },
+    clearDelay () {
+      if (this._timeId !== undefined && this._timeId > 0) {
+        clearTimeout(this._timeId)
+      }
+    },
+    delayHide() {
+      this._timeId = setTimeout(() => {
+          if(!this._mouseenter && !this._trayenter)
+            this.$WebSDK('win.hide')
+        }, 500)
+    },
+    PoupuMenu() {
+        this.$WebSDK('common.trayIconGetPopupPos').then((ret) => {
+        var iconPos = ret.CenterPoint.map(function TrayIconProxyCalcWinPosMap (x) { return x / window.devicePixelRatio })
+        var border = ret.Border[0]
+        this.$Logger.log('document.body.offsetWidth = ' + document.body.offsetWidth)
+        var menu = document.querySelector('.dropdown-menu')
+        var menuWidth = menu.offsetWidth
+        var menuHeight = menu.offsetHeight
+
+        var x = 0
+        var y = 0
+
+        // calc menu window pos
+        if (border === 0) { // tray icon on bottom
+          x = iconPos[0]
+          y = iconPos[1] - menuHeight + 10
+        } else if (border === 1) { // tray icon on left side
+          x = iconPos[0]
+          y = iconPos[1] - menuHeight
+        } else if (border === 2) { // tray icon on top
+          x = iconPos[0] + 10
+          y = iconPos[1]
+        } else if (border === 3) { // tray icon on right side
+          x = iconPos[0] - menuWidth
+          y = iconPos[1] - menuHeight
+        } else {
+          this.$Logger.log('unknown tray icon border: ' + border)
+        }
+
+        // limit in screen range
+       this.$WebSDK('sdk.getSdkInfo').then((info) => {
+          x = Math.floor(Math.min(Math.max(x, 0), info.screenW - menuWidth))
+          y = Math.floor(Math.min(Math.max(y, 0), info.screenH - menuHeight))
+          console.log(menuWidth, menuHeight, x, y, iconPos, border)
+          this.$WebSDK('win.move', x, y)
+        })
+      })
     }
   }
 }
