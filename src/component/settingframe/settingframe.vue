@@ -43,6 +43,9 @@ export default {
         case this.$DataUri.$App_CloseAllWindow:
           window.close()
           break
+        case this.$DataUri.SettingFrame_SetTaskbarIcon:
+          this.$WebSDK('win.setOverlayIcon', '/res/cube-3.ico', 'ddddd')
+          break
       }
     })
     },

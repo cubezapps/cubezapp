@@ -1,7 +1,8 @@
 <template>
   <div class="app-menu">
     <ul ref="appmenu"  class="dropdown-menu">
-        <li class="about" @click.stop="showMainFrame">Show MainFrame</li>
+        <li @click.stop="showMainFrame">Show MainFrame</li>
+        <li>Setting</li>
         <li class="quit" @click.stop="quitClick">Exit</li>
     </ul>
   </div>
@@ -67,9 +68,14 @@ export default {
     },
     quitClick () {
        this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.App_CloseAllWindow, '')
+       this.$WebSDK('win.hide')
     },
     showMainFrame() {
+       //this.$WebSDK('common.trayIconSetIcon', '/res/cube-5.ico')
+       //this.$WebSDK('common.trayIconBeginFlash')
        this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.MainFrame_ShowWindow, '')
+       this.$WebSDK('win.hide')
+       //this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_SetTaskbarIcon, '')
     },
     clearDelay () {
       if (this._timeId !== undefined && this._timeId > 0) {
@@ -130,46 +136,43 @@ export default {
   overflow: hidden;
 }
 .dropdown-menu{
-  // width: 100%;
-  border-radius: 4px;
   position: absolute;
   display: block;
+  border-radius: 4px;
   top: 0;
-  background: #2d3849;
+  background: rgb(250, 255, 255);
   margin: 0;
   left: 0;
   z-index: 1000;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding: 5px 2px 5px 2px;
   font-size: 14px;
   text-align: left;
   list-style: none;
-  border: 1px solid #17202c;
-  // box-shadow: 0 2px 8px rgba(5, 12, 20, 0.2);
+  border: 1px solid rgb(198, 208, 218);
   li{
       list-style-type: none;
       box-sizing: border-box;
       width: 100%;
-      height: 34px;
-      line-height: 34px;
+      height: 28px;
+      line-height: 28px;
       padding-left: 20px;
       padding-right: 20px;
       margin: 0;
       font-weight: normal;
       white-space: nowrap;
-      color: #e2e3e4;
+      color: rgb(0, 0, 0);
       cursor: default;
     &:hover{
-      background-color: #222e3f;
+      background-color: rgb(205, 214, 226);
     }
   }
-  .about{
-    border-bottom: 1px solid #2c333c;
+  .borderline{
+    border-bottom: 1px solid rgb(212, 216, 221);
   }
   li:nth-child(3) {
-    height: 44px;
-    line-height: 44px;
-    border-top: solid 1px rgba(250, 250, 250, 0.1);
+    height: 32px;
+    line-height: 32px;
+    border-top: solid 1px rgb(212, 216, 221);
   }
 }
 </style>

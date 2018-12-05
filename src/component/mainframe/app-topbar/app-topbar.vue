@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-$border-color-module: rgb(124, 117, 117);
+$border-color-module: rgb(117, 117, 117);
 $height: 30px;
 $logowidth: 50px;
 $buttonswidth: 80px;

@@ -58,7 +58,7 @@ export default {
         this.$WebSDK('win.forefront')
         this.$WebSDK('win.show')
     }, this)
-    this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
+    this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
     this.$WebSDK('common.trayIconShow')
     this.$WebSDK('common.trayIconToolTip', 'My Cubez')
   },
