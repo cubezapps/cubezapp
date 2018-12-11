@@ -49,13 +49,14 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-$border-color-module: rgb(117, 117, 117);
+$border-color-module: rgb(0, 137, 227);
+$back-color: linear-gradient(to right, rgb(1, 132, 223), rgb(0, 149, 229));
 $height: 30px;
 $logowidth: 50px;
 $buttonswidth: 80px;
 .app-topbar {
     position: relative;
-    background: #141822;
+    background: $back-color;
     background-size: cover;
     border-bottom: 1px solid $border-color-module;
     user-select: none;
@@ -67,16 +68,16 @@ $buttonswidth: 80px;
   }
 .app-topbar-logo {
       position: relative;
-      background-color:#6e7f81;
+      //background-color:$back-color;
       margin: 0px;
       flex: 0 0 $logowidth
    }
 .app-topbar-space {
-      background-color:rgb(122, 106, 106);
+      //background-color:$back-color;
       flex: 1 1 auto;
    }
 .app-topbar-buttons {
-      background-color: rgb(101, 179, 101);
+     // background-color: $back-color;
       flex: 0 0 $buttonswidth;
    }
 
@@ -119,7 +120,8 @@ $buttonswidth: 80px;
       padding: 0;
           li {
             margin-right: 8px;
-            margin-top: 8px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             float: right;
             width: 14px;
             height: 14px;
