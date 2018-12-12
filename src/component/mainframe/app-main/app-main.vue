@@ -15,14 +15,14 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-$border-color-module: red;
+//$border-color-module: red;
 $height: 250px;
-$color: rgb(140, 140, 148);
+$back-color: linear-gradient(to bottom, rgb(255, 255, 255), rgb(180, 209, 224));
 .app-main {
     position: relative;
-    background: $color;
+    background: $back-color;
     background-size: cover;
-    border-bottom: 1px solid $border-color-module;
+    //border-bottom: 1px solid $border-color-module;
     margin: auto;
     width: 100%;
     flex: 1 1 $height;

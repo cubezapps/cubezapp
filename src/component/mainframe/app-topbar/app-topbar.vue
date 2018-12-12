@@ -1,6 +1,9 @@
 <template>
   <div class="app-topbar">
-    <div class="app-topbar-logo"></div>
+    <div class="app-topbar-logo">
+      <img class="logo-image" v-bind:src="logoImage" alt="">
+      <label class="logo-link">A Box</label>
+    </div>
     <div class="app-topbar-space"></div>
     <div class="app-topbar-buttons" ref="buttonsArea">
       <ul> 
@@ -13,10 +16,11 @@
 </template>
 
 <script>
+import logoImage from './img/logo.png'
 export default {
   data () {
     return {
-
+        logoImage: logoImage
     }
   },
   mounted () {
@@ -31,7 +35,7 @@ export default {
     },
     resetCaptionArea () {
       let buttonsAreaWidth = this.$refs.buttonsArea.offsetWidth
-      let areaTop = [0, 0, document.body.offsetWidth - buttonsAreaWidth,  30]
+      let areaTop = [0, 0, document.body.offsetWidth - buttonsAreaWidth,  50]
       this.$WebSDK('win.setDragArea', [areaTop])
     },
     onCloseBtnClick () {
@@ -48,17 +52,21 @@ export default {
 }
 </script>
 
+<style lang='scss'>
+@import '@/css/index.scss';
+</style>
+
 <style lang='scss' scoped>
 $border-color-module: rgb(0, 137, 227);
-$back-color: linear-gradient(to right, rgb(1, 132, 223), rgb(0, 149, 229));
-$height: 30px;
-$logowidth: 50px;
+//$back-color: linear-gradient(to right, rgb(1, 132, 223), rgb(0, 149, 229));
+$height: 50px;
+$logowidth: 110px;
 $buttonswidth: 80px;
 .app-topbar {
     position: relative;
-    background: $back-color;
-    background-size: cover;
-    border-bottom: 1px solid $border-color-module;
+    //background: $back-color;
+    //background-size: cover;
+    //border-bottom: 1px solid $border-color-module;
     user-select: none;
     margin: auto;
     width: 100%;
@@ -68,9 +76,30 @@ $buttonswidth: 80px;
   }
 .app-topbar-logo {
       position: relative;
-      //background-color:$back-color;
+      //background-color: rgb(146, 159, 168);
       margin: 0px;
-      flex: 0 0 $logowidth
+      flex: 0 0 $logowidth;
+      display: -webkit-flex;
+      display: flex;
+
+      img {
+        border: 0px solid #ddd;
+        border-radius: 4px;
+        padding: 0px;
+      }
+      img:hover {
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+      }
+      .logo-image {
+          width: 36px;
+          height: 36px;
+          margin: 7px 0px 7px 15px;
+      }
+      .logo-link { 
+          margin: 16px 5px 0px 5px;
+          color: rgb(252, 254, 255);
+          font-size: 12px;
+      }
    }
 .app-topbar-space {
       //background-color:$back-color;
@@ -119,8 +148,8 @@ $buttonswidth: 80px;
       margin: 0;
       padding: 0;
           li {
-            margin-right: 8px;
-            margin-top: 5px;
+            margin-right: 10px;
+            margin-top: 15px;
             margin-bottom: 5px;
             float: right;
             width: 14px;

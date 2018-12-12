@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <apptopbar></apptopbar>
-    <appinfo></appinfo>
+    <!--<appinfo></appinfo>-->
     <appmain></appmain>
     <appbottombar></appbottombar>
   </div>
@@ -9,7 +9,7 @@
 
 <script>
 import apptopbar from './app-topbar/app-topbar.vue'
-import appinfo from './app-info/app-info.vue'
+//import appinfo from './app-info/app-info.vue'
 import appmain from './app-main/app-main.vue'
 import appbottombar from './app-bottombar/app-bottombar.vue'
 
@@ -27,15 +27,15 @@ export default {
   },
   components: {
     apptopbar,
-    appinfo,
+    //appinfo,
     appmain,
     appbottombar
   },
   mounted () {
-    this.$WebSDK('win.resize', 300, 550)
+    this.$WebSDK('win.resize', 310, 600)
     this.$WebSDK('win.move', 4)
     this.$WebSDK('win.setResizeBorderWidth', 2)
-    this.$WebSDK('win.setMinSize', 300, 550)
+    this.$WebSDK('win.setMinSize', 310, 600)
     this.$WebSDK('win.needResizable', true)
     this.$WebSDK('win.needTaskBar', true)
     this.$WebSDK('sdk.hideLoading')
@@ -75,11 +75,12 @@ export default {
 </style>
 
 <style lang='scss' scoped>
+$back-color: linear-gradient(to bottom, rgb(2, 137, 240), rgb(2, 122, 221));
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: rgb(189, 205, 211);
+  background: $back-color;
   padding: 0;
   width: 100%;
   height: 100%;
