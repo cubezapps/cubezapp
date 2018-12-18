@@ -11,6 +11,7 @@ Vue.config.productionTip = false
 Vue.use(WebSDKPlugin)
 Vue.use(DataUriPlugin)
 Vue.use(LoggerPlugin)
+Vue.prototype.$VueBus = new Vue();
 //Vue.use(TrayIconPlugin)
 install(Vue)
 Logger.log('start to new Vue')

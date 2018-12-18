@@ -33,7 +33,7 @@ export default {
   },
   mounted () {
     this.$WebSDK('win.resize', 310, 600)
-    this.$WebSDK('win.move', 4)
+    //this.$WebSDK('win.move', 4)
     this.$WebSDK('win.setResizeBorderWidth', 2)
     this.$WebSDK('win.setMinSize', 310, 600)
     this.$WebSDK('win.needResizable', true)

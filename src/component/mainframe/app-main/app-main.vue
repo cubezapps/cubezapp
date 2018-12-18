@@ -1,9 +1,12 @@
 <template>
   <div class="app-main">
      <div class="main-buttons">
-       <ul> 
-         <appbutton></appbutton>
-         <appbutton></appbutton>
+       <ul ref="ulpanel"> 
+         <appbutton :id="0"></appbutton>
+         <appbutton :id="1"></appbutton>
+         <appbutton :id="2"></appbutton>
+         <appbutton :id="3"></appbutton>
+         <appbutton :id="4"></appbutton>
        </ul>
      </div>
      <div class="main-panels"></div>
@@ -21,6 +24,9 @@ export default {
     return {
 
     }
+  },
+  mounted() {
+    
   }
 }
 </script>
@@ -55,6 +61,7 @@ $buttonsHeight: 40px;
       width: 100%;
       margin: 0;
       padding: 0;
+      margin: 0;
     }
 }
 .main-panels {

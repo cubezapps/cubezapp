@@ -117,8 +117,12 @@ $buttonswidth: 80px;
     margin: 0;
     background: url(./img/settting.png) 50% 50% no-repeat;
     cursor: pointer;
+    outline: none;
     &:hover {
       filter: brightness(2);
+    }
+    &:active {
+      filter: brightness(1);
     }
   }
   .window-min-btn {
@@ -128,8 +132,12 @@ $buttonswidth: 80px;
     margin: 0;
     background: url(./img/window_min.png) 50% 50% no-repeat;
     cursor: pointer;
+    outline: none;
     &:hover {
       filter: brightness(2);
+    }
+    &:active {
+      filter: brightness(1);
     }
   }
   .window-close-btn {
@@ -138,8 +146,13 @@ $buttonswidth: 80px;
     height: 14px;
     margin: 0;
     background: url(./img/window_close.png) 50% 50% no-repeat;
+    cursor: pointer;
+    outline: none;
     &:hover {
       filter: brightness(2);
+    }
+    &:active {
+      filter: brightness(1);
     }
   }
   .app-topbar-buttons {
