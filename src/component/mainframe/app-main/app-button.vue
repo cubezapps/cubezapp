@@ -1,28 +1,30 @@
 <template>
-    <li :style="{ 'background-color': colorVal }"><input type="button" class="btnimg" :style="{ 'background-image':'url(' + getImgPath + ')' }" @click="onClick($event)" v-tooltip="tips" /></li> 
+    <li :style="{ 'background-color': colorVal }"><input type="button" class="btnimg" :style="imgstyle" @click="onClick($event)" v-tooltip="tips" /></li> 
 </template>
 
 <script>
-import img0 from './img/img0.png'
-import img1 from './img/img1.png'
-import img2 from './img/img2.png'
-import img3 from './img/img3.png'
-import img4 from './img/img4.png'
 export default {
   props: {
     'id': {
         type: Number,
         required: true
+    },
+    'tips': {
+        type: String,
+        required: false
+    },
+    'imgstyle': {
+       type: Object,
+       required: false
+    },
+    'isClick': {
+       type: Boolean,
+       required: false
     }
   },
   data () {
     return {
-      img0: img0,
-      img1: img1,
-      img2: img2,
-      img3: img3,
-      img4: img4,
-      isClick: false
+      
     }
   },
   mounted() {
@@ -42,48 +44,6 @@ export default {
           else {
             return 'initial'
           }  
-      },
-      getImgPath() {
-          let tmp = ''
-          switch(this.id)  {
-            case 0:
-              tmp = img0
-              break
-            case 1:
-              tmp = img1
-              break
-            case 2:
-              tmp = img2
-              break
-            case 3:
-              tmp = img3
-              break
-            case 4:
-              tmp = img4
-              break
-          }
-          return tmp
-      },
-      tips() {
-        let tmp = ''
-        switch(this.id)  {
-            case 0:
-              tmp = 'img0'
-              break
-            case 1:
-              tmp = 'img1'
-              break
-            case 2:
-              tmp = 'img2'
-              break
-            case 3:
-              tmp = 'img3'
-              break
-            case 4:
-              tmp = 'img4'
-              break
-          }
-        return tmp
       }
   },
   methods: {
