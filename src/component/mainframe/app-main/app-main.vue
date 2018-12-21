@@ -2,10 +2,10 @@
   <div class="app-main">
      <div class="main-buttons">
        <ul ref="ulpanel"> 
-         <appbutton v-for="item of btnItems" :id="item.id" :tips="item.tips" :imgstyle="item.imgstyle" :isClick="item.isClick"></appbutton>
+         <appbutton v-for="item of btnItems" :key="item.id" :id="item.id" :tips="item.tips" :imgstyle="item.imgstyle" :isClick="item.isClick"></appbutton>
        </ul>
      </div>
-     <div class="main-panels"></div>
+     <div ref="mainPanelsRef" class="main-panels"></div>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import img1 from './img/img1.png'
 import img2 from './img/img2.png'
 import img3 from './img/img3.png'
 import img4 from './img/img4.png'
+import CreateShortcutPanel from './createshortcutpanel.js'
 
 export default {
   components: {
@@ -31,8 +32,10 @@ export default {
         btnItems: []
     }
   },
-  beforeCreate() {
-
+  watch: {
+      'btnItems'(val, old) {
+         
+      }
   },
   mounted() {
       this.btnItems.push({
@@ -65,6 +68,8 @@ export default {
         'imgstyle': {'background-image':`url(${this.img4})`},
         'isClick': false
       })
+      let child = CreateShortcutPanel()
+      this.$refs.mainPanelsRef.appendChild(child.$el)
   }
 }
 </script>
