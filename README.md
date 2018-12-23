@@ -27,6 +27,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+# dev env
+npm install -g @vue/cli
 
 npm install node-sass --save-dev
 npm install sass-loader --save-dev
