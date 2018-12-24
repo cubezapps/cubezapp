@@ -31,7 +31,12 @@ export default {
     appmain,
     appbottombar
   },
-  mounted () {
+  data() {
+    return {
+      trayMenuId: 0
+    }
+  },
+  async mounted () {
     this.$WebSDK('win.resize', 310, 600)
     //this.$WebSDK('win.move', 4)
     this.$WebSDK('win.setResizeBorderWidth', 2)
@@ -58,7 +63,18 @@ export default {
         this.$WebSDK('win.forefront')
         this.$WebSDK('win.show')
     }, this)
-    this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
+
+    let browserObj = await this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
+    this.trayMenuId = await browserObj.winId()
+    /* this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(
+        (ret) => {
+          ret.winId().then(
+            (id) => {
+              this.trayMenuId = id
+            }
+          )
+        }
+      )*/
     this.$WebSDK('common.trayIconShow')
     this.$WebSDK('common.trayIconToolTip', 'My Cubez')
   },
