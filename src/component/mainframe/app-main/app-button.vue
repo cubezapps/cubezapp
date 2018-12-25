@@ -1,5 +1,5 @@
 <template>
-    <li :style="{ 'background-color': colorVal }"><input type="button" class="btnimg" :style="imgstyle" @click="onClick($event)" v-tooltip="tips" /></li> 
+    <li :style="{ 'background-color': colorVal }"><input type="button" class="btnimg" :style="imgstyle" @click="onClick($event)" v-tooltip.bottom="tips" /></li> 
 </template>
 
 <script>

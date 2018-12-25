@@ -98,16 +98,19 @@ $back-color: linear-gradient(to bottom, rgb(255, 255, 255), rgb(180, 209, 224));
 $buttonsHeight: 40px;
 .main-buttons {
     flex: 0 0 $buttonsHeight;
+    height: $buttonsHeight;
     border-bottom: 1px solid rgb(230, 230, 230);
-
     ul {
-      width: 100%;
+      height: $buttonsHeight;
       margin: 0;
       padding: 0;
-      margin: 0;
     }
 }
 .main-panels {
     flex: 1 1 auto;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
 }
 </style>

@@ -108,6 +108,20 @@ $buttonswidth: 80px;
 .app-topbar-buttons {
      // background-color: $back-color;
       flex: 0 0 $buttonswidth;
+      width: $buttonswidth;
+      ul {
+        width: $buttonswidth;
+        margin: 0;
+        padding: 0;
+          li {
+            margin-right: 10px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            float: right;
+            width: 14px;
+            height: 14px;
+          }
+      }
    }
 
   .window-setting-btn {
@@ -154,20 +168,5 @@ $buttonswidth: 80px;
     &:active {
       filter: brightness(1);
     }
-  }
-  .app-topbar-buttons {
-    ul {
-      width: $buttonswidth;
-      margin: 0;
-      padding: 0;
-          li {
-            margin-right: 10px;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            float: right;
-            width: 14px;
-            height: 14px;
-          }
-      }
   }
 </style>
