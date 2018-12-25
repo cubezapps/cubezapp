@@ -1,5 +1,9 @@
 <template>
-    <div class="backpanel"></div> 
+    <div class="backpanel">
+        <div class="item">{{tittle1}}</div>
+        <div class="item">{{tittle2}}</div>
+        <div class="item">{{tittle3}}</div>
+    </div> 
 </template>
 
 <script>
@@ -9,7 +13,9 @@ export default {
   },
   data () {
     return {
-      
+      tittle1: 'dddd',
+      tittle2: '2dddddd',
+      tittle3: 'ddddddddff'
     }
   },
   mounted() {
@@ -29,8 +35,24 @@ export default {
 </style>
 
 <style lang='scss' scoped>
+  $itemheigh: 28px;
   .backpanel {
     flex: 1 1 auto;
-    //background-color: blue;
+    //background-color: beige;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+  .item {
+    flex: 0 0 $itemheigh;
+    height: $itemheigh;
+    padding-left: 8px;
+    text-align: left;
+    line-height: $itemheigh;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    &:hover{
+      background-color: rgb(230, 230, 230);
+    }
   }
 </style>

@@ -5,7 +5,12 @@
          <appbutton v-for="item of btnItems" :key="item.id" :id="item.id" :tips="item.tips" :imgstyle="item.imgstyle" :isClick="item.isClick"></appbutton>
        </ul>
      </div>
-     <div ref="mainPanelsRef" class="main-panels"></div>
+     <div ref="mainPanelsRef" class="main-panels">
+         <shortcutpanel v-show="curId == 0"></shortcutpanel>
+         <clipboardpanel v-show="curId == 1"></clipboardpanel>
+         <timerpanel v-show="curId == 2"></timerpanel>
+         <wallpaperpanel v-show="curId == 3"></wallpaperpanel>
+     </div>
   </div>
 </template>
 
@@ -16,11 +21,18 @@ import img1 from './img/img1.png'
 import img2 from './img/img2.png'
 import img3 from './img/img3.png'
 import img4 from './img/img4.png'
-import CreateShortcutPanel from './createshortcutpanel.js'
+import shortcutpanel from './panel-shortcut.vue'
+import clipboardpanel from './panel-clipboard.vue'
+import timerpanel from './panel-timer.vue'
+import wallpaperpanel from './panel-wallpaper.vue'
 
 export default {
   components: {
-    appbutton
+    appbutton,
+    shortcutpanel,
+    clipboardpanel,
+    timerpanel,
+    wallpaperpanel
   },
   data () {
     return {
@@ -29,7 +41,8 @@ export default {
         img2: img2,
         img3: img3,
         img4: img4,
-        btnItems: []
+        btnItems: [],
+        curId: 0
     }
   },
   watch: {
@@ -40,25 +53,25 @@ export default {
   mounted() {
       this.btnItems.push({
         'id': 0,
-        'tips': 'tips0',
+        'tips': 'shortcut',
         'imgstyle': {'background-image':`url(${this.img0})`},
         'isClick': true
       })
       this.btnItems.push({
         'id': 1,
-        'tips': 'tips1',
+        'tips': 'clipboard',
         'imgstyle': {'background-image':`url(${this.img1})`},
         'isClick': false
       })
       this.btnItems.push({
         'id': 2,
-        'tips': 'tips22',
+        'tips': 'timer',
         'imgstyle': {'background-image':`url(${this.img2})`},
         'isClick': false
       })
       this.btnItems.push({
         'id': 3,
-        'tips': 'tips333',
+        'tips': 'wallpaper',
         'imgstyle': {'background-image':`url(${this.img3})`},
         'isClick': false
       })
@@ -68,8 +81,18 @@ export default {
         'imgstyle': {'background-image':`url(${this.img4})`},
         'isClick': false
       })
-      let child = CreateShortcutPanel()
-      this.$refs.mainPanelsRef.appendChild(child.$el)
+      this.$VueBus.$on('onBtnClick', (val) => {
+        if(this.curId != val.id) {
+          this.btnItems[this.curId].isClick = false
+          this.btnItems[val.id].isClick = true
+          this.curId = val.id
+        }
+      })
+      //let child = CreateShortcutPanel()
+      //this.$refs.mainPanelsRef.appendChild(child.$el)
+  },
+  computed: {
+      
   }
 }
 </script>

@@ -24,22 +24,16 @@ export default {
   },
   data () {
     return {
-      
+
     }
   },
   mounted() {
-    this.$VueBus.$on('onBtnClick', (val) => {
-        if(this.id != val.id) {
-            console.log(this.id)
-            this.isClick = false
-            console.log(this.isClick)
-        }
-    })
+
   },
   computed: {
       colorVal() {
           if(this.isClick) {
-            return 'yellow'
+            return 'rgb(237, 237, 237)'
           }   
           else {
             return 'initial'
@@ -50,7 +44,6 @@ export default {
     onClick(event) {
       this.$VueBus.$emit('onBtnClick', { id: this.id })
       //console.log(event.target.parentElement.parentElement)
-      this.isClick = true
     }
   }
 }
