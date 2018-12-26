@@ -51,6 +51,8 @@ export default {
     text-align: left;
     line-height: $itemheigh;
     border-bottom: 1px solid rgb(230, 230, 230);
+    user-select: none;
+    cursor: default;
     &:hover{
       background-color: rgb(230, 230, 230);
     }

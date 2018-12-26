@@ -71,7 +71,7 @@ li {
     margin: 0;
     background: center no-repeat;
     background-size: 30px 30px;
-    cursor: pointer;
+    cursor: default;
     outline: none;
     &:hover {
       filter: drop-shadow(0 0 0.5rem rgb(2, 145, 223));

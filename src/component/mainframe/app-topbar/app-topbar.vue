@@ -130,7 +130,7 @@ $buttonswidth: 80px;
     height: 14px;
     margin: 0;
     background: url(./img/settting.png) 50% 50% no-repeat;
-    cursor: pointer;
+    cursor: default;
     outline: none;
     &:hover {
       filter: brightness(2);
@@ -145,7 +145,7 @@ $buttonswidth: 80px;
     height: 14px;
     margin: 0;
     background: url(./img/window_min.png) 50% 50% no-repeat;
-    cursor: pointer;
+    cursor: default;
     outline: none;
     &:hover {
       filter: brightness(2);
@@ -160,7 +160,7 @@ $buttonswidth: 80px;
     height: 14px;
     margin: 0;
     background: url(./img/window_close.png) 50% 50% no-repeat;
-    cursor: pointer;
+    cursor: default;
     outline: none;
     &:hover {
       filter: brightness(2);

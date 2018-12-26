@@ -117,6 +117,15 @@ export default {
     return Win.setMinSize(width, height)
   },
   /**
+   * 设置窗口最大显示宽高
+   * @param width {number}
+   * @param height {number}
+   * @return {*}
+   */
+  setMaxSize (width, height) {
+    return Win.setMaxSize(width, height)
+  },
+  /**
    * 设置窗口位于最顶端
    * @return {*}
    */
