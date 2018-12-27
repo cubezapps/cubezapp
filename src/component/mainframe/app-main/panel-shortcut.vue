@@ -35,10 +35,10 @@ export default {
       this.commonTag = CreateShortcut(this.commonData)
       this.commonTag.$el.style.display = 'none'
       this.$refs.commonItem.parentNode.insertBefore(this.commonTag.$el, this.$refs.commonItem.nextSibling)
-      this.systemTag = CreateShortcut()
+      this.systemTag = CreateShortcut(this.commonData)
       this.systemTag.$el.style.display = 'none'
       this.$refs.systemItem.parentNode.insertBefore(this.systemTag.$el, this.$refs.systemItem.nextSibling)
-      this.desktopTag = CreateShortcut()
+      this.desktopTag = CreateShortcut(this.commonData)
       this.desktopTag.$el.style.display = 'none'
       this.$refs.desktopItem.parentNode.insertBefore(this.desktopTag.$el, this.$refs.desktopItem.nextSibling)
   },
@@ -50,7 +50,7 @@ export default {
       console.log(event.target)
       if(event.target == this.$refs.commonItem) {
           if(this.commonTag.$el.style.display == 'none') {
-            this.commonTag.$el.style.display = 'block'
+            this.commonTag.$el.style.display = 'flex'
             this.systemTag.$el.style.display = 'none'
             this.desktopTag.$el.style.display = 'none'
           }
@@ -61,7 +61,7 @@ export default {
       else if(event.target == this.$refs.systemItem) {
           if(this.systemTag.$el.style.display == 'none') {
             this.commonTag.$el.style.display = 'none'
-            this.systemTag.$el.style.display = 'block'
+            this.systemTag.$el.style.display = 'flex'
             this.desktopTag.$el.style.display = 'none'
           }
           else {
@@ -72,7 +72,7 @@ export default {
           if(this.desktopTag.$el.style.display == 'none') {
             this.commonTag.$el.style.display = 'none'
             this.systemTag.$el.style.display = 'none'
-            this.desktopTag.$el.style.display = 'block'
+            this.desktopTag.$el.style.display = 'flex'
           }
           else {
             this.desktopTag.$el.style.display = 'none'

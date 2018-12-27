@@ -1,10 +1,12 @@
 <template>
-    <div class="backpanel">
+    <div ref="shortcutTag" class="backpanel">
 
     </div> 
 </template>
 
 <script>
+import CreateShortcutItem from './createshortcutitem.js'
+
 export default {
   props: {
     
@@ -15,7 +17,11 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$data.items)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
   },
   computed: {
       
@@ -34,5 +40,9 @@ export default {
   .backpanel {
     flex: 1 1 auto;
     background-color: beige;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
   }
 </style>
