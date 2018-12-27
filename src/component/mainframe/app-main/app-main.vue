@@ -88,8 +88,6 @@ export default {
           this.curId = val.id
         }
       })
-      //let child = CreateShortcutPanel()
-      //this.$refs.mainPanelsRef.appendChild(child.$el)
   },
   computed: {
       

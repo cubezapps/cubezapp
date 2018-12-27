@@ -1,31 +1,84 @@
 <template>
     <div class="backpanel">
-        <div class="item">{{tittle1}}</div>
-        <div class="item">{{tittle2}}</div>
-        <div class="item">{{tittle3}}</div>
+        <div class="item" ref="commonItem" @click="onClick($event)">{{commonTittle}}</div>
+        <div class="item" ref="systemItem" @click="onClick($event)">{{systemTittle}}</div>
+        <div class="item" ref="desktopItem" @click="onClick($event)">{{desktopTittle}}</div>
     </div> 
 </template>
 
 <script>
+import CreateShortcut from './createshortcut.js'
+import SparkMd5 from 'spark-md5'
+
 export default {
   props: {
     
   },
   data () {
     return {
-      tittle1: 'dddd',
-      tittle2: '2dddddd',
-      tittle3: 'ddddddddff'
+      commonTittle: 'Common',
+      systemTittle: 'System',
+      desktopTittle: 'Desktop',
+      commonData: {},
+      systemData: {},
+      desktopData: {}
     }
   },
   mounted() {
-    
+      let obj = {}
+      this.commonData['items'] = []
+      obj['name'] = 'C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe'
+      obj['hash'] = SparkMd5.hash(obj['name'].toLowerCase())
+      obj['display'] = 'QQ'
+      this.commonData['items'].push(obj)
+      
+      this.commonTag = CreateShortcut(this.commonData)
+      this.commonTag.$el.style.display = 'none'
+      this.$refs.commonItem.parentNode.insertBefore(this.commonTag.$el, this.$refs.commonItem.nextSibling)
+      this.systemTag = CreateShortcut()
+      this.systemTag.$el.style.display = 'none'
+      this.$refs.systemItem.parentNode.insertBefore(this.systemTag.$el, this.$refs.systemItem.nextSibling)
+      this.desktopTag = CreateShortcut()
+      this.desktopTag.$el.style.display = 'none'
+      this.$refs.desktopItem.parentNode.insertBefore(this.desktopTag.$el, this.$refs.desktopItem.nextSibling)
   },
   computed: {
       
   },
   methods: {
-    
+    onClick(event) {
+      console.log(event.target)
+      if(event.target == this.$refs.commonItem) {
+          if(this.commonTag.$el.style.display == 'none') {
+            this.commonTag.$el.style.display = 'block'
+            this.systemTag.$el.style.display = 'none'
+            this.desktopTag.$el.style.display = 'none'
+          }
+          else {
+            this.commonTag.$el.style.display = 'none'
+          }
+      } 
+      else if(event.target == this.$refs.systemItem) {
+          if(this.systemTag.$el.style.display == 'none') {
+            this.commonTag.$el.style.display = 'none'
+            this.systemTag.$el.style.display = 'block'
+            this.desktopTag.$el.style.display = 'none'
+          }
+          else {
+            this.systemTag.$el.style.display = 'none'
+          }
+      }
+      else if(event.target == this.$refs.desktopItem) {
+          if(this.desktopTag.$el.style.display == 'none') {
+            this.commonTag.$el.style.display = 'none'
+            this.systemTag.$el.style.display = 'none'
+            this.desktopTag.$el.style.display = 'block'
+          }
+          else {
+            this.desktopTag.$el.style.display = 'none'
+          }
+      }
+    }
   }
 }
 </script>

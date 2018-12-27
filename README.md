@@ -37,3 +37,4 @@ npm install vue-router
 npm install vue-meta
 npm install vue-clipboard2
 npm install --save v-tooltip
+npm install --save spark-md5
