@@ -40,7 +40,7 @@ export default {
         case this.$DataUri.SettingFrame_CloseWindow:
           window.close()
           break
-        case this.$DataUri.$App_CloseAllWindow:
+        case this.$DataUri.App_CloseAllWindow:
           window.close()
           break
         case this.$DataUri.SettingFrame_SetTaskbarIcon:

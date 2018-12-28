@@ -36,7 +36,7 @@ export default {
       this.$WebSDK('win.needResizable', true)
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
-        case this.$DataUri.$App_CloseAllWindow:
+        case this.$DataUri.App_CloseAllWindow:
           window.close()
           break
       }

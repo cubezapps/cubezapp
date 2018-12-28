@@ -4,7 +4,8 @@ import VueRouter from 'vue-router'
 const MainFrame = () => import('@/component/mainframe/mainframe.vue')
 const AboutFrame = () => import('@/component/aboutframe/aboutframe.vue')
 const SettingFrame = () => import('@/component/settingframe/settingframe.vue')
-const TrayMenu = () => import('@/component/traymenuframe/traymenuframe.vue')
+const TrayMenuFrame = () => import('@/component/traymenuframe/traymenuframe.vue')
+const PopupMenuFrame = () => import('@/component/popupmenuframe/popupmenuframe.vue')
 
 Vue.use(VueRouter)
 
@@ -23,7 +24,11 @@ const routes = [
   },
   {
     path: '/traymenu',
-    component: TrayMenu
+    component: TrayMenuFrame
+  },
+  {
+    path: '/popupmenu',
+    component: PopupMenuFrame
   }
 ]
 

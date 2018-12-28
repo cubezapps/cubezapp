@@ -18,7 +18,7 @@ export default {
           content: 'My Example App'
          }],
         htmlAttrs: {
-          lang: 'zh-CN'
+          lang: 'en'
         }
   },
   mounted () {
@@ -32,7 +32,7 @@ export default {
 
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
        switch (uri) {
-         case this.$DataUri.$App_CloseAllWindow:
+         case this.$DataUri.App_CloseAllWindow:
            window.close()
            break
         }

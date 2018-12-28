@@ -1,6 +1,6 @@
 <template>
     <div class="backpanel">
-        <input type="button" class="btnimg"/>
+        <input type="button" class="btnimg" @contextmenu="onPopupMenu($event)"/>
         <input class="txt" :value="$data.display" readonly="true"/>
     </div> 
 </template>
@@ -23,7 +23,16 @@ export default {
       
   },
   methods: {
-    
+    onPopupMenu(event) {
+      let obj = {}
+      obj.x = event.screenX
+      obj.y = event.screenY
+      obj.id = this.$data.hash
+      obj.names = []
+      obj.names.push('aaaaa')
+      obj.names.push('b')
+      this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, obj)
+    }
   }
 }
 </script>
