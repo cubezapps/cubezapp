@@ -15,7 +15,7 @@ Vue.prototype.$VueBus = new Vue();
 //Vue.use(TrayIconPlugin)
 install(Vue)
 Logger.log('start to new Vue')
-new Vue({
+const vue = new Vue({
   router,
   render: h => h(App),
 }).$mount('#app')
