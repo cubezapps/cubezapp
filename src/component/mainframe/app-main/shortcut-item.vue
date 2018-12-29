@@ -30,8 +30,9 @@ export default {
       obj.id = this.$data.hash
       obj.names = []
       obj.names.push('aaaaa')
-      obj.names.push('b')
-      this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, obj)
+      obj.names.push('bbbbb')
+      obj.names.push('evdsfd123')
+      this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, JSON.stringify(obj))
     }
   }
 }

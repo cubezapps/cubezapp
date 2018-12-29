@@ -32,24 +32,26 @@ export default {
   },
   methods: {
     init () {
-      let tmp = this.$refs.appmenu
-      this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
       document.body.style = 'overflow: hidden'
 
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
        switch (uri) {
-          case this.$DataUri.App_CloseAllWindow:
+          case this.$DataUri.App_CloseAllWindow: {
             window.close()
             break
-          case this.$DataUri.APP_PopupMenu:
-            this.x = data.x
-            this.y = data.y
-            this.id = data.id
-            this.names = data.names
+          }
+          case this.$DataUri.APP_PopupMenu: {
+            let obj = JSON.parse(data)
+            this.x = obj.x
+            this.y = obj.y
+            this.id = obj.id
+            this.names = obj.names
+            let tmp = this.$refs.appmenu
+            this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
             this.$WebSDK('win.move', this.x, this.y)
             this.$WebSDK('win.show')
-            console.log('data')
             break
+          }
         }
       }, this)
       this.$WebSDK('win.regEvent', 'MouseEnter', () => {
