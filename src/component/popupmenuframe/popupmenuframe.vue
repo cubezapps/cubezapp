@@ -39,6 +39,9 @@ export default {
       console.log('popup resize: ' + tmp.offsetWidth + ' ' + tmp.offsetHeight)
       this.$WebSDK('win.move', this.x, this.y)
       this.$WebSDK('win.show')
+      this.$WebSDK('win.forefront')
+      this.clearDelay()
+      this._mouseenter = true
   },
   methods: {
     init () {
@@ -68,6 +71,16 @@ export default {
         this._mouseenter = false
         this.delayHide()
       }, this)
+      this.$WebSDK('win.regEvent', 'ActiveWindow', (param) => {
+        if(param === 0) {
+          this._mouseenter = false
+          this.delayHide()  
+        }
+        else {
+          this.clearDelay()
+          this._mouseenter = true
+        }
+      }, this)
 
       document.body.oncontextmenu = (e) => {
         return false
@@ -87,8 +100,9 @@ export default {
     },
     delayHide() {
       this._timeId = setTimeout(() => {
-          if(!this._mouseenter && !this._trayenter)
+          if(!this._mouseenter) {
             this.$WebSDK('win.hide')
+          }
         }, 500)
     }
   }
