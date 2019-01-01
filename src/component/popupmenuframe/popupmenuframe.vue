@@ -30,6 +30,16 @@ export default {
   mounted () {
     this.init()
   },
+  watch: {
+
+  },
+  updated() {
+      let tmp = this.$refs.appmenu
+      this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
+      console.log('popup resize: ' + tmp.offsetWidth + ' ' + tmp.offsetHeight)
+      this.$WebSDK('win.move', this.x, this.y)
+      this.$WebSDK('win.show')
+  },
   methods: {
     init () {
       document.body.style = 'overflow: hidden'
@@ -46,10 +56,6 @@ export default {
             this.y = obj.y
             this.id = obj.id
             this.names = obj.names
-            let tmp = this.$refs.appmenu
-            this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
-            this.$WebSDK('win.move', this.x, this.y)
-            this.$WebSDK('win.show')
             break
           }
         }

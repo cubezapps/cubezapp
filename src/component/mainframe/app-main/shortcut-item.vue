@@ -17,7 +17,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$data)
+    console.log('shortcut-item:' + this.$data)
   },
   computed: {
       
@@ -32,6 +32,7 @@ export default {
       obj.names.push('aaaaa')
       obj.names.push('bbbbb')
       obj.names.push('evdsfd123')
+      console.log('onpopupmenu:' + obj)
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, JSON.stringify(obj))
     }
   }
