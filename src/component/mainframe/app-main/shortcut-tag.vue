@@ -17,11 +17,11 @@ export default {
     }
   },
   mounted() {
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0]).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
+    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
   },
   computed: {
       

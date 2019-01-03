@@ -1,7 +1,7 @@
 <template>
   <div class="app-menu">
     <ul ref="appmenu"  class="dropdown-menu">
-        <li v-for="name of names" :key="name" @click.stop="onPopupClick($event, name)">{{name}}</li>
+        <li v-for="menuname of menus" :key="menuname" @click.stop="onPopupClick($event, menuname)">{{menuname}}</li>
     </ul>
   </div>
 </template>
@@ -23,8 +23,8 @@ export default {
     return {
       x: 0,
       y: 0,
-      id: '',
-      names: []
+      hash: '',
+      menus: []
     }
   },
   mounted () {
@@ -34,14 +34,19 @@ export default {
 
   },
   updated() {
-      let tmp = this.$refs.appmenu
-      this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
-      console.log('popup resize: ' + tmp.offsetWidth + ' ' + tmp.offsetHeight)
-      this.$WebSDK('win.move', this.x, this.y)
-      this.$WebSDK('win.show')
-      this.$WebSDK('win.forefront')
-      this.clearDelay()
-      this._mouseenter = true
+      if(this.menus.length === 0) {
+        this.$WebSDK('win.hide')
+      }
+      else {
+        let tmp = this.$refs.appmenu
+        this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
+        console.log('popup resize: ' + tmp.offsetWidth + ' ' + tmp.offsetHeight)
+        this.$WebSDK('win.move', this.x, this.y)
+        this.$WebSDK('win.show')
+        this.$WebSDK('win.forefront')
+        this.clearDelay()
+        this._mouseenter = true
+      } 
   },
   methods: {
     init () {
@@ -57,8 +62,8 @@ export default {
             let obj = JSON.parse(data)
             this.x = obj.x
             this.y = obj.y
-            this.id = obj.id
-            this.names = obj.names
+            this.hash = obj.hash
+            this.menus = obj.menus
             break
           }
         }
@@ -88,9 +93,9 @@ export default {
     },
     onPopupClick (event, name) {
       let obj = {}
-      obj['id'] = this.id
+      obj['hash'] = this.hash
       obj['name'] = name
-      this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenuClick, obj)
+      this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenuClick, JSON.stringify(obj))
       this.$WebSDK('win.hide')
     },
     clearDelay () {

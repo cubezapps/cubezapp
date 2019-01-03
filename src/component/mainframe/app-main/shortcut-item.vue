@@ -1,7 +1,7 @@
 <template>
     <div class="backpanel">
         <input type="button" class="btnimg" @contextmenu="onPopupMenu($event)"/>
-        <input class="txt" :value="$data.display" readonly="true"/>
+        <input class="txt" :value="$data.item.name" readonly="true"/>
     </div> 
 </template>
 
@@ -17,7 +17,17 @@ export default {
     }
   },
   mounted() {
-    console.log('shortcut-item:' + this.$data)
+    this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
+       switch (uri) {
+         case this.$DataUri.APP_PopupMenuClick: {
+           let obj = JSON.parse(data)
+           if(this.$data.item.hash == obj.hash) {
+             console.log(data)
+           }
+           break
+         }
+        }
+    }, this)
   },
   computed: {
       
@@ -27,12 +37,9 @@ export default {
       let obj = {}
       obj.x = event.screenX
       obj.y = event.screenY
-      obj.id = this.$data.hash
-      obj.names = []
-      obj.names.push('aaaaa')
-      obj.names.push('bbbbb')
-      obj.names.push('evdsfd123')
-      console.log('onpopupmenu:' + obj)
+      obj.hash = this.$data.item.hash
+      obj.menus = this.$data.menus
+      //console.log(obj)
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, JSON.stringify(obj))
     }
   }

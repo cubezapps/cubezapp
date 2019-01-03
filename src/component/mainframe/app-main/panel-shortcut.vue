@@ -25,20 +25,44 @@ export default {
     }
   },
   mounted() {
-      let obj = {}
+      let obj1 = {}
       this.commonData['items'] = []
-      obj['name'] = 'C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe'
-      obj['hash'] = SparkMd5.hash(obj['name'].toLowerCase())
-      obj['display'] = 'QQ'
-      this.commonData['items'].push(obj)
+      obj1['path'] = 'C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe'
+      obj1['hash'] = SparkMd5.hash(obj1['path'].toLowerCase())
+      obj1['name'] = 'QQ'
+      this.commonData['items'].push(obj1)
+
+      let commonMenu = []
+      commonMenu.push('Open')
+      commonMenu.push('Open Path...')
+      commonMenu.push('Rename')
+      commonMenu.push('Delete')
+      commonMenu.push('Clear All')
+      this.commonData['menus'] = commonMenu
+
+      let obj2 = {}
+      this.systemData['items'] = []
+      obj2['path'] = 'C:\\Windows\\System32\\notepad.exe'
+      obj2['hash'] = SparkMd5.hash(obj2['path'].toLowerCase())
+      obj2['name'] = 'notepad'
+      this.systemData['items'].push(obj2)
+      this.systemData['menus'] = []
+
+      let obj3 = {}
+      this.desktopData['items'] = []
+      obj3['path'] = 'C:\\Program Files (x86)\\duowan\\yy\\yy.exe'
+      obj3['hash'] = SparkMd5.hash(obj3['path'].toLowerCase())
+      obj3['name'] = 'yy'
+      this.desktopData['items'].push(obj3)
+      this.desktopData['menus'] = []
       
       this.commonTag = CreateShortcut(this.commonData)
       this.commonTag.$el.style.display = 'none'
       this.$refs.commonItem.parentNode.insertBefore(this.commonTag.$el, this.$refs.commonItem.nextSibling)
-      this.systemTag = CreateShortcut(this.commonData)
+      this.systemTag = CreateShortcut(this.systemData)
       this.systemTag.$el.style.display = 'none'
       this.$refs.systemItem.parentNode.insertBefore(this.systemTag.$el, this.$refs.systemItem.nextSibling)
-      this.desktopTag = CreateShortcut(this.commonData)
+      this.desktopTag = CreateShortcut(this.desktopData)
       this.desktopTag.$el.style.display = 'none'
       this.$refs.desktopItem.parentNode.insertBefore(this.desktopTag.$el, this.$refs.desktopItem.nextSibling)
   },
