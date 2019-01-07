@@ -63,6 +63,13 @@ export default {
     return Win.flashTaskBar(value)
   },
   /**
+   * 设置窗口顶部是否吸附
+   * @param {*} need 
+   */
+  setTopHide(val) {
+    return Win.setTopHide(val)
+  },
+  /**
    * 是否需要拖动改变窗口大小
    * @param need {boolean}
    * @return {*}

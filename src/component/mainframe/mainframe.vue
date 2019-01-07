@@ -46,6 +46,7 @@ export default {
     this.$WebSDK('win.needTaskBar', true)
     this.$WebSDK('sdk.hideLoading')
     this.$WebSDK('win.needShadow')
+    this.$WebSDK('win.setTopHide', true)
     this.$WebSDK('win.show')
     this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
