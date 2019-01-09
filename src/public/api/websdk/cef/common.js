@@ -197,6 +197,69 @@ export default {
         callback(data)
       }
     })
-  }
+  },
+    /**
+   * 获取目录
+   * @return {*}
+   */
+  getAppDataPath () {
+    return YY.Common.getAppDataPath()
+  },
+  /**
+   * 获取文件信息
+   * @param path {string}
+   * @return {Promise<object{isFile: boolean, isDir: boolean, exists: boolean}>}
+   */
+  async getFileInfo (path) {
+    return YY.Common.getFileInfo(path)
+  },
 
+  getTopWindows () {
+    return YY.Common.getTopWindows(...arguments)
+  },
+  getCurrentProcessId () {
+    return YY.Common.getCurrentProcessId(...arguments)
+  },
+  /**
+   * 获取文件夹下面的文件列表
+   * @param dir {string} 文件夹绝对路径
+   * @return {Promise<*|Promise<*>>}
+   */
+  async getFolderFiles (dir) {
+    return YY.Common.getFolderFiles(dir)
+  },
+  /**
+   * 删除文件
+   * @param path {string} 文件绝对路径
+   * @return {Promise<boolean>}
+   */
+  async deleteFile (path) {
+    return YY.Common.deleteFiles([path])
+  },
+  /**
+   * 批量删除文件
+   * @param pathArr {Array<string>}
+   * @return {Promise<*|Promise<*>>}
+   */
+  async deleteFiles (pathArr) {
+    return YY.Common.deleteFiles(pathArr)
+  },
+  /**
+   * 打开文件夹
+   * @param path {string} 文件夹绝对路径
+   * @return {Promise<boolean>}
+   */
+  async openFolder (path) {
+    return YY.Common.openFolder(path)
+  },
+  /**
+   * 选择文件夹
+   * @param title
+   * @return {*|PromiseLike<T | never>|Promise<T | never>}
+   */
+  chooseFolder (title) {
+    return YY.Common.chooseFolder(title).then(res => {
+      return res && res.replace(/\\/g, '/')
+    })
+  }
 }
