@@ -27,10 +27,11 @@ export default {
   mounted() {
       let obj1 = {}
       this.commonData['items'] = []
-      obj1['path'] = 'C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe'
+      obj1['path'] = 'D:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe'
       obj1['hash'] = SparkMd5.hash(obj1['path'].toLowerCase())
       obj1['name'] = 'QQ'
       this.commonData['items'].push(obj1)
+      this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData))
 
       let commonMenu = []
       commonMenu.push('Open')

@@ -261,5 +261,8 @@ export default {
     return YY.Common.chooseFolder(title).then(res => {
       return res && res.replace(/\\/g, '/')
     })
+  },
+  async parseShortcutFiles (data) {
+    return YY.Common.parseShortcutFiles(data)
   }
 }
