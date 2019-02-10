@@ -24,7 +24,8 @@ export default {
       x: 0,
       y: 0,
       hash: '',
-      menus: []
+      menus: [],
+      path: ''
     }
   },
   mounted () {
@@ -64,6 +65,7 @@ export default {
             this.y = obj.y
             this.hash = obj.hash
             this.menus = obj.menus
+            this.path = obj.path
             break
           }
         }
@@ -93,6 +95,7 @@ export default {
     },
     onPopupClick (event, name) {
       let obj = {}
+      obj['path'] = this.path
       obj['hash'] = this.hash
       obj['name'] = name
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenuClick, JSON.stringify(obj))

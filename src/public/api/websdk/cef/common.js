@@ -249,8 +249,8 @@ export default {
    * @param path {string} 文件夹绝对路径
    * @return {Promise<boolean>}
    */
-  async openFolder (path) {
-    return YY.Common.openFolder(path)
+  async openFolder (path, createifnoexist) {
+    return YY.Common.openFolder(path, createifnoexist)
   },
   /**
    * 选择文件夹
@@ -264,5 +264,8 @@ export default {
   },
   async parseShortcutFiles (data) {
     return YY.Common.parseShortcutFiles(data)
+  },
+  async executeFile(file) {
+    return YY.Common.executeFile(file)
   }
 }

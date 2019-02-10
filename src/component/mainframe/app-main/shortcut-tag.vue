@@ -17,17 +17,21 @@ export default {
     }
   },
   mounted() {
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
-    this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[0], this.$data.menus).$el)
+    this.refresh()
+    this.$VueBus.$on('onRefresh', () => {
+      this.refresh()
+    })
   },
   computed: {
       
   },
   methods: {
-    
+    refresh() {
+      this.$refs.shortcutTag.innerHTML = ''
+      for (let i = 0; i < this.$data.items.length; i++) {
+        this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[i], this.$data.menus).$el)
+      }
+    }
   }
 }
 </script>

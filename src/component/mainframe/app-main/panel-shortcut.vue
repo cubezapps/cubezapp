@@ -24,13 +24,38 @@ export default {
       desktopData: {}
     }
   },
-  mounted() {
+  async mounted() {
+    let mainBrowser = await this.$WebSDK('sdk.cefBrowser', 0)
+    window.connectSignal(mainBrowser.onDragNames, (names) => {
+      let addNew = false
+      for(let i = 0; i < names.length; i++) {
+         let objFile = {}
+         objFile['path'] = names[i]
+         objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
+         let n = objFile['path'].lastIndexOf("\\")
+         objFile['name'] = objFile['path'].substr(n + 1)
+         if(!this.isExist(objFile, this.commonData['items'])) {
+           this.commonData['items'].push(objFile)
+           addNew = true
+         } 
+      }
+      console.log(this.commonData)
+      if(addNew) {
+        this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData))
+        this.$VueBus.$emit('onRefresh')
+      }
+    })
       let obj1 = {}
       this.commonData['items'] = []
       obj1['path'] = 'D:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe'
       obj1['hash'] = SparkMd5.hash(obj1['path'].toLowerCase())
       obj1['name'] = 'QQ'
       this.commonData['items'].push(obj1)
+      let objDir = {}
+      objDir['path'] = 'D:\\Program Files (x86)\\Tencent\\QQ\\Bin'
+      objDir['hash'] = SparkMd5.hash(objDir['path'].toLowerCase())
+      objDir['name'] = 'QQ'
+      this.commonData['items'].push(objDir)
       this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData))
 
       let commonMenu = []
@@ -103,6 +128,14 @@ export default {
             this.desktopTag.$el.style.display = 'none'
           }
       }
+    },
+    isExist(testObj, dataObj) {
+      for(let i = 0; i < dataObj.length; i++) {
+         if (dataObj[i]['hash'] == testObj['hash']) {
+           return true
+         }
+      }
+      return false
     }
   }
 }

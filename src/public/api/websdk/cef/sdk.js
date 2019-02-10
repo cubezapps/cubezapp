@@ -36,6 +36,9 @@ export default {
    */
   injectOverlay (processId, threadId) {
     return YY.sdk.injectOverlay(processId, threadId)
+  },
+  async cefBrowser() {
+    return YY.sdk.cefBrowser(...arguments)
   }
 
 }

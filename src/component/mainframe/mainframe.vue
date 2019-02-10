@@ -60,6 +60,7 @@ export default {
           break
       }
     }, this)
+    this.$WebSDK('win.restore')
     this.$WebSDK('common.trayIconLeftClickListener', () => {
         this.$WebSDK('win.restore')
         this.$WebSDK('win.forefront')

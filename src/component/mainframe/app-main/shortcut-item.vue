@@ -1,7 +1,7 @@
 <template>
     <div class="backpanel">
-        <input type="button" class="btnimg" @contextmenu="onPopupMenu($event)"/>
-        <input class="txt" :value="$data.item.name" readonly="true"/>
+        <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="item" @click="onClick($event)" @contextmenu="onPopupMenu($event)"/>
+        <textarea class="txt" :value="$data.item.name" readonly="true"/>
     </div> 
 </template>
 
@@ -13,7 +13,7 @@ export default {
   },
   data () {
     return {
-  
+
     }
   },
   mounted() {
@@ -23,14 +23,34 @@ export default {
            let obj = JSON.parse(data)
            if(this.$data.item.hash == obj.hash) {
              console.log(data)
+             if(obj.name == 'Open') {
+               this.$WebSDK('common.executeFile', obj.path)
+             }
+             else if(obj.name =='Open Path...') {
+               this.$WebSDK('common.openFolder', obj.path, true)
+             }
+             else if(obj.name == 'Rename') {
+
+             }
+             else if(obj.name == 'Delete') {
+               
+             }
+             else if(obj.name == 'Clear All') {
+               
+             }
            }
            break
          }
         }
     }, this)
+    console.log("createShortcutItem:" + this.$data.item)
   },
   computed: {
-      
+      getIconUrl() {
+        let tmpUrl = `url(http://localhost/local/res/${this.$data.item.hash}.ico)`
+        console.log(tmpUrl)
+        return tmpUrl
+      }
   },
   methods: {
     onPopupMenu(event) {
@@ -39,8 +59,11 @@ export default {
       obj.y = event.screenY
       obj.hash = this.$data.item.hash
       obj.menus = this.$data.menus
-      //console.log(obj)
+      obj.path = this.$data.item.path
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, JSON.stringify(obj))
+    },
+    onClick(event) {
+      this.$WebSDK('common.executeFile', this.$data.item.path)
     }
   }
 }
@@ -52,7 +75,7 @@ export default {
 
 <style lang='scss' scoped>
   $width: 77px;
-  $height: 64px;
+  $height: 70px;
   .backpanel {
     flex: 0 0 $width;
     width: $width;
@@ -70,7 +93,7 @@ export default {
     margin-top: 0px;
     background: center no-repeat;
     background-size: 32px 32px;
-    background-image: url('./img/img0.png');
+    //background-image: url('./img/img0.png');
     cursor: default;
     outline: none;
     &:hover {
@@ -79,7 +102,9 @@ export default {
     }
   }
   .txt {
-    width: $width - 10px;
+    width: $width;
+    overflow:hidden;
+    resize: none;
     border: none;
     outline: none;
     margin: none;
