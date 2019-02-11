@@ -60,41 +60,47 @@ export default {
       let notepadObj = {}
       this.systemData['items'] = []
       let systemDir = (await this.$WebSDK('common.getSystemDir')).trim()
+      let n = systemDir.lastIndexOf("\\")
+      let windowDir = systemDir.substr(0, n)
       notepadObj['path'] = systemDir + '\\notepad.exe'
       notepadObj['hash'] = SparkMd5.hash(notepadObj['path'].toLowerCase())
-      notepadObj['name'] = 'notepad'  
+      notepadObj['name'] = 'Notepad'  
       let calcObj = {}
       calcObj['path'] = systemDir + '\\calc.exe'
       calcObj['hash'] = SparkMd5.hash(calcObj['path'].toLowerCase())
-      calcObj['name'] = 'calc'
+      calcObj['name'] = 'Calc'
       let paintObj = {}
       paintObj['path'] = systemDir + '\\mspaint.exe'
       paintObj['hash'] = SparkMd5.hash(paintObj['path'].toLowerCase())
-      paintObj['name'] = 'paint'
+      paintObj['name'] = 'Paint'
       let controlObj = {}
       controlObj['path'] = systemDir + '\\control.exe'
       controlObj['hash'] = SparkMd5.hash(controlObj['path'].toLowerCase())
-      controlObj['name'] = 'control'
+      controlObj['name'] = 'Control'
       let cmdObj = {}
       cmdObj['path'] = systemDir + '\\cmd.exe'
       cmdObj['hash'] = SparkMd5.hash(cmdObj['path'].toLowerCase())
-      cmdObj['name'] = 'cmd'
+      cmdObj['name'] = 'Cmd'
       let mstscObj = {}
       mstscObj['path'] = systemDir + '\\mstsc.exe'
       mstscObj['hash'] = SparkMd5.hash(mstscObj['path'].toLowerCase())
-      mstscObj['name'] = 'remote'
+      mstscObj['name'] = 'Remote'
       let regedtObj = {}
       regedtObj['path'] = systemDir + '\\regedt32.exe'
       regedtObj['hash'] = SparkMd5.hash(regedtObj['path'].toLowerCase())
-      regedtObj['name'] = 'regedit'
-      let cleanmgrObj = {}
-      cleanmgrObj['path'] = systemDir + '\\cleanmgr.exe'
-      cleanmgrObj['hash'] = SparkMd5.hash(cleanmgrObj['path'].toLowerCase())
-      cleanmgrObj['name'] = 'cleanmgr'
+      regedtObj['name'] = 'Regedit'
+      let snippingtoolObj = {}
+      snippingtoolObj['path'] = windowDir + '\\Sysnative\\snippingtool.exe'
+      snippingtoolObj['hash'] = SparkMd5.hash(snippingtoolObj['path'].toLowerCase())
+      snippingtoolObj['name'] = 'Shortcut'
+      let soundRecorderObj = {}
+      soundRecorderObj['path'] = windowDir + '\\Sysnative\\SoundRecorder.exe'
+      soundRecorderObj['hash'] = SparkMd5.hash(soundRecorderObj['path'].toLowerCase())
+      soundRecorderObj['name'] = 'SoundRecorder'
       let msinfo32Obj = {}
       msinfo32Obj['path'] = systemDir + '\\msinfo32.exe'
       msinfo32Obj['hash'] = SparkMd5.hash(msinfo32Obj['path'].toLowerCase())
-      msinfo32Obj['name'] = 'sysinfo'
+      msinfo32Obj['name'] = 'SysInfo'
 
       this.systemData['items'].push(notepadObj)
       this.systemData['items'].push(calcObj)
@@ -103,7 +109,8 @@ export default {
       this.systemData['items'].push(cmdObj)
       this.systemData['items'].push(mstscObj)
       this.systemData['items'].push(regedtObj)
-      this.systemData['items'].push(cleanmgrObj)
+      this.systemData['items'].push(snippingtoolObj)
+      this.systemData['items'].push(soundRecorderObj)
       this.systemData['items'].push(msinfo32Obj)
       this.systemData['menus'] = []
       console.log(JSON.stringify(this.systemData))
