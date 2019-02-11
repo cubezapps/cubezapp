@@ -267,5 +267,8 @@ export default {
   },
   async executeFile(file) {
     return YY.Common.executeFile(file)
-  }
+  },
+  async getSystemDir () {
+    return YY.Common.getSystemDir()
+  },
 }

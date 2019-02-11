@@ -43,7 +43,7 @@ export default {
          }
         }
     }, this)
-    console.log("createShortcutItem:" + this.$data.item)
+    //console.log("createShortcutItem:" + this.$data.item)
   },
   computed: {
       getIconUrl() {

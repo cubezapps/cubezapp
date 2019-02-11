@@ -43,19 +43,10 @@ export default {
       if(addNew) {
         this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData))
         this.$VueBus.$emit('onRefresh')
+        this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
       }
     })
-      let obj1 = {}
-      this.commonData['items'] = []
-      obj1['path'] = 'D:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe'
-      obj1['hash'] = SparkMd5.hash(obj1['path'].toLowerCase())
-      obj1['name'] = 'QQ'
-      this.commonData['items'].push(obj1)
-      let objDir = {}
-      objDir['path'] = 'D:\\Program Files (x86)\\Tencent\\QQ\\Bin'
-      objDir['hash'] = SparkMd5.hash(objDir['path'].toLowerCase())
-      objDir['name'] = 'QQ'
-      this.commonData['items'].push(objDir)
+      this.commonData['items'] = JSON.parse(await this.$WebSDK('common.getConfig', 'commonData'))
       this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData))
 
       let commonMenu = []
@@ -66,13 +57,16 @@ export default {
       commonMenu.push('Clear All')
       this.commonData['menus'] = commonMenu
 
-      let obj2 = {}
+      let notepadObj = {}
       this.systemData['items'] = []
-      obj2['path'] = 'C:\\Windows\\System32\\notepad.exe'
-      obj2['hash'] = SparkMd5.hash(obj2['path'].toLowerCase())
-      obj2['name'] = 'notepad'
-      this.systemData['items'].push(obj2)
+      let systemDir = (await this.$WebSDK('common.getSystemDir')).trim()
+      notepadObj['path'] = systemDir + '\\notepad.exe'
+      notepadObj['hash'] = SparkMd5.hash(notepadObj['path'].toLowerCase())
+      notepadObj['name'] = 'notepad'
+      this.systemData['items'].push(notepadObj)
       this.systemData['menus'] = []
+      console.log(JSON.stringify(this.systemData))
+      this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.systemData))
 
       let obj3 = {}
       this.desktopData['items'] = []
