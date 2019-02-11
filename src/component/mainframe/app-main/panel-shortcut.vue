@@ -62,8 +62,49 @@ export default {
       let systemDir = (await this.$WebSDK('common.getSystemDir')).trim()
       notepadObj['path'] = systemDir + '\\notepad.exe'
       notepadObj['hash'] = SparkMd5.hash(notepadObj['path'].toLowerCase())
-      notepadObj['name'] = 'notepad'
+      notepadObj['name'] = 'notepad'  
+      let calcObj = {}
+      calcObj['path'] = systemDir + '\\calc.exe'
+      calcObj['hash'] = SparkMd5.hash(calcObj['path'].toLowerCase())
+      calcObj['name'] = 'calc'
+      let paintObj = {}
+      paintObj['path'] = systemDir + '\\mspaint.exe'
+      paintObj['hash'] = SparkMd5.hash(paintObj['path'].toLowerCase())
+      paintObj['name'] = 'paint'
+      let controlObj = {}
+      controlObj['path'] = systemDir + '\\control.exe'
+      controlObj['hash'] = SparkMd5.hash(controlObj['path'].toLowerCase())
+      controlObj['name'] = 'control'
+      let cmdObj = {}
+      cmdObj['path'] = systemDir + '\\cmd.exe'
+      cmdObj['hash'] = SparkMd5.hash(cmdObj['path'].toLowerCase())
+      cmdObj['name'] = 'cmd'
+      let mstscObj = {}
+      mstscObj['path'] = systemDir + '\\mstsc.exe'
+      mstscObj['hash'] = SparkMd5.hash(mstscObj['path'].toLowerCase())
+      mstscObj['name'] = 'remote'
+      let regedtObj = {}
+      regedtObj['path'] = systemDir + '\\regedt32.exe'
+      regedtObj['hash'] = SparkMd5.hash(regedtObj['path'].toLowerCase())
+      regedtObj['name'] = 'regedit'
+      let cleanmgrObj = {}
+      cleanmgrObj['path'] = systemDir + '\\cleanmgr.exe'
+      cleanmgrObj['hash'] = SparkMd5.hash(cleanmgrObj['path'].toLowerCase())
+      cleanmgrObj['name'] = 'cleanmgr'
+      let msinfo32Obj = {}
+      msinfo32Obj['path'] = systemDir + '\\msinfo32.exe'
+      msinfo32Obj['hash'] = SparkMd5.hash(msinfo32Obj['path'].toLowerCase())
+      msinfo32Obj['name'] = 'sysinfo'
+
       this.systemData['items'].push(notepadObj)
+      this.systemData['items'].push(calcObj)
+      this.systemData['items'].push(paintObj)
+      this.systemData['items'].push(controlObj)
+      this.systemData['items'].push(cmdObj)
+      this.systemData['items'].push(mstscObj)
+      this.systemData['items'].push(regedtObj)
+      this.systemData['items'].push(cleanmgrObj)
+      this.systemData['items'].push(msinfo32Obj)
       this.systemData['menus'] = []
       console.log(JSON.stringify(this.systemData))
       this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.systemData))
