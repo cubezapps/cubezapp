@@ -37,16 +37,17 @@ export default {
     }
   },
   async mounted () {
-    this.$WebSDK('win.resize', 310, 600)
+    this.$WebSDK('win.resize', 320, 600)
     //this.$WebSDK('win.move', 4)
     this.$WebSDK('win.setResizeBorderWidth', 2)
-    this.$WebSDK('win.setMinSize', 310, 600)
-    this.$WebSDK('win.setMaxSize', 516, 1000)
+    this.$WebSDK('win.setMinSize', 320, 600)
+    this.$WebSDK('win.setMaxSize', 480, 1000)
     this.$WebSDK('win.needResizable', false)
     this.$WebSDK('win.needTaskBar', true)
     this.$WebSDK('sdk.hideLoading')
-    this.$WebSDK('win.needShadow')
+    this.$WebSDK('win.needShadow', true)
     this.$WebSDK('win.setTopHide', true)
+    this.$WebSDK('win.needAlwaysFront', true)
     this.$WebSDK('win.show')
     this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
