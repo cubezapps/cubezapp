@@ -56,6 +56,7 @@ export default {
       commonMenu.push('Delete')
       commonMenu.push('Clear All')
       this.commonData['menus'] = commonMenu
+      this.commonData['id'] = 'commonTag'
 
       let notepadObj = {}
       this.systemData['items'] = []
@@ -113,6 +114,7 @@ export default {
       this.systemData['items'].push(soundRecorderObj)
       this.systemData['items'].push(msinfo32Obj)
       this.systemData['menus'] = []
+      this.systemData['id'] = 'systemTag'
       console.log(JSON.stringify(this.systemData))
       this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.systemData))
 
@@ -123,6 +125,7 @@ export default {
       obj3['name'] = 'yy'
       this.desktopData['items'].push(obj3)
       this.desktopData['menus'] = []
+      this.desktopData['id'] = 'desktopTag'
       
       this.commonTag = CreateShortcut(this.commonData)
       this.commonTag.$el.style.display = 'none'

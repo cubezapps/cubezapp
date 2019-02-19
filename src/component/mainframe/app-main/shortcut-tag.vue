@@ -21,6 +21,11 @@ export default {
     this.$VueBus.$on('onRefresh', () => {
       this.refresh()
     })
+    this.$VueBus.$on('onDeleteItem', (id, obj) => {
+      if(this.$data.id == id)  {
+        console.log(this.$data.id)
+      }
+    })
   },
   computed: {
       
@@ -29,7 +34,7 @@ export default {
     refresh() {
       this.$refs.shortcutTag.innerHTML = ''
       for (let i = 0; i < this.$data.items.length; i++) {
-        this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[i], this.$data.menus).$el)
+        this.$refs.shortcutTag.appendChild(CreateShortcutItem(this.$data.items[i], this.$data.menus, this.$data.id).$el)
       }
     }
   }

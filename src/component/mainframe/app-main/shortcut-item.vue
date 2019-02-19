@@ -33,7 +33,7 @@ export default {
 
              }
              else if(obj.name == 'Delete') {
-               
+               this.$VueBus.$emit('onDeleteItem', this.$data.id, obj)
              }
              else if(obj.name == 'Clear All') {
                
