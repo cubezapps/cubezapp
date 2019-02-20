@@ -39,11 +39,35 @@ export default {
            addNew = true
          } 
       }
-      console.log(this.commonData)
       if(addNew) {
         this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData))
         this.$VueBus.$emit('onRefresh')
         this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
+      }
+    })
+    this.$VueBus.$on('onDeleteItem', (id, obj) => {
+      if(id == 'commonTag')  {
+        for (let i = 0; i < this.commonData['items'].length; i++) {
+          if(obj.hash == this.commonData['items'][i].hash)  {
+              this.commonData['items'].splice(i, 1)
+              this.$VueBus.$emit('onRefresh')
+              this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
+              break
+          }
+        }
+      }
+      else if(id == 'desktopTag') {
+
+      }
+    })
+    this.$VueBus.$on('onClearAll', (id) => {
+      if(id == 'commonTag')  {
+        this.commonData['items'].splice(0, this.commonData['items'].length)
+        this.$VueBus.$emit('onRefresh')
+        this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
+      }
+      else if(id == 'desktopTag') {
+
       }
     })
       this.commonData['items'] = JSON.parse(await this.$WebSDK('common.getConfig', 'commonData'))

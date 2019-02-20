@@ -1,7 +1,7 @@
 <template>
     <div class="backpanel">
-        <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="item" @click="onClick($event)" @contextmenu="onPopupMenu($event)"/>
-        <textarea class="txt" :value="$data.item.name" readonly="true"/>
+        <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="buttonItem" @click="onClick($event)" @contextmenu="onPopupMenu($event)"/>
+        <textarea class="txt" ref="textItem" :value="$data.item.name" readonly="true"/>
     </div> 
 </template>
 
@@ -30,13 +30,14 @@ export default {
                this.$WebSDK('common.openFolder', obj.path, true)
              }
              else if(obj.name == 'Rename') {
-
+                this.$refs.textItem.style.readonly = false
+                this.$refs.textItem.style.disabled = false
              }
              else if(obj.name == 'Delete') {
                this.$VueBus.$emit('onDeleteItem', this.$data.id, obj)
              }
              else if(obj.name == 'Clear All') {
-               
+               this.$VueBus.$emit('onClearAll', this.$data.id)
              }
            }
            break

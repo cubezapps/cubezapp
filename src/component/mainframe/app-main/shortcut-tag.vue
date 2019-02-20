@@ -21,11 +21,6 @@ export default {
     this.$VueBus.$on('onRefresh', () => {
       this.refresh()
     })
-    this.$VueBus.$on('onDeleteItem', (id, obj) => {
-      if(this.$data.id == id)  {
-        console.log(this.$data.id)
-      }
-    })
   },
   computed: {
       
