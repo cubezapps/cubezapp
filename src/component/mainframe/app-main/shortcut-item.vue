@@ -1,7 +1,7 @@
 <template>
     <div class="backpanel">
         <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="buttonItem" @click="onClick($event)" @contextmenu="onPopupMenu($event)"/>
-        <textarea class="txt" ref="textItem" :value="$data.item.name" readonly="true"/>
+        <textarea class="txt" ref="textItem" spellcheck="false" :value="$data.item.name" readonly="true" @change="onChange($event)" @blur="onBlur($event)"/>
     </div> 
 </template>
 
@@ -30,8 +30,9 @@ export default {
                this.$WebSDK('common.openFolder', obj.path, true)
              }
              else if(obj.name == 'Rename') {
-                this.$refs.textItem.style.readonly = false
-                this.$refs.textItem.style.disabled = false
+                this.$refs.textItem.removeAttribute('readonly')
+                this.$refs.textItem.select()
+                this.$refs.textItem.focus()
              }
              else if(obj.name == 'Delete') {
                this.$VueBus.$emit('onDeleteItem', this.$data.id, obj)
@@ -49,7 +50,7 @@ export default {
   computed: {
       getIconUrl() {
         let tmpUrl = `url(http://localhost/local/res/${this.$data.item.hash}.ico)`
-        console.log(tmpUrl)
+        //console.log(tmpUrl)
         return tmpUrl
       }
   },
@@ -65,6 +66,14 @@ export default {
     },
     onClick(event) {
       this.$WebSDK('common.executeFile', this.$data.item.path)
+    },
+    onChange(event) {
+      this.$refs.textItem.setAttribute('readonly', true)
+      this.$data.item.name = this.$refs.textItem.value
+      this.$VueBus.$emit('onSaveAll', this.$data.id)
+    },
+    onBlur(event) {
+      this.$refs.textItem.setAttribute('readonly', true)
     }
   }
 }
@@ -82,7 +91,7 @@ export default {
     width: $width;
     height: $height;
     //background-color: red;
-    margin: 0px;
+    margin: 1px;
     padding: 0px; 
   }
   .btnimg {
@@ -111,6 +120,7 @@ export default {
     margin: none;
     text-align: center;
     background-color: inherit; 
+    -webkit-user-select: none;
     cursor: default;
   }
 </style>

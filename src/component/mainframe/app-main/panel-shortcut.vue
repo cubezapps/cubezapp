@@ -70,6 +70,14 @@ export default {
 
       }
     })
+    this.$VueBus.$on('onSaveAll', (id) => {
+      if(id == 'commonTag')  {
+        this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
+      }
+      else if(id == 'desktopTag') {
+
+      }
+    })
       this.commonData['items'] = JSON.parse(await this.$WebSDK('common.getConfig', 'commonData'))
       this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData))
 
