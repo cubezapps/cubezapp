@@ -1,7 +1,7 @@
 <template>
     <div class="backpanel">
         <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="buttonItem" @click="onClick($event)" @contextmenu="onPopupMenu($event)"/>
-        <textarea class="txt" ref="textItem" spellcheck="false" :value="$data.item.name" readonly="true" @change="onChange($event)" @blur="onBlur($event)"/>
+        <textarea class="txt" ref="textItem" spellcheck="false" :value="item.name" readonly="true" @change="onChange($event)" @blur="onBlur($event)"/>
     </div> 
 </template>
 
@@ -9,7 +9,18 @@
 
 export default {
   props: {
-    
+    'id': {
+        type: String,
+        required: true
+    },
+    'item': {
+        type: Object,
+        required: true
+    },
+    'menus': {
+       type: Array,
+       required: false
+    },
   },
   data () {
     return {
@@ -21,7 +32,7 @@ export default {
        switch (uri) {
          case this.$DataUri.APP_PopupMenuClick: {
            let obj = JSON.parse(data)
-           if(this.$data.item.hash == obj.hash) {
+           if(this.item.hash == obj.hash) {
              console.log(data)
              if(obj.name == 'Open') {
                this.$WebSDK('common.executeFile', obj.path)
@@ -35,10 +46,10 @@ export default {
                 this.$refs.textItem.focus()
              }
              else if(obj.name == 'Delete') {
-               this.$VueBus.$emit('onDeleteItem', this.$data.id, obj)
+               this.$VueBus.$emit('onDeleteItem', this.id, obj)
              }
              else if(obj.name == 'Clear All') {
-               this.$VueBus.$emit('onClearAll', this.$data.id)
+               this.$VueBus.$emit('onClearAll', this.id)
              }
            }
            break
@@ -49,7 +60,7 @@ export default {
   },
   computed: {
       getIconUrl() {
-        let tmpUrl = `url(http://localhost/local/res/${this.$data.item.hash}.ico)`
+        let tmpUrl = `url(http://localhost/local/res/${this.item.hash}.ico)`
         //console.log(tmpUrl)
         return tmpUrl
       }
@@ -59,18 +70,18 @@ export default {
       let obj = {}
       obj.x = event.screenX
       obj.y = event.screenY
-      obj.hash = this.$data.item.hash
-      obj.menus = this.$data.menus
-      obj.path = this.$data.item.path
+      obj.hash = this.item.hash
+      obj.menus = this.menus
+      obj.path = this.item.path
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, JSON.stringify(obj))
     },
     onClick(event) {
-      this.$WebSDK('common.executeFile', this.$data.item.path)
+      this.$WebSDK('common.executeFile', this.item.path)
     },
     onChange(event) {
       this.$refs.textItem.setAttribute('readonly', true)
-      this.$data.item.name = this.$refs.textItem.value
-      this.$VueBus.$emit('onSaveAll', this.$data.id)
+      this.item.name = this.$refs.textItem.value
+      this.$VueBus.$emit('onSaveAll', this.id)
     },
     onBlur(event) {
       this.$refs.textItem.setAttribute('readonly', true)
@@ -85,7 +96,7 @@ export default {
 
 <style lang='scss' scoped>
   $width: 77px;
-  $height: 70px;
+  $height: 74px;
   .backpanel {
     flex: 0 0 $width;
     width: $width;

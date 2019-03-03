@@ -1,16 +1,22 @@
 <template>
     <div class="backpanel">
         <div class="item" ref="commonItem" @click="onClick($event)">{{commonTittle}}</div>
+        <shortcuttag ref="commonTag" :tagdata="commonData"></shortcuttag>
         <div class="item" ref="systemItem" @click="onClick($event)">{{systemTittle}}</div>
+        <shortcuttag ref="systemTag" :tagdata="systemData"></shortcuttag>
         <div class="item" ref="desktopItem" @click="onClick($event)">{{desktopTittle}}</div>
+        <shortcuttag ref="desktopTag" :tagdata="desktopData"></shortcuttag>
     </div> 
 </template>
 
 <script>
-import CreateShortcut from './createshortcut.js'
 import SparkMd5 from 'spark-md5'
+import shortcuttag from './shortcut-tag.vue'
 
 export default {
+  components: {
+    shortcuttag
+  },
   props: {
     
   },
@@ -26,6 +32,7 @@ export default {
   },
   async mounted() {
     let mainBrowser = await this.$WebSDK('sdk.cefBrowser', 0)
+    console.log(mainBrowser)
     window.connectSignal(mainBrowser.onDragNames, (names) => {
       let addNew = false
       for(let i = 0; i < names.length; i++) {
@@ -41,7 +48,7 @@ export default {
       }
       if(addNew) {
         this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData))
-        this.$VueBus.$emit('onRefresh')
+        this.$VueBus.$emit('onRefresh', this.commonData.id)
         this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
       }
     })
@@ -50,7 +57,7 @@ export default {
         for (let i = 0; i < this.commonData['items'].length; i++) {
           if(obj.hash == this.commonData['items'][i].hash)  {
               this.commonData['items'].splice(i, 1)
-              this.$VueBus.$emit('onRefresh')
+              this.$VueBus.$emit('onRefresh', this.commonData.id)
               this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
               break
           }
@@ -63,7 +70,7 @@ export default {
     this.$VueBus.$on('onClearAll', (id) => {
       if(id == 'commonTag')  {
         this.commonData['items'].splice(0, this.commonData['items'].length)
-        this.$VueBus.$emit('onRefresh')
+        this.$VueBus.$emit('onRefresh', this.commonData.id)
         this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
       }
       else if(id == 'desktopTag') {
@@ -147,7 +154,7 @@ export default {
       this.systemData['items'].push(msinfo32Obj)
       this.systemData['menus'] = []
       this.systemData['id'] = 'systemTag'
-      console.log(JSON.stringify(this.systemData))
+      //console.log(JSON.stringify(this.systemData))
       this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.systemData))
 
       let obj3 = {}
@@ -158,16 +165,13 @@ export default {
       this.desktopData['items'].push(obj3)
       this.desktopData['menus'] = []
       this.desktopData['id'] = 'desktopTag'
-      
-      this.commonTag = CreateShortcut(this.commonData)
-      this.commonTag.$el.style.display = 'none'
-      this.$refs.commonItem.parentNode.insertBefore(this.commonTag.$el, this.$refs.commonItem.nextSibling)
-      this.systemTag = CreateShortcut(this.systemData)
-      this.systemTag.$el.style.display = 'none'
-      this.$refs.systemItem.parentNode.insertBefore(this.systemTag.$el, this.$refs.systemItem.nextSibling)
-      this.desktopTag = CreateShortcut(this.desktopData)
-      this.desktopTag.$el.style.display = 'none'
-      this.$refs.desktopItem.parentNode.insertBefore(this.desktopTag.$el, this.$refs.desktopItem.nextSibling)
+  
+      await this.$VueBus.$emit('onRefresh', this.commonData.id)
+      await this.$VueBus.$emit('onRefresh', this.systemData.id)
+      await this.$VueBus.$emit('onRefresh', this.desktopData.id)
+      this.$refs.commonTag.$el.style.display = 'none'
+      this.$refs.systemTag.$el.style.display = 'none'
+      this.$refs.desktopTag.$el.style.display = 'none'
   },
   computed: {
       
@@ -176,33 +180,33 @@ export default {
     onClick(event) {
       console.log(event.target)
       if(event.target == this.$refs.commonItem) {
-          if(this.commonTag.$el.style.display == 'none') {
-            this.commonTag.$el.style.display = 'flex'
-            this.systemTag.$el.style.display = 'none'
-            this.desktopTag.$el.style.display = 'none'
+          if(this.$refs.commonTag.$el.style.display == 'none') {
+            this.$refs.commonTag.$el.style.display = 'flex'
+            this.$refs.systemTag.$el.style.display = 'none'
+            this.$refs.desktopTag.$el.style.display = 'none'
           }
           else {
-            this.commonTag.$el.style.display = 'none'
+            this.$refs.commonTag.$el.style.display = 'none'
           }
       } 
       else if(event.target == this.$refs.systemItem) {
-          if(this.systemTag.$el.style.display == 'none') {
-            this.commonTag.$el.style.display = 'none'
-            this.systemTag.$el.style.display = 'flex'
-            this.desktopTag.$el.style.display = 'none'
+          if(this.$refs.systemTag.$el.style.display == 'none') {
+            this.$refs.commonTag.$el.style.display = 'none'
+            this.$refs.systemTag.$el.style.display = 'flex'
+            this.$refs.desktopTag.$el.style.display = 'none'
           }
           else {
-            this.systemTag.$el.style.display = 'none'
+            this.$refs.systemTag.$el.style.display = 'none'
           }
       }
       else if(event.target == this.$refs.desktopItem) {
-          if(this.desktopTag.$el.style.display == 'none') {
-            this.commonTag.$el.style.display = 'none'
-            this.systemTag.$el.style.display = 'none'
-            this.desktopTag.$el.style.display = 'flex'
+          if(this.$refs.desktopTag.$el.style.display == 'none') {
+            this.$refs.commonTag.$el.style.display = 'none'
+            this.$refs.systemTag.$el.style.display = 'none'
+            this.$refs.desktopTag.$el.style.display = 'flex'
           }
           else {
-            this.desktopTag.$el.style.display = 'none'
+            this.$refs.desktopTag.$el.style.display = 'none'
           }
       }
     },
