@@ -1,5 +1,5 @@
 <template>
-    <div class="backpanel">
+    <div class="shortcutitem-backpanel">
         <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="buttonItem" @click="onClick($event)" @contextmenu="onPopupMenu($event)"/>
         <textarea class="txt" ref="textItem" spellcheck="false" :value="item.name" readonly="true" @change="onChange($event)" @blur="onBlur($event)"/>
     </div> 
@@ -33,7 +33,7 @@ export default {
          case this.$DataUri.APP_PopupMenuClick: {
            let obj = JSON.parse(data)
            if(this.item.hash == obj.hash) {
-             console.log(data)
+             console.log('onclickpopup: ' + data)
              if(obj.name == 'Open') {
                this.$WebSDK('common.executeFile', obj.path)
              }
@@ -97,7 +97,7 @@ export default {
 <style lang='scss' scoped>
   $width: 77px;
   $height: 74px;
-  .backpanel {
+  .shortcutitem-backpanel {
     flex: 0 0 $width;
     width: $width;
     height: $height;

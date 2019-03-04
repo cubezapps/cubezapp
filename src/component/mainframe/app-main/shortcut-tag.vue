@@ -1,6 +1,6 @@
 <template>
-    <div ref="shortcutTag" :key="key" class="backpanel" v-drag-and-drop:options="options">
-        <shortcutitem v-for="item of tagdata.items" :key="item.hash" :id="tagdata.id" :item="item" :menus="tagdata.menus"></shortcutitem>
+    <div ref="shortcutTag" :key="key" class="shortcuttag-backpanel" v-drag-and-drop:options="options">
+        <shortcutitem v-for="(item, index) of tagdata.items" :key="index" :id="tagdata.id" :item="item" :menus="tagdata.menus"></shortcutitem>
     </div> 
 </template>
 
@@ -12,7 +12,7 @@ export default {
     shortcutitem
   },
   props: {
-    'tagdata': {
+   'tagdata': {
         type: Object,
         required: true
     }
@@ -60,7 +60,8 @@ export default {
   methods: {
     refresh(id) {
       if(this.tagdata.id == id) {
-        this.key = this.key + 1
+        console.log('refresh tagdata: ' + JSON.stringify(this.tagdata))
+        this.$forceUpdate()
       }
     }
   }
@@ -72,14 +73,14 @@ export default {
 </style>
 
 <style lang='scss' scoped>
-  .backpanel {
-    flex: 0 1 auto;
+  .shortcuttag-backpanel {
+    flex: 1 1 auto;
     background-color: beige;
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    align-content: flex-start;
     overflow: auto;
   }
 </style>
