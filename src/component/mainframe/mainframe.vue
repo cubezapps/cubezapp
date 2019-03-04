@@ -16,7 +16,7 @@ import appbottombar from './app-bottombar/app-bottombar.vue'
 export default {
   name: 'app',
   metaInfo: {
-        title: 'my vue app mainframe', // set a title
+        title: 'Mainframe', // set a title
         meta: [{                 // set meta
           name: 'keyWords',
           content: 'My Example App'

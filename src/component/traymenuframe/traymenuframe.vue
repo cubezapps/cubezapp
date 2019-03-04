@@ -12,7 +12,7 @@
 export default {
   name: 'traymenu',
   metaInfo: {
-        title: 'traymenuframe', // set a title
+        title: 'Traymenuframe', // set a title
         meta: [{                 // set meta
           name: 'keyWords',
           content: 'My Example App'

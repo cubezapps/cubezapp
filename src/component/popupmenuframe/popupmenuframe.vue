@@ -10,7 +10,7 @@
 export default {
   name: 'popupmenu',
   metaInfo: {
-        title: 'popupmenu', // set a title
+        title: 'Popupmenu', // set a title
         meta: [{                 // set meta
           name: 'popupmenu',
           content: 'popupmenu'

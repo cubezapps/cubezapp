@@ -10,7 +10,7 @@
 <script>
 export default {
   metaInfo: {
-        title: 'my vue app aboutframe', // set a title
+        title: 'Aboutframe', // set a title
         meta: [{                 // set meta
           name: 'keyWords',
           content: 'My Example App'
