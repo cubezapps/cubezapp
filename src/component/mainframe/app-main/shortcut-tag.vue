@@ -1,15 +1,17 @@
 <template>
-    <div ref="shortcutTag" :key="key" class="shortcuttag-backpanel" v-drag-and-drop:options="options">
+    <draggable ref="shortcutTag" :key="key" class="shortcuttag-backpanel" :list="tagdata.items" :disabled="!enabled" ghost-class="ghost" @start="dragging=true" @end="dragging=false">
         <shortcutitem v-for="(item, index) of tagdata.items" :key="index" :id="tagdata.id" :item="item" :menus="tagdata.menus"></shortcutitem>
-    </div> 
+    </draggable> 
 </template>
 
 <script>
 import shortcutitem from './shortcut-item.vue'
+import draggable from 'vuedraggable'
 
 export default {
   components: {
-    shortcutitem
+    shortcutitem,
+    draggable
   },
   props: {
    'tagdata': {
@@ -20,34 +22,9 @@ export default {
   data () {
     return {
      key: 9000,
-     options: {
-        // dropzoneSelector: 'ul',
-        // draggableSelector: 'li',
-        // showDropzoneAreas: true,
-        // multipleDropzonesItemsDraggingEnabled: true,
-        // onDrop(event) {
-        //   console.log(event);
-        // },
-        // onDragstart(event) {
-        //   event.stop();
-        // },
-        onDragend(event) {
-          // if you need to stop d&d
-          // event.stop();
-
-          // you can call component methods, just don't forget 
-          // that here `this` will not reference component scope,
-          // so out from this returned data object make reference
-          // to component instance
-          componentInstance.someDummyMethod();
-
-          // to detect if draggable element is dropped out
-          if (!event.droptarget) {
-            console.log('event is dropped out');
-          }
-        }
-      }
-    }
+     enabled: true,
+     dragging: false
+     }
   },
   mounted() {
     this.$VueBus.$on('onRefresh', (id) => {
@@ -55,7 +32,7 @@ export default {
     })
   },
   computed: {
-      
+  
   },
   methods: {
     refresh(id) {
@@ -83,4 +60,8 @@ export default {
     align-content: flex-start;
     overflow: auto;
   }
+.ghost {
+  opacity: 0.5;
+  background: #c8ebfb;
+}
 </style>
