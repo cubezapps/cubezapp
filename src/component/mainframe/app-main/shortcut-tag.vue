@@ -1,5 +1,5 @@
 <template>
-    <draggable ref="shortcutTag" :key="key" class="shortcuttag-backpanel" v-model="tagdata.items" @start="onDragStart" @end="onDragEnd">
+    <draggable ref="shortcutTag" :key="key" class="shortcuttag-backpanel" :options="{disabled: disableDrag}" v-model="tagdata.items" @start="onDragStart" @end="onDragEnd">
         <shortcutitem v-for="(item, index) of tagdata.items" :key="index" :id="tagdata.id" :item="item" :menus="tagdata.menus"></shortcutitem>
     </draggable> 
 </template>
@@ -21,7 +21,8 @@ export default {
   },
   data () {
     return {
-     key: 9000
+     key: 9000,
+     disableDrag: false
      }
   },
   mounted() {
@@ -34,16 +35,18 @@ export default {
   },
   methods: {
     refresh(id) {
+      if(this.tagdata.id != 'commonTag')  {
+        this.disableDrag = true;
+      }
       if(this.tagdata.id == id) {
-        console.log('refresh tagdata: ' + JSON.stringify(this.tagdata))
+        //console.log('refresh tagdata: ' + JSON.stringify(this.tagdata))
         this.$forceUpdate()
       }
     },
     onDragStart(event) {
-      console.log('onDragStart: ' + JSON.stringify(this.tagdata.items))
+      //console.log(this.$refs.shortcutTag)
     },
     onDragEnd(event) {
-      console.log('onDragEnd: ' + JSON.stringify(this.tagdata.items))
       this.$forceUpdate()
       this.$VueBus.$emit('onSaveAll', this.tagdata.id)
     }

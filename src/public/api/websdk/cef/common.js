@@ -271,4 +271,13 @@ export default {
   async getSystemDir () {
     return YY.Common.getSystemDir()
   },
+  async getDesktopFilePath() {
+    return YY.Common.getDesktopFilePath()
+  },
+  async getDesktopDir() {
+    return YY.Common.getDesktopDir()
+  },
+  async fileSystemWatcher(path) {
+    return YY.Common.fileSystemWatcher(path)
+  }
 }

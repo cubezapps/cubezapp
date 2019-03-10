@@ -38,7 +38,8 @@ export default {
                this.$WebSDK('common.executeFile', obj.path)
              }
              else if(obj.name =='Open Path...') {
-               this.$WebSDK('common.openFolder', obj.path, true)
+               let n = obj.path.lastIndexOf("\\")
+               this.$WebSDK('common.openFolder', obj.path.substr(0, n), true)
              }
              else if(obj.name == 'Rename') {
                 this.$refs.textItem.removeAttribute('readonly')
