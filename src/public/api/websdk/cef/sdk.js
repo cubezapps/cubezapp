@@ -1,32 +1,32 @@
-const { YY } = window
+const { Native } = window
 export default {
   hideLoading () {
-    return YY.sdk.loadingWindow.hide(...arguments)
+    return Native.Sdk.loadingWindow.hide(...arguments)
   },
   showLoading () {
-    return YY.sdk.loadingWindow.show(...arguments)
+    return Native.Sdk.loadingWindow.show(...arguments)
   },
   // this.$WebSDK('sdk.openWindow', url, '_blank', param)
   openWindow () {
-    return YY.sdk.open(...arguments)
+    return Native.Sdk.open(...arguments)
   },
   getSdkVersion () {
-    return YY.sdk.getSdkVersion(...arguments)
+    return Native.Sdk.getSdkVersion(...arguments)
   },
   getCurLang () {
-    return YY.sdk.getCurLang(...arguments)
+    return Native.Sdk.getCurLang(...arguments)
   },
   webReady () {
-    return YY.sdk.webReady(...arguments)
+    return Native.Sdk.webReady(...arguments)
   },
   getSdkInfo () {
-    return YY.sdk.getSdkInfo(...arguments)
+    return Native.Sdk.getSdkInfo(...arguments)
   },
   cancelUpdateTimer () {
-    return YY.sdk.cancelUpdateTimer(...arguments)
+    return Native.Sdk.cancelUpdateTimer(...arguments)
   },
   doUpdate () {
-    return YY.sdk.doUpdate(...arguments)
+    return Native.Sdk.doUpdate(...arguments)
   },
   /**
    * 注入录频
@@ -35,10 +35,10 @@ export default {
    * @return {*}
    */
   injectOverlay (processId, threadId) {
-    return YY.sdk.injectOverlay(processId, threadId)
+    return Native.Sdk.injectOverlay(processId, threadId)
   },
   async cefBrowser() {
-    return YY.sdk.cefBrowser(...arguments)
+    return Native.Sdk.cefBrowser(...arguments)
   }
 
 }

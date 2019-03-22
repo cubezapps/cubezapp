@@ -3,9 +3,9 @@ import WebSDK, { WebSDKBOM } from '@efox/websdk'
 const local = {
   dev: true
 }
-if (window.YY) {
+if (window.Native) {
   local.sdk = require('./cef').default
-  local.env = 'YY'
+  local.env = 'Native'
   WebSDK.isCef = true
 } else {
   local.sdk = require('./web').default

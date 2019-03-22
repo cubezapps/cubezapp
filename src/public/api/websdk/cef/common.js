@@ -1,7 +1,7 @@
-const { YY, connectSignal } = window
+const { Native, connectSignal } = window
 export default {
   trayIconLeftClickListener (callback, caller) {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       connectSignal(icon.onLeftButtonClicked, () => {
         if (!callback) return
         if (caller) {
@@ -13,7 +13,7 @@ export default {
     })
   },
   trayIconRightClickListener (callback, caller) {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       connectSignal(icon.onRightButtonClicked, () => {
         if (!callback) return
         if (caller) {
@@ -25,7 +25,7 @@ export default {
     })
   },
   trayIconHoverLeaveListener (callback, caller) {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       connectSignal(icon.onHoverLeave, () => {
         if (!callback) return
         if (caller) {
@@ -37,7 +37,7 @@ export default {
     })
   },
   trayIconHoverEnterListener (callback, caller) {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       connectSignal(icon.onHoverEnter, () => {
         if (!callback) return
         if (caller) {
@@ -49,18 +49,18 @@ export default {
     })
   },
   trayIconShow () {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       icon.show()
     })
   },
   trayIconToolTip (tips) {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       icon.setToolTip(tips)
     })
   },
   trayIconGetPopupPos () {
     return new Promise((resolve, reject) => {
-      YY.Common.trayIcon().then((icon) => {
+      Native.Common.trayIcon().then((icon) => {
         icon.getPopupPos().then((ret) => {
           resolve(ret)
         })
@@ -69,33 +69,33 @@ export default {
   },
 
   trayIconBeginFlash () {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       icon.beginFlashIcon()
     })
   },
 
   trayIconStopFlash () {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       icon.stopFlashIcon()
     })
   },
 
   trayIconSetIcon (iconRes) {
-    YY.Common.trayIcon().then((icon) => {
+    Native.Common.trayIcon().then((icon) => {
       icon.setIcon(iconRes)
     })
   },
   trayIcon () {
-    return YY.Common.trayIcon()
+    return Native.Common.trayIcon()
   },
 
   //= ==========================
   setConfig (key, value) {
-    return YY.Common.setConfig(key, value)
+    return Native.Common.setConfig(key, value)
   },
   getConfig (key) {
     return new Promise((resolve, reject) => {
-      YY.Common.getConfig(key).then(resp => {
+      Native.Common.getConfig(key).then(resp => {
         resolve(resp)
       }).catch(err => {
         reject(err)
@@ -103,17 +103,17 @@ export default {
     })
   },
   switchToLogin (value) {
-    return YY.Common.switchToLogin('')
+    return Native.Common.switchToLogin('')
   },
   isAutoRun () {
-    return YY.Common.isAutoRun()
+    return Native.Common.isAutoRun()
   },
   setAutoRun (value) {
-    YY.Common.setAutoRun(value)
+    Native.Common.setAutoRun(value)
   },
   //= ============
   onAudioChatKeyPressed (callback, caller) {
-    YY.Common.nhotKey().then((r) => {
+    Native.Common.nhotKey().then((r) => {
       connectSignal(r.nhotkeyPressed, (name) => {
         if (!callback) return
         if (caller) {
@@ -125,7 +125,7 @@ export default {
     })
   },
   onAudioChatKeyReleased (callback, caller) {
-    YY.Common.nhotKey().then((r) => {
+    Native.Common.nhotKey().then((r) => {
       connectSignal(r.nhotkeyReleased, (name) => {
         if (!callback) return
         if (caller) {
@@ -137,17 +137,17 @@ export default {
     })
   },
   unregisterNHotkey (name) {
-    return YY.Common.nhotKey().then((r) => {
+    return Native.Common.nhotKey().then((r) => {
       r.unregisterNHotkey(name)
     })
   },
   registerNHotkey (name, key, b) {
-    return YY.Common.nhotKey().then((r) => {
+    return Native.Common.nhotKey().then((r) => {
       r.registerNHotkey(name, key, b)
     })
   },
   onKeyPressed (callback, caller) {
-    YY.Common.nhotKey().then((r) => {
+    Native.Common.nhotKey().then((r) => {
       connectSignal(r.nhotkeyPressed, (name) => {
         if (!callback) return
         if (caller) {
@@ -159,7 +159,7 @@ export default {
     })
   },
   onKeyReleased (callback, caller) {
-    YY.Common.nhotKey().then((r) => {
+    Native.Common.nhotKey().then((r) => {
       connectSignal(r.nhotkeyReleased, (name) => {
         if (!callback) return
         if (caller) {
@@ -171,13 +171,13 @@ export default {
     })
   },
   onKeyList (key) {
-    YY.Common.nhotKey().then(res => res.registeredHotkeys(key).then(keys => console.log('keys are', keys)))
+    Native.Common.nhotKey().then(res => res.registeredHotkeys(key).then(keys => console.log('keys are', keys)))
   },
   print (type, value) {
-    YY.Common.print(type, value.toString())
+    Native.Common.print(type, value.toString())
   },
   OnKeyPressed (callback, caller) {
-    YY.Common.nhotKey().then((r) => {
+    Native.Common.nhotKey().then((r) => {
       connectSignal(r.nhotkeyPressed, (name) => {
         if (!callback) return
         if (caller) {
@@ -203,7 +203,7 @@ export default {
    * @return {*}
    */
   getAppDataPath () {
-    return YY.Common.getAppDataPath()
+    return Native.Common.getAppDataPath()
   },
   /**
    * 获取文件信息
@@ -211,14 +211,14 @@ export default {
    * @return {Promise<object{isFile: boolean, isDir: boolean, exists: boolean}>}
    */
   async getFileInfo (path) {
-    return YY.Common.getFileInfo(path)
+    return Native.Common.getFileInfo(path)
   },
 
   getTopWindows () {
-    return YY.Common.getTopWindows(...arguments)
+    return Native.Common.getTopWindows(...arguments)
   },
   getCurrentProcessId () {
-    return YY.Common.getCurrentProcessId(...arguments)
+    return Native.Common.getCurrentProcessId(...arguments)
   },
   /**
    * 获取文件夹下面的文件列表
@@ -226,7 +226,7 @@ export default {
    * @return {Promise<*|Promise<*>>}
    */
   async getFolderFiles (dir) {
-    return YY.Common.getFolderFiles(dir)
+    return Native.Common.getFolderFiles(dir)
   },
   /**
    * 删除文件
@@ -234,7 +234,7 @@ export default {
    * @return {Promise<boolean>}
    */
   async deleteFile (path) {
-    return YY.Common.deleteFiles([path])
+    return Native.Common.deleteFiles([path])
   },
   /**
    * 批量删除文件
@@ -242,7 +242,7 @@ export default {
    * @return {Promise<*|Promise<*>>}
    */
   async deleteFiles (pathArr) {
-    return YY.Common.deleteFiles(pathArr)
+    return Native.Common.deleteFiles(pathArr)
   },
   /**
    * 打开文件夹
@@ -250,7 +250,7 @@ export default {
    * @return {Promise<boolean>}
    */
   async openFolder (path, createifnoexist) {
-    return YY.Common.openFolder(path, createifnoexist)
+    return Native.Common.openFolder(path, createifnoexist)
   },
   /**
    * 选择文件夹
@@ -258,26 +258,26 @@ export default {
    * @return {*|PromiseLike<T | never>|Promise<T | never>}
    */
   chooseFolder (title) {
-    return YY.Common.chooseFolder(title).then(res => {
+    return Native.Common.chooseFolder(title).then(res => {
       return res && res.replace(/\\/g, '/')
     })
   },
   async parseShortcutFiles (data) {
-    return YY.Common.parseShortcutFiles(data)
+    return Native.Common.parseShortcutFiles(data)
   },
   async executeFile(file) {
-    return YY.Common.executeFile(file)
+    return Native.Common.executeFile(file)
   },
   async getSystemDir () {
-    return YY.Common.getSystemDir()
+    return Native.Common.getSystemDir()
   },
   async getDesktopFilePath() {
-    return YY.Common.getDesktopFilePath()
+    return Native.Common.getDesktopFilePath()
   },
   async getDesktopDir() {
-    return YY.Common.getDesktopDir()
+    return Native.Common.getDesktopDir()
   },
   async fileSystemWatcher(path) {
-    return YY.Common.fileSystemWatcher(path)
+    return Native.Common.fileSystemWatcher(path)
   }
 }

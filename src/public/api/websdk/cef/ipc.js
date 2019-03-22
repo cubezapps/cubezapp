@@ -1,7 +1,7 @@
-const { YY, connectSignal } = window
+const { Native, connectSignal } = window
 export default {
   addWindowEventListener (listenerCallback, caller = null) {
-    connectSignal(YY.Common.dataTransfered, (sender, receiver, uri, data) => {
+    connectSignal(Native.Common.dataTransfered, (sender, receiver, uri, data) => {
       const payload = { uri, data }
       if (listenerCallback) {
         if (caller) {
@@ -14,7 +14,7 @@ export default {
     // return new Promise()
   },
   dispatchWindowEvent (uri, data) {
-    YY.Common.transfer('', '', uri, data)
+    Native.Common.transfer('', '', uri, data)
     // return new Promise()
   },
   /**
