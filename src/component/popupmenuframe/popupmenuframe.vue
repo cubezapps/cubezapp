@@ -92,6 +92,7 @@ export default {
       document.body.oncontextmenu = (e) => {
         return false
       }
+      this.$WebSDK('win.setResizeBorderWidth', 0)
     },
     onPopupClick (event, name) {
       let obj = {}

@@ -44,11 +44,9 @@ export default {
     this.$WebSDK('win.setMaxSize', 486, 1000)
     this.$WebSDK('win.needResizable', false)
     this.$WebSDK('win.needTaskBar', true)
-    this.$WebSDK('sdk.hideLoading')
     this.$WebSDK('win.needShadow', true)
     this.$WebSDK('win.setTopHide', true)
     this.$WebSDK('win.needAlwaysFront', true)
-    this.$WebSDK('win.show')
     this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.MainFrame_ShowWindow:
@@ -61,7 +59,6 @@ export default {
           break
       }
     }, this)
-    this.$WebSDK('win.restore')
     this.$WebSDK('common.trayIconLeftClickListener', () => {
         this.$WebSDK('win.restore')
         this.$WebSDK('win.forefront')
@@ -80,6 +77,7 @@ export default {
         }
       )*/
     this.$WebSDK('sdk.openWindow', '/popupmenu', 'popupmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
+    this.$WebSDK('sdk.openWindow', '/clipmenu', 'clipmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
     this.$WebSDK('common.trayIconShow')
     this.$WebSDK('common.trayIconToolTip', 'My Cubez')
     document.body.oncontextmenu = (e) => {

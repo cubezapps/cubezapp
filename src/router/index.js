@@ -6,6 +6,7 @@ const AboutFrame = () => import('@/component/aboutframe/aboutframe.vue')
 const SettingFrame = () => import('@/component/settingframe/settingframe.vue')
 const TrayMenuFrame = () => import('@/component/traymenuframe/traymenuframe.vue')
 const PopupMenuFrame = () => import('@/component/popupmenuframe/popupmenuframe.vue')
+const ClipMenuFrame = () => import('@/component/clipmenuframe/clipmenuframe.vue')
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,10 @@ const routes = [
   {
     path: '/popupmenu',
     component: PopupMenuFrame
+  },
+  {
+    path: '/clipmenu',
+    component: ClipMenuFrame
   }
 ]
 

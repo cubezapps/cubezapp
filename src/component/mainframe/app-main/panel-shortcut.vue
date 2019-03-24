@@ -33,27 +33,30 @@ export default {
   async mounted() {
     let mainBrowser = await this.$WebSDK('sdk.cefBrowser', 0)
     //console.log(mainBrowser)
-    this.$refs.commonTag.$el.style.display = 'none'
+    this.$refs.commonTag.$el.style.display = 'flex'
     this.$refs.systemTag.$el.style.display = 'none'
     this.$refs.desktopTag.$el.style.display = 'none'
     window.connectSignal(mainBrowser.onDragNames, (names) => {
-      let addNew = false
-      for(let i = 0; i < names.length; i++) {
-         let objFile = {}
-         objFile['path'] = names[i]
-         objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
-         let n = objFile['path'].lastIndexOf("\\")
-         objFile['name'] = objFile['path'].substr(n + 1)
-         if(!this.isExist(objFile, this.commonData['items'])) {
-           this.commonData['items'].push(objFile)
-           addNew = true
-         } 
-      }
-      if(addNew) {
-        this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData)).then(r => { 
-            this.$VueBus.$emit('onRefresh', this.commonData.id)
-            this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
-         })
+      if(this.$refs.commonTag.$el.style.display == 'flex')
+      {
+          let addNew = false
+          for(let i = 0; i < names.length; i++) {
+            let objFile = {}
+            objFile['path'] = names[i]
+            objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
+            let n = objFile['path'].lastIndexOf("\\")
+            objFile['name'] = objFile['path'].substr(n + 1)
+            if(!this.isExist(objFile, this.commonData['items'])) {
+              this.commonData['items'].push(objFile)
+              addNew = true
+            } 
+          }
+          if(addNew) {
+            this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.commonData)).then(r => { 
+                this.$VueBus.$emit('onRefresh', this.commonData.id)
+                this.$WebSDK('common.setConfig', 'commonData', JSON.stringify(this.commonData['items']))
+            })
+          }
       }
     })
     this.$VueBus.$on('onDeleteItem', (id, obj) => {
@@ -119,8 +122,8 @@ export default {
     })
 
     await this.$VueBus.$emit('onRefresh', this.commonData.id)
-    
-    
+    this.$WebSDK('sdk.hideLoading')
+    this.$WebSDK('win.show')
   },
   computed: {
       

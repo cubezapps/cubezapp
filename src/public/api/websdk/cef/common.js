@@ -279,5 +279,26 @@ export default {
   },
   async fileSystemWatcher(path) {
     return Native.Common.fileSystemWatcher(path)
+  },
+  async getClipList() {
+    return Native.Common.ClipBoard.getClipList()
+  },
+  async startMonitor() {
+    return Native.Common.ClipBoard.startMonitor()
+  },
+  async stopMonitor() {
+    return Native.Common.ClipBoard.stopMonitor()
+  },
+  async setClipBoard() {
+    return Native.Common.ClipBoard.setClipBoard()
+  },
+  async getCursorPos() {
+    return Native.Common.getCursorPos()
+  },
+  async setClipBoard(id) {
+    return Native.Common.ClipBoard.setClipBoard(id)
+  },
+  async executeClipBoard(x, y) {
+    return Native.Common.ClipBoard.executeClipBoard(x, y)
   }
 }
