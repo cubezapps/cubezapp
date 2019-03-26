@@ -1,7 +1,6 @@
 <template>
   <div class="app-bottombar">
-     <button v-on:click="onClick()">click</button>
-     <router-link to="/about">Go to about</router-link>
+     
   </div>
 </template>
 
@@ -13,10 +12,7 @@ export default {
     }
   },
    methods: {
-    onClick() {
-       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.CloseWindow_SettingFrame, '')
-       this.$WebSDK('sdk.openWindow', '/about', 'aboutframe', 'resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,guardapp:0')
-    }
+
   }
 }
 </script>

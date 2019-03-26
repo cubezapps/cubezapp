@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      trayMenuId: 0
+      _trayMenuId: 0
     }
   },
   async mounted () {
@@ -50,9 +50,7 @@ export default {
     this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.MainFrame_ShowWindow:
-          this.$WebSDK('win.restore')
-          this.$WebSDK('win.forefront')
-          this.$WebSDK('win.show')
+          this.showWindow()
           break
         case this.$DataUri.App_CloseAllWindow:
           window.close()
@@ -60,13 +58,11 @@ export default {
       }
     }, this)
     this.$WebSDK('common.trayIconLeftClickListener', () => {
-        this.$WebSDK('win.restore')
-        this.$WebSDK('win.forefront')
-        this.$WebSDK('win.show')
+        this.showWindow()
     }, this)
 
     let browserObj = await this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
-    this.trayMenuId = await browserObj.winId()
+    this._trayMenuId = await browserObj.winId()
     /* this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(
         (ret) => {
           ret.winId().then(
@@ -85,8 +81,20 @@ export default {
     }
   },
   methods: {
-    closeWindow () {
+    closeWindow() {
       window.close()
+    },
+    showWindow() {
+      this.$WebSDK('win.setTopHide', false)
+      this.$WebSDK('win.restore')
+      this.$WebSDK('win.forefront')
+      this.$WebSDK('win.show')
+      this._timeId = window.setTimeout(() => {
+          window.clearTimeout(this._timeId)
+          this.$WebSDK('win.setTopHide', true)
+          this.$WebSDK('win.forefront')
+          this.$WebSDK('win.show')
+      }, 2000)
     }
   }
 }
