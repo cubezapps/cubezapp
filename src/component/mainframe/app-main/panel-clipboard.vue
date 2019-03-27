@@ -1,5 +1,10 @@
 <template>
-    <div class="backpanel"></div> 
+    <div class="clipboard-backpanel">
+        <div class="clipboard-notice" ref="noticeTag">
+          <p class="notice">{{text1}} <span :style="{ 'color': 'red' }">Ctrl+v</span></p>
+          <p class="notice">{{text2}} <span :style="{ 'color': 'red' }">Ctrl+~</span> {{text3}}</p>
+        </div>
+    </div> 
 </template>
 
 <script>
@@ -9,7 +14,9 @@ export default {
   },
   data () {
     return {
-      
+      text1: 'When you need to press ',
+      text2: "Try",
+      text3: " instead"
     }
   },
   mounted() {
@@ -29,8 +36,15 @@ export default {
 </style>
 
 <style lang='scss' scoped>
-  .backpanel {
+  .clipboard-backpanel {
     flex: 1 1 auto;
-    background-color: orange;
+    background-color: beige;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+  .notice {
+      font-size: 14px;
   }
 </style>

@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      _trayMenuId: 0
+      trayMenuId: 0
     }
   },
   async mounted () {
@@ -62,7 +62,7 @@ export default {
     }, this)
 
     let browserObj = await this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
-    this._trayMenuId = await browserObj.winId()
+    this.trayMenuId = await browserObj.winId()
     /* this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(
         (ret) => {
           ret.winId().then(
@@ -89,8 +89,8 @@ export default {
       this.$WebSDK('win.restore')
       this.$WebSDK('win.forefront')
       this.$WebSDK('win.show')
-      this._timeId = window.setTimeout(() => {
-          window.clearTimeout(this._timeId)
+      this.timeId = window.setTimeout(() => {
+          window.clearTimeout(this.timeId)
           this.$WebSDK('win.setTopHide', true)
           this.$WebSDK('win.forefront')
           this.$WebSDK('win.show')

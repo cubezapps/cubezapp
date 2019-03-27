@@ -34,7 +34,7 @@ export default {
   },
   updated() {
       if(this.cliplist.length === 0) {
-        this.$DK('win.hide')
+        this.$WebSDK('win.hide')
       }
       else {
         let tmp = this.$refs.appmenu

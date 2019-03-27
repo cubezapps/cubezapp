@@ -45,20 +45,20 @@ export default {
        }, this)
 
       this.$WebSDK('common.trayIconHoverEnterListener', () => {
-        this._trayenter = true
+        this.trayenter = true
         this.clearDelay()
       }, this)
       this.$WebSDK('common.trayIconHoverLeaveListener', () => {
-        this._trayenter = false
+        this.trayenter = false
         this.delayHide()
       }, this)
 
       this.$WebSDK('win.regEvent', 'MouseEnter', () => {
         this.clearDelay()
-        this._mouseenter = true
+        this.mouseenter = true
       }, this)
       this.$WebSDK('win.regEvent', 'MouseLeave', () => {
-        this._mouseenter = false
+        this.mouseenter = false
         this.delayHide()
       }, this)
 
@@ -78,13 +78,13 @@ export default {
        //this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_SetTaskbarIcon, '')
     },
     clearDelay () {
-      if (this._timeId !== undefined && this._timeId > 0) {
-        clearTimeout(this._timeId)
+      if (this.timeId !== undefined && this.timeId > 0) {
+        clearTimeout(this.timeId)
       }
     },
     delayHide() {
-      this._timeId = setTimeout(() => {
-          if(!this._mouseenter && !this._trayenter)
+      this.timeId = setTimeout(() => {
+          if(!this.mouseenter && !this.trayenter)
             this.$WebSDK('win.hide')
         }, 500)
     },
