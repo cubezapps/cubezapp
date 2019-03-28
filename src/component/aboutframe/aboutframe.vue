@@ -33,7 +33,7 @@ export default {
       this.$WebSDK('win.move', 4)
       this.setCaptionArea()
       this.$WebSDK('win.show')
-      this.$WebSDK('win.needResizable', true)
+      this.$WebSDK('win.needSystemAutoMinMax', true)
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.App_CloseAllWindow:

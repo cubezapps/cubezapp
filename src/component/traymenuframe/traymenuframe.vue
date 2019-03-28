@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import i18n from '@/i18n'
 export default {
   name: 'traymenu',
   metaInfo: {
@@ -33,8 +34,11 @@ export default {
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
        switch (uri) {
          case this.$DataUri.App_CloseAllWindow:
-           window.close()
-           break
+            window.close()
+            break
+         case this.$DataUri.APP_LanguageChange:
+            i18n.setLocale(data)
+            break
         }
       }, this)
       this.$WebSDK('common.trayIconRightClickListener', () => {

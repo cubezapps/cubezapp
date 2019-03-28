@@ -5,6 +5,7 @@ class DataUri {
     static SettingFrame_SetTaskbarIcon = 'DataUri_SettingFrame_SetTaskbarIcon';
     static APP_PopupMenuClick = 'DataUri_APP_PopupMenuClick';
     static APP_PopupMenu = 'DataUri_APP_PopupMenu';
+    static APP_LanguageChange = 'DataUri_APP_LanguageChange';
 }
 
 export const DataUriPlugin = {

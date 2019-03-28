@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import i18n from '@/i18n'
 export default {
   name: 'popupmenu',
   metaInfo: {
@@ -68,6 +69,9 @@ export default {
             this.path = obj.path
             break
           }
+          case this.$DataUri.APP_LanguageChange:
+            i18n.setLocale(data)
+            break
         }
       }, this)
       this.$WebSDK('win.regEvent', 'MouseEnter', () => {

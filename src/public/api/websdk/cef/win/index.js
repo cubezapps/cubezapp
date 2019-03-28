@@ -74,7 +74,7 @@ export default {
    * @param need {boolean}
    * @return {*}
    */
-  needResizable (need = true) {
+  needSystemAutoMinMax (need = true) {
     return winStyleControl(addStyleMap.get('resizable'), need)
   },
   /**

@@ -12,6 +12,7 @@ import apptopbar from './app-topbar/app-topbar.vue'
 //import appinfo from './app-info/app-info.vue'
 import appmain from './app-main/app-main.vue'
 import appbottombar from './app-bottombar/app-bottombar.vue'
+import i18n from '@/i18n'
 
 export default {
   name: 'app',
@@ -42,11 +43,11 @@ export default {
     this.$WebSDK('win.setResizeBorderWidth', 2)
     this.$WebSDK('win.setMinSize', 326, 600)
     this.$WebSDK('win.setMaxSize', 486, 1000)
-    this.$WebSDK('win.needResizable', false)
+    this.$WebSDK('win.needSystemAutoMinMax', false)
     this.$WebSDK('win.needTaskBar', true)
     this.$WebSDK('win.needShadow', true)
     this.$WebSDK('win.setTopHide', true)
-    this.$WebSDK('win.needAlwaysFront', true)
+    //this.$WebSDK('win.needAlwaysFront', true)
     this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.MainFrame_ShowWindow:
@@ -54,6 +55,9 @@ export default {
           break
         case this.$DataUri.App_CloseAllWindow:
           window.close()
+          break
+        case this.$DataUri.APP_LanguageChange:
+          i18n.setLocale(data)
           break
       }
     }, this)

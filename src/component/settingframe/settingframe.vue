@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import i18n from '@/i18n'
 export default {
   metaInfo: {
         title: 'Settingframe', // set a title
@@ -26,9 +27,9 @@ export default {
   },
   methods: {
     init() {
-      this.$WebSDK('win.resize', 400, 400)
+      this.$WebSDK('win.resize', 460, 300)
       this.$WebSDK('win.move', 4)
-      this.$WebSDK('win.needResizable', true)
+      this.$WebSDK('win.needSystemAutoMinMax', false)
       this.$WebSDK('win.show')
       window.onresize = () => {
         this.resetCaptionArea()
@@ -43,8 +44,8 @@ export default {
         case this.$DataUri.App_CloseAllWindow:
           window.close()
           break
-        case this.$DataUri.SettingFrame_SetTaskbarIcon:
-          this.$WebSDK('win.setOverlayIcon', '/res/cube-3.ico', 'ddddd')
+        case this.$DataUri.APP_LanguageChange:
+          i18n.setLocale(data)
           break
       }
     })

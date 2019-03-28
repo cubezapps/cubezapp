@@ -2,7 +2,7 @@
   <div class="app-topbar">
     <div class="app-topbar-logo">
       <img class="logo-image" v-bind:src="logoImage" alt="">
-      <label class="logo-link">A Box</label>
+      <label class="logo-link">{{$t('A Box')}}</label>
     </div>
     <div class="app-topbar-space"></div>
     <div class="app-topbar-buttons" ref="buttonsArea">
@@ -17,6 +17,7 @@
 
 <script>
 import logoImage from './img/logo.png'
+import i18n from '@/i18n'
 export default {
   data () {
     return {
@@ -46,6 +47,7 @@ export default {
       this.$WebSDK('win.minimize')
     },
     onSettingBtnClick() {
+      i18n.setLocale('en', true)
       this.$WebSDK('sdk.openWindow', '/setting', 'settingframe', 'resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
     }
   }

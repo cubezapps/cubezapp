@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import i18n from '@/i18n'
 export default {
   name: 'Clipmenu',
   metaInfo: {
@@ -88,6 +89,9 @@ export default {
             window.close()
             break
           }
+          case this.$DataUri.APP_LanguageChange:
+            i18n.setLocale(data)
+            break
         }
       }, this)
       this.$WebSDK('common.registerNHotkey', 'clipboard', 162, false)
