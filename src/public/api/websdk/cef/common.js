@@ -300,5 +300,8 @@ export default {
   },
   async executeClipBoard(x, y) {
     return Native.Common.ClipBoard.executeClipBoard(x, y)
+  },
+  getCryptographyHash(filelist) {
+    return Native.Common.getCryptographyHash(filelist)
   }
 }

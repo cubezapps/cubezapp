@@ -6,6 +6,7 @@ import { WebSDKPlugin } from './public/api/websdk'
 import { DataUriPlugin }  from '@/public/common/DataUri'
 import Logger, { LoggerPlugin } from '@/public/base/Logger'
 import i18n from '@/i18n'
+import store from './store'
 //import { TrayIconPlugin } from '@/public/common/TrayIcon'
 
 Vue.config.productionTip = false
@@ -19,5 +20,6 @@ Logger.log('start to new Vue')
 const vue = new Vue({
   router,
   i18n,
+  store,
   render: h => h(App),
 }).$mount('#app')

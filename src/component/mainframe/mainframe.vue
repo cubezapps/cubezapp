@@ -47,7 +47,7 @@ export default {
     this.$WebSDK('win.needTaskBar', true)
     this.$WebSDK('win.needShadow', true)
     this.$WebSDK('win.setTopHide', true)
-    //this.$WebSDK('win.needAlwaysFront', true)
+    this.$WebSDK('win.needAlwaysFront', true)
     this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.MainFrame_ShowWindow:

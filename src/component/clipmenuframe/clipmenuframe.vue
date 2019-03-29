@@ -49,17 +49,17 @@ export default {
             let text = ""
             if(clipdata.type === 1) {
               //text
-              text = "[Text]"
+              text = "【Text】"
               text += clipdata.text
             }
             else if(clipdata.type === 2) {
               //HBITMAP
-              text = "[Memory]"
+              text = "【Memory】"
               text += "Image"
             }
             else if(clipdata.type === 15) {
               //copy files
-              text = "[Files]"
+              text = "【Files】"
               for(let i = 0; i < clipdata.files.length; i++) {
                 let n = clipdata.files[i].lastIndexOf("\\")
                 text += clipdata.files[i].substr(n + 1) + " "
@@ -81,7 +81,6 @@ export default {
       console.log(this.cliplist)
       window.connectSignal(window.Native.Common.ClipBoard.onClipBoardChanged, (list) => {
            this.cliplist = list
-           console.log(list)
       });
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
        switch (uri) {
@@ -103,6 +102,7 @@ export default {
             this._mouseenter = true
             this.x = pos.x
             this.y = pos.y
+            console.log(pos.y)
             this.$WebSDK('win.move', this.x, this.y)
             this.$WebSDK('win.show')
             this.$WebSDK('win.forefront')

@@ -8,7 +8,7 @@
      <div ref="mainPanelsRef" class="main-panels">
          <shortcutpanel v-show="curId == 0"></shortcutpanel>
          <clipboardpanel v-show="curId == 1"></clipboardpanel>
-         <timerpanel v-show="curId == 2"></timerpanel>
+         <hashpanel v-show="curId == 2"></hashpanel>
          <wallpaperpanel v-show="curId == 3"></wallpaperpanel>
      </div>
   </div>
@@ -23,7 +23,7 @@ import img3 from './img/img3.png'
 import img4 from './img/img4.png'
 import shortcutpanel from './panel-shortcut.vue'
 import clipboardpanel from './panel-clipboard.vue'
-import timerpanel from './panel-timer.vue'
+import hashpanel from './panel-hash.vue'
 import wallpaperpanel from './panel-wallpaper.vue'
 
 export default {
@@ -31,7 +31,7 @@ export default {
     appbutton,
     shortcutpanel,
     clipboardpanel,
-    timerpanel,
+    hashpanel,
     wallpaperpanel
   },
   data () {
@@ -51,6 +51,7 @@ export default {
       }
   },
   mounted() {
+      this.$store.dispatch('global/setCurrentTableId', { id: this.curId }) 
       this.btnItems.push({
         'id': 0,
         'tips': 'shortcut',
@@ -65,19 +66,19 @@ export default {
       })
       this.btnItems.push({
         'id': 2,
-        'tips': 'timer',
+        'tips': 'hash',
         'imgstyle': {'background-image':`url(${this.img2})`},
         'isClick': false
       })
       this.btnItems.push({
         'id': 3,
-        'tips': 'wallpaper',
+        'tips': 'IM',
         'imgstyle': {'background-image':`url(${this.img3})`},
         'isClick': false
       })
       this.btnItems.push({
         'id': 4,
-        'tips': 'tips44',
+        'tips': 'secret',
         'imgstyle': {'background-image':`url(${this.img4})`},
         'isClick': false
       })
@@ -86,6 +87,7 @@ export default {
           this.btnItems[this.curId].isClick = false
           this.btnItems[val.id].isClick = true
           this.curId = val.id
+          this.$store.dispatch('global/setCurrentTableId', { id: this.curId }) 
         }
       })
   },

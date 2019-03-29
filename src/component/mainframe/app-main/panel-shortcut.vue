@@ -37,6 +37,9 @@ export default {
     this.$refs.systemTag.$el.style.display = 'none'
     this.$refs.desktopTag.$el.style.display = 'none'
     window.connectSignal(mainBrowser.onDragNames, (names) => {
+      let curId = this.$store.getters['global/curTableId'] 
+      if(curId != 0)
+        return
       if(this.$refs.commonTag.$el.style.display == 'flex')
       {
           let addNew = false
