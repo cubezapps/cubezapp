@@ -2,7 +2,7 @@
   <div class="app-menu">
     <ul ref="appmenu"  class="dropdown-menu">
         <li @click.stop="showMainFrame">Show MainFrame</li>
-        <li>Setting</li>
+        <li @click.stop="showSettingFrame">Setting</li>
         <li class="quit" @click.stop="quitClick">Exit</li>
     </ul>
   </div>
@@ -80,6 +80,10 @@ export default {
        this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.MainFrame_ShowWindow, '')
        this.$WebSDK('win.hide')
        //this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_SetTaskbarIcon, '')
+    },
+    showSettingFrame() {
+       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_ShowWindow, '')
+       this.$WebSDK('win.hide')
     },
     clearDelay () {
       if (this.timeId !== undefined && this.timeId > 0) {

@@ -7,7 +7,7 @@ export default {
     return Native.Sdk.loadingWindow.show(...arguments)
   },
   // this.$WebSDK('sdk.openWindow', url, '_blank', param)
-  openWindow () {
+  async openWindow () {
     return Native.Sdk.open(...arguments)
   },
   getSdkVersion () {

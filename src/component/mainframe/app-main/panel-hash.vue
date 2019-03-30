@@ -76,7 +76,7 @@ export default {
             }
         }
       }
-      if(unfold > 0) {
+      if(unfold >= 0) {
         for(let i = 0; i < this.$refs.btnItem.length; i++) {
             if(unfold != i) {
               this.tags[i].$el.style.display = 'none'

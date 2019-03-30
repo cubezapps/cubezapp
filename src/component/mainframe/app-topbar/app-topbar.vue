@@ -21,7 +21,8 @@ import i18n from '@/i18n'
 export default {
   data () {
     return {
-        logoImage: logoImage
+        logoImage: logoImage,
+        browserObj: null
     }
   },
   mounted () {
@@ -29,15 +30,7 @@ export default {
   },
   methods: {
     init() {
-      window.onresize = () => {
-        this.resetCaptionArea()
-      }
-      this.resetCaptionArea()
-    },
-    resetCaptionArea () {
-      let buttonsAreaWidth = this.$refs.buttonsArea.offsetWidth
-      let areaTop = [0, 0, document.body.offsetWidth - buttonsAreaWidth,  50]
-      this.$WebSDK('win.setDragArea', [areaTop])
+      
     },
     onCloseBtnClick () {
       this.$WebSDK('win.minimize')
@@ -47,8 +40,7 @@ export default {
       this.$WebSDK('win.minimize')
     },
     onSettingBtnClick() {
-      i18n.setLocale('en', true)
-      this.$WebSDK('sdk.openWindow', '/setting', 'settingframe', 'resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
+      this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_ShowWindow, '') 
     }
   }
 }
