@@ -1,7 +1,7 @@
 <template>
     <div class="shortcutitem-backpanel">
         <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="buttonItem" @click="onClick($event)" @contextmenu="onPopupMenu($event)"/>
-        <textarea class="txt" ref="textItem" spellcheck="false" :value="item.name" readonly="true" @change="onChange($event)" @blur="onBlur($event)"/>
+        <textarea class="txt" ref="textItem" spellcheck="false" :value="name_I18n(item.name)" readonly="true" @change="onChange($event)" @blur="onBlur($event)"/>
     </div> 
 </template>
 
@@ -64,6 +64,11 @@ export default {
         let tmpUrl = `url(http://localhost/local/res/${this.item.hash}.ico)`
         //console.log(tmpUrl)
         return tmpUrl
+      },
+      name_I18n() {
+        return function(name) {
+          return this.$t(name)
+        }
       }
   },
   methods: {

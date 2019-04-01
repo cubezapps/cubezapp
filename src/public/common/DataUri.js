@@ -6,6 +6,7 @@ class DataUri {
     static APP_PopupMenu = 'DataUri_APP_PopupMenu';
     static APP_LanguageChange = 'DataUri_APP_LanguageChange';
     static SettingFrame_ShowWindow = 'DataUri_SettingFrame_ShowWindow';
+    static MainFrame_ResetWindow = 'DataUri_MainFrame_ResetWindow'
 }
 
 export const DataUriPlugin = {

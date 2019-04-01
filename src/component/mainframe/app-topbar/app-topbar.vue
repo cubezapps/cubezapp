@@ -2,14 +2,14 @@
   <div class="app-topbar">
     <div class="app-topbar-logo">
       <img class="logo-image" v-bind:src="logoImage" alt="">
-      <label class="logo-link">{{$t('A Box')}}</label>
+      <label class="logo-link">{{$t('Cubez')}}</label>
     </div>
     <div class="app-topbar-space"></div>
     <div class="app-topbar-buttons" ref="buttonsArea">
       <ul> 
-        <li><input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="'Close'"/></li> 
-        <li><input type="button" @click="onMinBtnClick()" class="window-min-btn" v-tooltip="'Minimize'"/></li>
-        <li><input type="button" @click="onSettingBtnClick()" class="window-setting-btn" v-tooltip="'Setting'"/></li>
+        <li><input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="$t('Close')"/></li> 
+        <li><input type="button" @click="onMinBtnClick()" class="window-min-btn" v-tooltip="$t('Minimize')"/></li>
+        <li><input type="button" @click="onSettingBtnClick()" class="window-setting-btn" v-tooltip="$t('Setting')"/></li>
       </ul>
     </div>
   </div>
@@ -87,7 +87,7 @@ $buttonswidth: 80px;
       .logo-image {
           width: 36px;
           height: 36px;
-          margin: 7px 0px 7px 15px;
+          margin: 6px 0px 7px 10px;
       }
       .logo-link { 
           margin: 16px 5px 0px 5px;

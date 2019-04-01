@@ -31,6 +31,6 @@ export default {
 <style lang='scss' scoped>
   .backpanel {
     flex: 1 1 auto;
-    background-color: gray;
+    background-color: inherit;
   }
 </style>

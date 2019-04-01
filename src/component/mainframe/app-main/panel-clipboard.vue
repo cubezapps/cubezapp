@@ -1,11 +1,11 @@
 <template>
     <div class="clipboard-backpanel">
         <div class="clipboard-notice" ref="noticeTag">
-          <p class="notice">{{text1}} <span :style="{ 'color': 'red' }">Ctrl+v</span></p>
-          <p class="notice">{{text2}} <span :style="{ 'color': 'red' }">Ctrl+~</span> {{text3}}</p>
+          <p class="notice" :style="{'color': 'gray'}">{{$t('When you need to press ')}} <span :style="{ 'color': 'deeppink' }">Ctrl+v</span></p>
+          <p class="notice" :style="{'color': 'gray'}">{{$t("Try")}} <span :style="{ 'color': 'deeppink' }">Ctrl+~</span> {{$t(" instead")}}</p>
         </div>
         <div class="memoDiv">
-           <textarea class="memo" ref="memoTag" spellcheck="false" readonly="true" >qweqwewq</textarea>
+           <textarea class="memo" ref="memoTag" spellcheck="false" readonly="true" ></textarea>
         </div>
     </div> 
 </template>
@@ -17,9 +17,6 @@ export default {
   },
   data () {
     return {
-      text1: 'When you need to press ',
-      text2: "Try",
-      text3: " instead",
       clearFlag : 0
     }
   },

@@ -7,7 +7,7 @@
       </div>
       <div class="blankdiv"></div>
       <div class="btndiv">
-        <input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="'Close'"/>
+        <input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="$t('Close')"/>
       </div>
     </div>
 </template>

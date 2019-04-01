@@ -2,8 +2,8 @@
   <div class="app-about">
     <div class="app-about-title">关于</div>
     <div class="app-about-close" @click.stop = "closeWindow"></div>
-    <div class="app-about-copyright">版权所有 @2005-2017 YY.com, All Rights Reserved. 欢聚时代 版权所有</div>
-    <div class="app-about-protocol">服务协议</div>
+    <div class="app-about-copyright"></div>
+    <div class="app-about-protocol"></div>
   </div>
 </template>
 

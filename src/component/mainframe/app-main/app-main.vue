@@ -2,14 +2,14 @@
   <div class="app-main">
      <div class="main-buttons">
        <ul ref="ulpanel"> 
-         <appbutton v-for="item of btnItems" :key="item.id" :id="item.id" :tips="item.tips" :imgstyle="item.imgstyle" :isClick="item.isClick"></appbutton>
+         <appbutton v-for="item of btnItems" :key="item.id" :id="item.id" :tips="item_i18n(item.tips)" :imgstyle="item.imgstyle" :isClick="item.isClick"></appbutton>
        </ul>
      </div>
      <div ref="mainPanelsRef" class="main-panels">
          <shortcutpanel v-show="curId == 0"></shortcutpanel>
          <clipboardpanel v-show="curId == 1"></clipboardpanel>
          <hashpanel v-show="curId == 2"></hashpanel>
-         <wallpaperpanel v-show="curId == 3"></wallpaperpanel>
+         <impanel v-show="curId == 3"></impanel>
      </div>
   </div>
 </template>
@@ -24,7 +24,8 @@ import img4 from './img/img4.png'
 import shortcutpanel from './panel-shortcut.vue'
 import clipboardpanel from './panel-clipboard.vue'
 import hashpanel from './panel-hash.vue'
-import wallpaperpanel from './panel-wallpaper.vue'
+import impanel from './panel-im.vue'
+import i18n from '@/i18n'
 
 export default {
   components: {
@@ -32,7 +33,7 @@ export default {
     shortcutpanel,
     clipboardpanel,
     hashpanel,
-    wallpaperpanel
+    impanel
   },
   data () {
     return {
@@ -72,13 +73,13 @@ export default {
       })
       this.btnItems.push({
         'id': 3,
-        'tips': 'IM',
+        'tips': 'flying pigeon',
         'imgstyle': {'background-image':`url(${this.img3})`},
         'isClick': false
       })
       this.btnItems.push({
         'id': 4,
-        'tips': 'secret',
+        'tips': 'developing',
         'imgstyle': {'background-image':`url(${this.img4})`},
         'isClick': false
       })
@@ -92,7 +93,11 @@ export default {
       })
   },
   computed: {
-      
+      item_i18n(tip) {
+        return function(tip) {
+          return this.$t(tip)
+        }
+      }
   }
 }
 </script>

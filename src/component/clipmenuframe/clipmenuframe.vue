@@ -97,17 +97,20 @@ export default {
       this.$WebSDK('common.registerNHotkey', 'clipboard', 192, false)
       this.$WebSDK('common.onKeyPressed', (name) => {
         if(name == 'clipboard') {
+          this.$WebSDK('common.getForegroundWindow').then(winId => {
+            this.winId = winId
+            console.log(this.winId)
             this.$WebSDK('common.getCursorPos').then(pos => {
-            this.clearDelay()
-            this._mouseenter = true
-            this.x = pos.x
-            this.y = pos.y
-            console.log(pos.y)
-            this.$WebSDK('win.move', this.x, this.y)
-            this.$WebSDK('win.show')
-            this.$WebSDK('win.forefront')
-            //this.$forceUpdate()
-          })
+              this.clearDelay()
+              this._mouseenter = true
+              this.x = pos.x
+              this.y = pos.y
+              this.$WebSDK('win.move', this.x, this.y)
+              this.$WebSDK('win.show')
+              this.$WebSDK('win.forefront')
+              //this.$forceUpdate()
+            })
+          })  
         }
       })
       this.$WebSDK('win.regEvent', 'MouseEnter', () => {
@@ -150,7 +153,7 @@ export default {
       this.$WebSDK('common.setClipBoard', clipdata.id)
       console.log(this.x)
       console.log(this.y)
-      this.$WebSDK('common.executeClipBoard', this.x, this.y)
+      this.$WebSDK('common.executeClipBoard', this.winId)
     },
   }
 }

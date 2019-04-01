@@ -1,7 +1,7 @@
 <template>
   <div class="app-menu">
     <ul ref="appmenu"  class="dropdown-menu">
-        <li v-for="menuname of menus" :key="menuname" @click.stop="onPopupClick($event, menuname)">{{menuname}}</li>
+        <li v-for="menuname of menus" :key="menuname" @click.stop="onPopupClick($event, menuname)">{{menuname_I18n(menuname)}}</li>
     </ul>
   </div>
 </template>
@@ -26,7 +26,8 @@ export default {
       y: 0,
       hash: '',
       menus: [],
-      path: ''
+      path: '',
+      langChanged: false
     }
   },
   mounted () {
@@ -40,14 +41,20 @@ export default {
         this.$WebSDK('win.hide')
       }
       else {
-        let tmp = this.$refs.appmenu
-        this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
-        console.log('popup resize: ' + tmp.offsetWidth + ' ' + tmp.offsetHeight)
-        this.$WebSDK('win.move', this.x, this.y)
-        this.$WebSDK('win.show')
-        this.$WebSDK('win.forefront')
-        this.clearDelay()
-        this._mouseenter = true
+        if(!this.langChanged) {
+          let tmp = this.$refs.appmenu
+          this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
+          console.log('popup resize: ' + tmp.offsetWidth + ' ' + tmp.offsetHeight)
+          this.$WebSDK('win.move', this.x, this.y)
+          this.$WebSDK('win.show')
+          this.$WebSDK('win.forefront')
+          this.clearDelay()
+          this._mouseenter = true
+        }
+        else {
+          this.$WebSDK('win.move', 9999, 9999)
+          this.langChanged = false
+        }
       } 
   },
   methods: {
@@ -71,6 +78,7 @@ export default {
           }
           case this.$DataUri.APP_LanguageChange:
             i18n.setLocale(data)
+            this.langChanged = true
             break
         }
       }, this)
@@ -118,6 +126,13 @@ export default {
           }
         }, 500)
     }
+  },
+  computed: {
+    menuname_I18n() {
+        return function(name) {
+          return this.$t(name)
+        }
+      }
   }
 }
 </script>
@@ -137,7 +152,7 @@ export default {
   left: 0;
   z-index: 1000;
   padding: 5px 2px 5px 2px;
-  font-size: 14px;
+  font-size: 12px;
   text-align: left;
   list-style: none;
   border: 1px solid rgb(198, 208, 218);

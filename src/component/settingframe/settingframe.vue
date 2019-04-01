@@ -1,16 +1,16 @@
 /* eslint-disable */
 <template>
   <div class="backgrounddiv">
-     <tittlebar :tittle="'Settings'"></tittlebar>
+     <tittlebar :tittle="$t('Setting')"></tittlebar>
      <div class="maindiv">
          <div class="linediv">
-            <div>Start with the system</div><input type="checkbox" ref="boot" id="switch1" @click="onBootBtnClick()"/><label for="switch1">Toggle</label><div class="spacediv"></div>
+            <div>{{$t('Start with the system')}}</div><input type="checkbox" ref="boot" id="switch1" @click="onBootBtnClick()"/><label for="switch1">Toggle</label><div class="spacediv"></div>
          </div>
          <div class="linediv">
-            <div>Switch to Chinese</div><input type="checkbox" ref="chineseLang" id="switch2" @click="onChineseLangCheck($event)"/><label for="switch2">Toggle</label><div class="spacediv"></div>
+            <div>{{$t('Switch to Chinese')}}</div><input type="checkbox" ref="chineseLang" id="switch2" @click="onChineseLangCheck($event)"/><label for="switch2">Toggle</label><div class="spacediv"></div>
          </div>
          <div class="linediv">
-            <div>Switch to English</div><input type="checkbox" ref="englishLang" id="switch3" @click="onEnglishLangCheck($event)"/><label for="switch3">Toggle</label><div class="spacediv"></div>
+            <div>{{$t('Switch to English')}}</div><input type="checkbox" ref="englishLang" id="switch3" @click="onEnglishLangCheck($event)"/><label for="switch3">Toggle</label><div class="spacediv"></div>
          </div>
       </div>
   </div>
@@ -71,6 +71,7 @@ export default {
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.SettingFrame_ShowWindow:
+          this.$WebSDK('win.move', 4)
           this.$WebSDK('win.show')
           break
         case this.$DataUri.App_CloseAllWindow:
@@ -87,7 +88,7 @@ export default {
       this.$WebSDK('win.setDragArea', [areaTop])
     },
     onBootBtnClick() {
-      this.$WebSDK('common.isAutoRun', this.$refs.boot.checked)
+      this.$WebSDK('common.setAutoRun', this.$refs.boot.checked)
     },
     onChineseLangCheck(event) {
       if(this.$refs.chineseLang.checked) {
@@ -133,18 +134,18 @@ $back-color: rgb(0, 137, 227);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
 
   .linediv {
     height: 30px;
    // background-color: red;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-	  //align-items: center;
+    justify-content: center;
+	  align-items: center;
     margin-top: 10px;
     .spacediv {
-      flex: 0 0 23%;
+      flex: 0 0 auto;
     }
   }
 }

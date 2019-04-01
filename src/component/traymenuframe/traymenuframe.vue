@@ -1,9 +1,10 @@
 <template>
   <div class="app-menu">
     <ul ref="appmenu"  class="dropdown-menu">
-        <li @click.stop="showMainFrame">Show MainFrame</li>
-        <li @click.stop="showSettingFrame">Setting</li>
-        <li class="quit" @click.stop="quitClick">Exit</li>
+        <li @click.stop="showMainFrame">{{$t('Show MainFrame')}}</li>
+        <li @click.stop="resetMainFrame">{{$t('Reset MainFrame')}}</li>
+        <li @click.stop="showSettingFrame">{{$t('Setting')}}</li>
+        <li class="quit" @click.stop="quitClick">{{$t('Exit')}}</li>
     </ul>
   </div>
 </template>
@@ -42,7 +43,6 @@ export default {
         }
       }, this)
       this.$WebSDK('common.trayIconRightClickListener', () => {
-        this.$WebSDK('win.restore')
         this.$WebSDK('win.forefront')
         this.PoupuMenu()
         this.$WebSDK('win.show')
@@ -80,6 +80,10 @@ export default {
        this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.MainFrame_ShowWindow, '')
        this.$WebSDK('win.hide')
        //this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_SetTaskbarIcon, '')
+    },
+    resetMainFrame() {
+       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.MainFrame_ResetWindow, '')
+       this.$WebSDK('win.hide')
     },
     showSettingFrame() {
        this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_ShowWindow, '')
@@ -153,7 +157,7 @@ export default {
   left: 0;
   z-index: 1000;
   padding: 5px 2px 5px 2px;
-  font-size: 14px;
+  font-size: 12px;
   text-align: left;
   list-style: none;
   border: 1px solid rgb(198, 208, 218);

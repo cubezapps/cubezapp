@@ -298,8 +298,11 @@ export default {
   async setClipBoard(id) {
     return Native.Common.ClipBoard.setClipBoard(id)
   },
-  async executeClipBoard(x, y) {
-    return Native.Common.ClipBoard.executeClipBoard(x, y)
+  async executeClipBoard(winId) {
+    return Native.Common.ClipBoard.executeClipBoard(winId)
+  },
+  getForegroundWindow() {
+    return Native.Common.getForegroundWindow()
   },
   getCryptographyHash(filelist) {
     return Native.Common.getCryptographyHash(filelist)

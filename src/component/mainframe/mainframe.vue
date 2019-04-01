@@ -48,10 +48,11 @@ export default {
     this.$WebSDK('win.setMinSize', 326, 600)
     this.$WebSDK('win.setMaxSize', 486, 1000)
     this.$WebSDK('win.needSystemAutoMinMax', false)
-    this.$WebSDK('win.needTaskBar', true)
+    this.$WebSDK('win.needTaskBar', false)
     this.$WebSDK('win.needShadow', true)
     this.$WebSDK('win.setTopHide', true)
     this.$WebSDK('win.needAlwaysFront', true)
+    this.$WebSDK('win.move', screen.width / 2 - 326, 0)
     window.onresize = () => {
         this.setCaptionArea()
       }
@@ -61,11 +62,17 @@ export default {
         case this.$DataUri.MainFrame_ShowWindow:
           this.showWindow()
           break
+        case this.$DataUri.MainFrame_ResetWindow:
+          this.$WebSDK('win.show')
+          this.$WebSDK('win.move', screen.width / 2 - 326, 0)
+          this.showWindow()
+          break
         case this.$DataUri.App_CloseAllWindow:
           window.close()
           break
         case this.$DataUri.APP_LanguageChange:
           i18n.setLocale(data)
+          this.$WebSDK('common.trayIconToolTip', this.$t('My Cubez'))
           break
       }
     }, this)
@@ -92,9 +99,16 @@ export default {
     if(this.clipWindow == null)
       this.clipWindow = await this.$WebSDK('sdk.openWindow', '/clipmenu', 'clipmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
     this.$WebSDK('common.trayIconShow')
-    this.$WebSDK('common.trayIconToolTip', 'My Cubez')
+    this.$WebSDK('common.trayIconToolTip', this.$t('My Cubez'))
     document.body.oncontextmenu = (e) => {
         return false
+    }
+  },
+  computed: {
+    trayTip_I18n() {
+      return function() {
+        return this.$t('My Cubez')
+      }
     }
   },
   methods: {
@@ -103,7 +117,6 @@ export default {
     },
     showWindow() {
       this.$WebSDK('win.setTopHide', false)
-      this.$WebSDK('win.restore')
       this.$WebSDK('win.forefront')
       this.$WebSDK('win.show')
       this.timeId = window.setTimeout(() => {

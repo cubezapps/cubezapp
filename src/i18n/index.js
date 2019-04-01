@@ -35,12 +35,9 @@ const locales = {
 
 const i18n = new VueI18n({
   locale: getLocalLanguage(),
-  messages: locales
+  messages: locales,
+  silentTranslationWarn: true
 })
-
-i18n.missing = () => {
-  return '--'
-}
 
 // 增加 setlocate方法
 i18n.setLocale = async function (lang, doDispatch = false) {

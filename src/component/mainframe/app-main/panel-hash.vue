@@ -1,5 +1,6 @@
 <template>
     <div class="hash-backpanel" ref="hashRef">
+       <div v-if="firstFlag"><p :style="{'font-size': '14px', 'color': 'gray'}">{{$t('Drag files here to calculate Hash')}}</p></div>
        <div class="btn-item" ref="btnItem" v-for="(fileName, index) of fileList" :key="index" data-id="index" @click="onClick($event)">{{ showText(fileName)}}</div>
     </div> 
 </template>
@@ -14,7 +15,8 @@ export default {
     return {
       fileList: [],
       fileObj: {},
-      tags: []
+      tags: [],
+      firstFlag: true
     }
   },
   updated() {
@@ -31,11 +33,12 @@ export default {
       let curId = this.$store.getters['global/curTableId'] 
       if(curId != 2)
         return
+      this.firstFlag = false
       this.$WebSDK('common.getCryptographyHash', names).then(ret => {
         this.fileList = Object.keys(ret)
         this.fileObj = ret
         for(let i = 0; i < this.tags.length; i++) {
-            this.tags[i].$el.innerHTML = ''
+            this.$refs.btnItem[i].parentNode.removeChild(this.tags[i].$el)
         }
         this.$nextTick(() => {
             for(let i = 0; i < this.fileList.length; i++) {
@@ -44,7 +47,6 @@ export default {
               this.$refs.btnItem[i].parentNode.insertBefore(this.tags[i].$el, this.$refs.btnItem[i].nextSibling)
             }
             this.tags[0].$el.style.display = 'flex'
-            
         })
       })
     })

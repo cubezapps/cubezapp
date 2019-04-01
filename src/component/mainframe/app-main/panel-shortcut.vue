@@ -1,10 +1,10 @@
 <template>
     <div class="backpanel">
-        <div class="item" ref="commonItem" @click="onClick($event)">{{commonTittle}}</div>
+        <div class="item" ref="commonItem" @click="onClick($event)">{{this.$t('Common')}}</div>
         <shortcuttag ref="commonTag" :tagdata="commonData"></shortcuttag>
-        <div class="item" ref="systemItem" @click="onClick($event)">{{systemTittle}}</div>
+        <div class="item" ref="systemItem" @click="onClick($event)">{{this.$t('System')}}</div>
         <shortcuttag ref="systemTag" :tagdata="systemData"></shortcuttag>
-        <div class="item" ref="desktopItem" @click="onClick($event)">{{desktopTittle}}</div>
+        <div class="item" ref="desktopItem" @click="onClick($event)">{{this.$t('Desktop')}}</div>
         <shortcuttag ref="desktopTag" :tagdata="desktopData"></shortcuttag>
     </div> 
 </template>
@@ -22,9 +22,6 @@ export default {
   },
   data () {
     return {
-      commonTittle: 'Common',
-      systemTittle: 'System',
-      desktopTittle: 'Desktop',
       commonData: {},
       systemData: {},
       desktopData: {}
@@ -123,10 +120,9 @@ export default {
     window.connectSignal(watcherObj.onFileSystemChanged, () => {
       this.createDesktopShortcut()
     })
-
     await this.$VueBus.$emit('onRefresh', this.commonData.id)
     this.$WebSDK('sdk.hideLoading')
-    this.$WebSDK('win.show')
+    this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.MainFrame_ShowWindow, '')
   },
   computed: {
       
@@ -184,7 +180,7 @@ export default {
       let windowDir = systemDir.substr(0, n)
       notepadObj['path'] = systemDir + '\\notepad.exe'
       notepadObj['hash'] = SparkMd5.hash(notepadObj['path'].toLowerCase())
-      notepadObj['name'] = 'Notepad'  
+      notepadObj['name'] = 'Notepad'
       let calcObj = {}
       calcObj['path'] = systemDir + '\\calc.exe'
       calcObj['hash'] = SparkMd5.hash(calcObj['path'].toLowerCase())
@@ -212,7 +208,7 @@ export default {
       let snippingtoolObj = {}
       snippingtoolObj['path'] = windowDir + '\\Sysnative\\snippingtool.exe'
       snippingtoolObj['hash'] = SparkMd5.hash(snippingtoolObj['path'].toLowerCase())
-      snippingtoolObj['name'] = 'Shortcut'
+      snippingtoolObj['name'] = 'Screenshot'
       let soundRecorderObj = {}
       soundRecorderObj['path'] = windowDir + '\\Sysnative\\SoundRecorder.exe'
       soundRecorderObj['hash'] = SparkMd5.hash(soundRecorderObj['path'].toLowerCase())
@@ -249,7 +245,10 @@ export default {
           objFile['name'] = objFile['path'].substr(n + 1)
           this.desktopData['items'].push(objFile)
       }
-      this.desktopData['menus'] = []
+      let desktopMenu = []
+      desktopMenu.push('Open')
+      desktopMenu.push('Open Path...')
+      this.desktopData['menus'] = desktopMenu
       this.desktopData['id'] = 'desktopTag'
       await this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.desktopData))
       await this.$VueBus.$emit('onRefresh', this.desktopData.id)

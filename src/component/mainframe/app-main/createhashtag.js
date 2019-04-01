@@ -9,6 +9,7 @@ export default function CreateShortcutItem (hashObj, fileName, index, callback) 
       if(typeof callback === 'function') {
         callback()
       }
+      console.log('hashtag destroyed')
     }
   })
   if (typeof hashObj === 'object' && typeof fileName === 'string') {
