@@ -9,6 +9,7 @@ module.exports = {
     port: 80
   },
   runtimeCompiler: isProd,
+  publicPath:'./',
   css: {
     // extract CSS in components into a single CSS file (only in production)
     extract: isProd,

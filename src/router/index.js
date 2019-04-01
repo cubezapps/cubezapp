@@ -41,5 +41,7 @@ const router = new VueRouter({
   routes: routes,
   mode: 'history'
 })
-
+router.onReady(async () => {
+  console.log('router onReady')
+})
 export default router

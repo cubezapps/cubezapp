@@ -10,7 +10,7 @@ import { webEnv, webEnvMap } from '@/config/web-dev'
 export function redirect (to, from, next) {
   next()
   if (browser.mobile) {
-    const host = (webEnvMap.get(webEnv) || webEnvMap.get('test')) + '.moschat.com'
+    const host = (webEnvMap.get(webEnv) || webEnvMap.get('test')) + '.cooksoft.net'
     window.location.assign(`https://${host + location.pathname + location.search + location.hash}`)
   }
 }

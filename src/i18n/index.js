@@ -41,7 +41,6 @@ const i18n = new VueI18n({
 
 // 增加 setlocate方法
 i18n.setLocale = async function (lang, doDispatch = false) {
-  console.log(lang)
   if (!lang || lang === i18n.locale) {
     return
   }

@@ -7,7 +7,7 @@ class WinUtil {
     if (/(android)|(ios)|(Mac)/i.test(ua)) {
       return
     }
-    const href = `moschat://pd-[link=${link}&channelId=${channelId}&roomType=${roomType}&roomId=${roomId}&linkCreator=${linkCreator}&sessionid=${sessionid}&linkType=${linkType}]/`
+    const href = `cubez://pd-[link=${link}&channelId=${channelId}&roomType=${roomType}&roomId=${roomId}&linkCreator=${linkCreator}&sessionid=${sessionid}&linkType=${linkType}]/`
     this.createIframe(href)
   }
 

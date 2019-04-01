@@ -91,15 +91,25 @@ export default {
       this.$WebSDK('common.setAutoRun', this.$refs.boot.checked)
     },
     onChineseLangCheck(event) {
-      if(this.$refs.chineseLang.checked) {
+      if(i18n.locale == 'cn') {
+        this.$refs.chineseLang.checked = true
+      }
+      else {
+        if(this.$refs.chineseLang.checked) {
          i18n.setLocale('cn', true)
          this.$refs.englishLang.checked = false
+        }
       }
     },
     onEnglishLangCheck(event) {
-      if(this.$refs.englishLang.checked) {
+      if(i18n.locale == 'en') {
+        this.$refs.englishLang.checked = true
+      }
+      else {
+        if(this.$refs.englishLang.checked) {
          i18n.setLocale('en', true)
          this.$refs.chineseLang.checked = false
+        }
       }
     }
   }
