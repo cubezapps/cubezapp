@@ -81,9 +81,9 @@ export default {
     }, this)
 
     if(this.trayWindow == null)
-      this.trayWindow = await this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
+      this.trayWindow = await this.$WebSDK('sdk.openWindow', '/#/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
     if(this.settingWindow == null)
-      this.settingWindow = await this.$WebSDK('sdk.openWindow', '/setting', 'settingframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
+      this.settingWindow = await this.$WebSDK('sdk.openWindow', '/#/setting', 'settingframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
     //this.trayMenuId = await browserObj.winId()
     /* this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(
         (ret) => {
@@ -95,9 +95,9 @@ export default {
         }
       )*/
     if(this.popupWindow == null)
-      this.popupWindow = await this.$WebSDK('sdk.openWindow', '/popupmenu', 'popupmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
+      this.popupWindow = await this.$WebSDK('sdk.openWindow', '/#/popupmenu', 'popupmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
     if(this.clipWindow == null)
-      this.clipWindow = await this.$WebSDK('sdk.openWindow', '/clipmenu', 'clipmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
+      this.clipWindow = await this.$WebSDK('sdk.openWindow', '/#/clipmenu', 'clipmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
     this.$WebSDK('common.trayIconShow')
     this.$WebSDK('common.trayIconToolTip', this.$t('My Cubez'))
     document.body.oncontextmenu = (e) => {

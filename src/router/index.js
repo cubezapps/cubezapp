@@ -38,8 +38,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes: routes,
-  mode: 'history'
+  base: '/',
+  routes: routes
 })
 router.onReady(async () => {
   console.log('router onReady')
