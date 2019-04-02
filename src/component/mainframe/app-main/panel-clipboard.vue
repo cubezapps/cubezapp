@@ -96,7 +96,8 @@ export default {
     resize: none;
     margin: 1px;
     border: solid 1px rgb(143, 171, 218);
-    font-size: 14px;
+    font-size: 12px;
+    //color: #2b2b2b;
     white-space: normal;
     word-break: break-all;
   }
