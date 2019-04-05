@@ -35,7 +35,7 @@ export default {
   },
   updated() {
       if(this.cliplist.length === 0) {
-        this.$WebSDK('win.hide')
+        this.$WebSDK('win.move', 9999, 9999)
       }
       else {
         let tmp = this.$refs.appmenu
@@ -99,13 +99,18 @@ export default {
         if(name == 'clipboard') {
           this.$WebSDK('common.getForegroundWindow').then(winId => {
             this.winId = winId
-            console.log(this.winId)
+            console.log('winid:' + this.winId)
             this.$WebSDK('common.getCursorPos').then(pos => {
               this.clearDelay()
               this._mouseenter = true
               this.x = pos.x
               this.y = pos.y
-              this.$WebSDK('win.move', this.x, this.y)
+              if(this.cliplist.length == 0) {
+                this.$WebSDK('win.move', 9999, 9999)
+              }
+              else {
+                this.$WebSDK('win.move', this.x, this.y)
+              }
               this.$WebSDK('win.show')
               this.$WebSDK('win.forefront')
               //this.$forceUpdate()
