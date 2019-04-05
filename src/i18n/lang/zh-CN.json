@@ -1,5 +1,5 @@
 {
-  "Cubez": "工作盒子",
+  "Cubez": "快捷助手",
   "shortcut": "快捷方式",
   "clipboard": "剪贴板",
   "hash": "hash计算器",
@@ -21,7 +21,7 @@
   "When you need to press ": "当需要按键 ",
   "Try": "尝试",
   "instead": "替代",
-  "My Cubez": "我的工作盒",
+  "My Cubez": "我的快捷助手",
   "Show MainFrame": "显示主窗口",
   "Reset MainFrame": "重置主窗口",
   "Setting": "设置",
@@ -36,5 +36,11 @@
   "Rename": "重命名",
   "Delete": "删除",
   "Clear All": "清空",
-  "Drag files here to calculate Hash": "将文件拖到这里来计算哈希"
+  "Drag files here to calculate Hash": "将文件拖到这里来计算哈希",
+  "【CopyText】": "【复制文本】",
+  "【CopyImage】": "【复制图片】",
+  "【CopyFiles】": "【复制文件】",
+  "【Paste Text】": "【粘贴文本】",
+  "【Paste Image】": "【粘贴截图】",
+  "【Paste Files】": "【粘贴文件】"
 }

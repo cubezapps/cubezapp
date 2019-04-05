@@ -1,5 +1,5 @@
 {
-  "Cubez": "Cubez",
+  "Cubez": "Shortcut",
   "shortcut": "shortcut",
   "clipboard": "clipboard",
   "hash": "hash calculator",
@@ -21,7 +21,7 @@
   "When you need to press ": "When you need to press ",
   "Try": "Try",
   "instead": "instead",
-  "My Cubez": "My Cubez",
+  "My Cubez": "My Shortcut",
   "Show MainFrame": "Show MainFrame",
   "Reset MainFrame": "Reset MainFrame",
   "Setting": "Setting",
@@ -36,5 +36,11 @@
   "Rename": "Rename",
   "Delete": "Delete",
   "Clear All": "Clear All",
-  "Drag files here to calculate Hash": "Drag files here to calculate Hash"
+  "Drag files here to calculate Hash": "Drag files here to calculate Hash",
+  "【CopyText】": "【CopyText】",
+  "【CopyImage】": "【CopyImage】",
+  "【CopyFiles】": "【CopyFiles】",
+  "【Paste Text】": "【Paste Text】",
+  "【Paste Image】": "【Paste Image】",
+  "【Paste Files】": "【Paste Files】"
 }

@@ -1,8 +1,8 @@
 <template>
     <div class="clipboard-backpanel">
         <div class="clipboard-notice" ref="noticeTag">
-          <p class="notice" :style="{'color': 'gray'}">{{$t('When you need to press ')}} <span :style="{ 'color': 'deeppink' }">Ctrl+v</span></p>
-          <p class="notice" :style="{'color': 'gray'}">{{$t("Try")}} <span :style="{ 'color': 'deeppink' }">Ctrl+~</span> {{$t(" instead")}}</p>
+          <p class="notice" :style="{'color': 'gray'}">{{$t('When you need to press ')}} <span :style="{ 'color': 'deeppink' }">Ctrl v</span></p>
+          <p class="notice" :style="{'color': 'gray'}">{{$t("Try")}} <span :style="{ 'color': 'deeppink' }">Ctrl ~</span> {{$t(" instead")}}</p>
         </div>
         <div class="memoDiv">
            <textarea class="memo" ref="memoTag" spellcheck="false" readonly="true" ></textarea>
@@ -41,17 +41,17 @@ export default {
           let text = ''
           if(clipdata.type === 1) {
             //text
-            text = '【CopyText】'
+            text = this.$t('【CopyText】')
             text += clipdata.text
           }
           else if(clipdata.type === 2) {
             //HBITMAP
-            text = '【CopyMemory】'
-            text += 'Image'
+            text = this.$t('【CopyImage】')
+            text += 'Bitmap'
           }
           else if(clipdata.type === 15) {
             //copy files
-            text = '【CopyFiles】'
+            text = this.$t('【CopyFiles】')
             for(let i = 0; i < clipdata.files.length; i++) {
                 text += clipdata.files[i]
                 if(i < clipdata.files.length - 1)
@@ -97,6 +97,7 @@ export default {
     margin: 1px;
     border: solid 1px rgb(143, 171, 218);
     font-size: 12px;
+    font-family: "Microsoft YaHei";
     //color: #2b2b2b;
     white-space: normal;
     word-break: break-all;

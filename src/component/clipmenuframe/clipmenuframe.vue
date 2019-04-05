@@ -49,17 +49,17 @@ export default {
             let text = ""
             if(clipdata.type === 1) {
               //text
-              text = "【Text】"
+              text = this.$t("【Paste Text】")
               text += clipdata.text
             }
             else if(clipdata.type === 2) {
               //HBITMAP
-              text = "【Memory】"
-              text += "Image"
+              text = this.$t("【Paste Image】")
+              text += "Bitmap"
             }
             else if(clipdata.type === 15) {
               //copy files
-              text = "【Files】"
+              text = this.$t("【Paste Files】")
               for(let i = 0; i < clipdata.files.length; i++) {
                 let n = clipdata.files[i].lastIndexOf("\\")
                 text += clipdata.files[i].substr(n + 1) + " "

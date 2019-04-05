@@ -1,6 +1,6 @@
 <template>
     <div class="shortcutitem-backpanel">
-        <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="buttonItem" @click="onClick($event)" @contextmenu="onPopupMenu($event)"/>
+        <input type="button" :style="{ 'background-image': getIconUrl }" class="btnimg" ref="buttonItem" @dblclick="onDdblClick($event)" @contextmenu="onPopupMenu($event)"/>
         <textarea class="txt" ref="textItem" spellcheck="false" :value="name_I18n(item.name)" readonly="true" @change="onChange($event)" @blur="onBlur($event)"/>
     </div> 
 </template>
@@ -81,7 +81,7 @@ export default {
       obj.path = this.item.path
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, JSON.stringify(obj))
     },
-    onClick(event) {
+    onDdblClick(event) {
       this.$WebSDK('common.executeFile', this.item.path)
     },
     onChange(event) {
@@ -108,7 +108,7 @@ export default {
     width: $width;
     height: $height;
     //background-color: red;
-    margin: 1px;
+    margin: 3px;
     padding: 0px; 
   }
   .btnimg {
@@ -125,7 +125,11 @@ export default {
     outline: none;
     &:hover {
       filter: drop-shadow(0 0 0.5rem rgb(2, 145, 223));
-      cursor: pointer;
+      cursor: default;
+    }
+    &:active {
+      filter: drop-shadow(0 0 0.5rem rgb(2, 145, 223));
+      cursor: default;
     }
   }
   .txt {
@@ -136,6 +140,7 @@ export default {
     outline: none;
     margin: none;
     text-align: center;
+    font-family: "Microsoft YaHei";
     background-color: inherit; 
     -webkit-user-select: none;
     cursor: default;
