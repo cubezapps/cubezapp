@@ -38,10 +38,12 @@ export default {
       settingWindow: null,
       trayWindow: null,
       popupWindow: null,
-      clipWindow: null
+      clipWindow: null,
+      calendarWindow: null
     }
   },
   async mounted () {
+    this.$WebSDK('sdk.webReady')
     this.$WebSDK('win.resize', 342, 600)
     //this.$WebSDK('win.move', 4)
     this.$WebSDK('win.setResizeBorderWidth', 3)
@@ -84,7 +86,9 @@ export default {
       this.trayWindow = await this.$WebSDK('sdk.openWindow', '/#/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
     if(this.settingWindow == null)
       this.settingWindow = await this.$WebSDK('sdk.openWindow', '/#/setting', 'settingframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
-    //this.trayMenuId = await browserObj.winId()
+    if(this.calendarWindow == null)
+      this.calendarWindow = await this.$WebSDK('sdk.openWindow', '/#/calendar', 'calendarframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
+   //this.trayMenuId = await browserObj.winId()
     /* this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(
         (ret) => {
           ret.winId().then(
@@ -127,7 +131,7 @@ export default {
       }, 2000)
     },
     setCaptionArea () {
-      let areaTop = [0, 0, document.body.offsetWidth - 80,  50]
+      let areaTop = [0, 0, document.body.offsetWidth - 100,  50]
       let areaBottom = [0, document.body.offsetHeight - 70, document.body.offsetWidth,  70]
       this.$WebSDK('win.setDragArea', [areaTop, areaBottom])
     }

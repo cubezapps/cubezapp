@@ -10,6 +10,7 @@
         <li><input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="$t('Close')"/></li> 
         <li><input type="button" @click="onMinBtnClick()" class="window-min-btn" v-tooltip="$t('Minimize')"/></li>
         <li><input type="button" @click="onSettingBtnClick()" class="window-setting-btn" v-tooltip="$t('Setting')"/></li>
+        <li><input type="button" @click="onCalendarClick()" class="calendar-btn" v-tooltip="$t('Calendar')"/></li>
       </ul>
     </div>
   </div>
@@ -41,6 +42,9 @@ export default {
     },
     onSettingBtnClick() {
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_ShowWindow, '') 
+    },
+    onCalendarClick() {
+      this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.CalendarFrame_ShowWindow, '') 
     }
   }
 }
@@ -55,7 +59,7 @@ $border-color-module: rgb(0, 137, 227);
 //$back-color: linear-gradient(to right, rgb(1, 132, 223), rgb(0, 149, 229));
 $height: 50px;
 $logowidth: 110px;
-$buttonswidth: 80px;
+$buttonswidth: 108px;
 .app-topbar {
     position: relative;
     //background: $back-color;
@@ -105,24 +109,22 @@ $buttonswidth: 80px;
       width: $buttonswidth;
       ul {
         width: $buttonswidth;
+        height: $height;
         margin: 0;
         padding: 0;
           li {
-            margin-right: 10px;
-            margin-top: 15px;
-            margin-bottom: 5px;
+            list-style-type: none;
+            margin-right: 8px;
             float: right;
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
+            line-height: $height;
           }
       }
    }
 
   .window-setting-btn {
     border: none;
-    width: 14px;
-    height: 14px;
-    margin: 0;
     background: url(./img/settting.png) 50% 50% no-repeat;
     cursor: default;
     outline: none;
@@ -135,9 +137,6 @@ $buttonswidth: 80px;
   }
   .window-min-btn {
     border: none;
-    width: 14px;
-    height: 14px;
-    margin: 0;
     background: url(./img/window_min.png) 50% 50% no-repeat;
     cursor: default;
     outline: none;
@@ -150,14 +149,23 @@ $buttonswidth: 80px;
   }
   .window-close-btn {
     border: none;
-    width: 14px;
-    height: 14px;
-    margin: 0;
     background: url(./img/window_close.png) 50% 50% no-repeat;
     cursor: default;
     outline: none;
     &:hover {
       filter: brightness(2);
+    }
+    &:active {
+      filter: brightness(1);
+    }
+  }
+  .calendar-btn {
+    border: none;
+    background: url(./img/calendar.png) 50% 50% no-repeat;
+    cursor: default;
+    outline: none;
+    &:hover {
+      filter: drop-shadow(0 0 0.5rem rgb(56, 56, 175));
     }
     &:active {
       filter: brightness(1);
