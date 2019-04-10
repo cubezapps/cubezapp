@@ -57,7 +57,7 @@ export default {
 li {
     margin: 0px;
     float: left;
-    width: 62px;
+    width: 68px;
     height: 100%;
     //background: blue;
     //&:active, &:focus{

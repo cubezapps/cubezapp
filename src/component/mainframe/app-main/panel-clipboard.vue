@@ -5,7 +5,7 @@
           <p class="notice" :style="{'color': 'gray'}">{{$t("Try")}} <span :style="{ 'color': 'deeppink' }">Ctrl ~</span> {{$t(" instead")}}</p>
         </div>
         <div class="memoDiv">
-           <textarea class="memo" ref="memoTag" spellcheck="false" readonly="true" ></textarea>
+           <textarea class="memo" ref="memoTag" spellcheck="false"></textarea>
         </div>
     </div> 
 </template>
@@ -55,10 +55,10 @@ export default {
             for(let i = 0; i < clipdata.files.length; i++) {
                 text += clipdata.files[i]
                 if(i < clipdata.files.length - 1)
-                  text += '\n'
+                  text += '\r\n'
             }
           }
-          text += '\n'
+          text += '\r\n'
           this.$refs.memoTag.value = text + this.$refs.memoTag.value
       }
   }
