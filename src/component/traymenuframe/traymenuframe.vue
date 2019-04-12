@@ -23,6 +23,10 @@ export default {
           lang: 'en'
         }
   },
+  updated() {
+      let tmp = this.$refs.appmenu
+      this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
+  },
   mounted () {
     this.init()
   },

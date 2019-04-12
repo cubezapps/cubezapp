@@ -79,8 +79,6 @@ export default {
           case this.$DataUri.APP_LanguageChange:
             i18n.setLocale(data)
             this.langChanged = true
-            let tmp = this.$refs.appmenu
-            this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
             break
         }
       }, this)
