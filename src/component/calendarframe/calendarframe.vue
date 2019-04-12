@@ -33,12 +33,15 @@ export default {
   mounted () {
     this.init()
   },
+  computed: {
+    
+  },
   methods: {
     init() {
       this.$WebSDK('win.resize', 812, 550)
       this.$WebSDK('win.move', 4)
       this.$WebSDK('win.needSystemAutoMinMax', false)
-      //this.$WebSDK('win.setResizeBorderWidth', 3)
+      this.$WebSDK('win.setResizeBorderWidth', 0)
       //this.$WebSDK('win.show')
       window.onresize = () => {
         this.setCaptionArea()
