@@ -80,8 +80,11 @@ export default {
         case this.$DataUri.APP_LanguageChange:
           i18n.setLocale(data)
           break
+        }
+      })
+      document.body.oncontextmenu = (e) => {
+          return false
       }
-    })
     },
     setCaptionArea () {
       let areaTop = [0, 0, document.body.offsetWidth - 30,  30]

@@ -696,6 +696,9 @@ function initial() {
 </head>
 <body leftmargin="0" topmargin="0">
 <script language="JavaScript">
+document.body.oncontextmenu = (e) => {
+  return false;
+}
 lck=0;
 function r(hval)
 {

@@ -52,6 +52,7 @@ export default {
         case this.$DataUri.CalendarFrame_ShowWindow:
           this.$WebSDK('win.move', 4)
           this.$WebSDK('win.show')
+          this.$WebSDK('win.forefront')
           break
         case this.$DataUri.App_CloseAllWindow:
           window.close()
@@ -59,8 +60,11 @@ export default {
         case this.$DataUri.APP_LanguageChange:
           i18n.setLocale(data)
           break
+        }
+      })
+      document.body.oncontextmenu = (e) => {
+        return false
       }
-    })
     },
     setCaptionArea () {
       let areaTop = [0, 0, document.body.offsetWidth - 30,  30]
