@@ -108,7 +108,6 @@ export default {
         this.$WebSDK('common.trayIconGetPopupPos').then((ret) => {
         var iconPos = ret.CenterPoint.map(function TrayIconProxyCalcWinPosMap (x) { return x / window.devicePixelRatio })
         var border = ret.Border[0]
-        this.$Logger.log('document.body.offsetWidth = ' + document.body.offsetWidth)
         var menu = document.querySelector('.dropdown-menu')
         var menuWidth = menu.offsetWidth
         var menuHeight = menu.offsetHeight

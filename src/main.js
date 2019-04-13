@@ -16,7 +16,7 @@ Vue.use(LoggerPlugin)
 Vue.prototype.$VueBus = new Vue();
 //Vue.use(TrayIconPlugin)
 install(Vue)
-Logger.log('start to new Vue')
+Logger.log('start to new vue')
 const vue = new Vue({
   router,
   i18n,

@@ -43,6 +43,7 @@ export default {
     }
   },
   async mounted () {
+    this.$Logger.log('mainframe start')
     this.$WebSDK('sdk.webReady')
     this.$WebSDK('win.resize', 342, 600)
     //this.$WebSDK('win.move', 4)
@@ -63,6 +64,7 @@ export default {
       switch (uri) {
         case this.$DataUri.MainFrame_ShowWindow:
           this.showWindow()
+          this.$Logger.log('mainframe show')
           break
         case this.$DataUri.MainFrame_ResetWindow:
           this.$WebSDK('win.show')
@@ -82,12 +84,34 @@ export default {
         this.showWindow()
     }, this)
 
-    if(this.trayWindow == null)
-      this.trayWindow = await this.$WebSDK('sdk.openWindow', '/#/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
-    if(this.settingWindow == null)
-      this.settingWindow = await this.$WebSDK('sdk.openWindow', '/#/setting', 'settingframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
-    if(this.calendarWindow == null)
-      this.calendarWindow = await this.$WebSDK('sdk.openWindow', '/#/calendar', 'calendarframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
+    window.setTimeout(() => {
+        if(this.trayWindow == null) {
+          this.$WebSDK('sdk.openWindow', '/#/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(r =>{
+            this.trayWindow = r
+          })
+        }
+        if(this.settingWindow == null) {
+          this.$WebSDK('sdk.openWindow', '/#/setting', 'settingframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+            this.settingWindow = r
+          })
+        }
+        if(this.calendarWindow == null) {
+          this.$WebSDK('sdk.openWindow', '/#/calendar', 'calendarframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+            this.calendarWindow = r
+          })
+        }
+        if(this.popupWindow == null){
+          this.$WebSDK('sdk.openWindow', '/#/popupmenu', 'popupmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(r => {
+            this.popupWindow = r
+          })
+        }
+        if(this.clipWindow == null) {
+          this.$WebSDK('sdk.openWindow', '/#/clipmenu', 'clipmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+            this.clipWindow = r
+          })
+        }
+    }, 1000)
+    
    //this.trayMenuId = await browserObj.winId()
     /* this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(
         (ret) => {
@@ -98,10 +122,7 @@ export default {
           )
         }
       )*/
-    if(this.popupWindow == null)
-      this.popupWindow = await this.$WebSDK('sdk.openWindow', '/#/popupmenu', 'popupmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0')
-    if(this.clipWindow == null)
-      this.clipWindow = await this.$WebSDK('sdk.openWindow', '/#/clipmenu', 'clipmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0')
+
     this.$WebSDK('common.trayIconShow')
     this.$WebSDK('common.trayIconToolTip', this.$t('My Cubez'))
     document.body.oncontextmenu = (e) => {

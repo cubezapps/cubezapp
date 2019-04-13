@@ -77,7 +77,6 @@ export default class TrayIcon {
 
   static popupAppMenu () {
     this.calcWinPos().then((resp) => {
-      Logger.log('document.body.offsetWidth = ' + document.body.offsetWidth)
       WebSDK('win.move', resp.x, resp.y)
       WebSDK('win.forefront')
       WebSDK('win.show')
@@ -90,7 +89,6 @@ export default class TrayIcon {
       WebSDK('common.trayIconGetPopupPos').then((ret) => {
         var iconPos = ret.CenterPoint.map(function TrayIconCalcWinPosMap (x) { return x / window.devicePixelRatio })
         var border = ret.Border[0]
-        Logger.log('document.body.offsetWidth = ' + document.body.offsetWidth)
         var menu = document.querySelector('.dropdown-menu')
         var menuWidth = menu.offsetWidth
         var menuHeight = menu.offsetHeight
