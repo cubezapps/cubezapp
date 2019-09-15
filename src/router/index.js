@@ -8,6 +8,7 @@ const TrayMenuFrame = () => import('@/component/traymenuframe/traymenuframe.vue'
 const PopupMenuFrame = () => import('@/component/popupmenuframe/popupmenuframe.vue')
 const ClipMenuFrame = () => import('@/component/clipmenuframe/clipmenuframe.vue')
 const CalendarFrame = () => import('@/component/calendarframe/calendarframe.vue')
+const ChatFrame = () => import('@/component/chatframe/chatframe.vue')
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,10 @@ const routes = [
   {
     path: '/calendar',
     component: CalendarFrame
+  },
+  {
+    path: '/chatframe',
+    component: ChatFrame
   }
 ]
 

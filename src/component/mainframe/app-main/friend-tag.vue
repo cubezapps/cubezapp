@@ -1,6 +1,6 @@
 <template>
     <div class="friendtag-backpanel">
-      <frienditem v-for="(item, index) of tagdata.items" :key="index" :id="friend" :item="item" :menus="tagdata.menus"></frienditem>
+      <frienditem v-for="(item, index) of tagdata.items" :key="index" :index="index" :item="item" :menus="tagdata.menus"></frienditem>
     </div>
 </template>
 
@@ -23,18 +23,16 @@ export default {
     }
   },
   mounted() {
-    console.log(this.tagdata)
+    this.$VueBus.$on('onRefresh', (id) => {
+      this.refresh(id)
+    })
   },
   computed: {
   
   },
   methods: {
     refresh(id) {
-      if(this.tagdata.id != 'friendtag')  {
-        this.disableDrag = true;
-      }
       if(this.tagdata.id == id) {
-        //console.log('refresh tagdata: ' + JSON.stringify(this.tagdata))
         this.$forceUpdate()
       }
     }

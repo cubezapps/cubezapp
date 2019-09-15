@@ -16,27 +16,59 @@ export default {
   }, 
   data () {
     return {
-      friendData: {}
+      friendData: {},
+      chatFrameObjs: {},
+      uniqueId: 0
     }
   },
   mounted() {
-    let friendItemObj = {}
-    friendItemObj['name'] = "Administrator"
-    friendItemObj['ip'] = "192.168.1.1"
-    friendItemObj['mac'] = "Administrator"
     this.friendData['items'] = []
+    let friendItemObj = {}
+    friendItemObj['name'] = this.$t("Computer Name")
+    friendItemObj['ip'] = this.$t("IP Address")
+    friendItemObj['mac'] = this.$t("Mac Address")
     this.friendData['items'].push(friendItemObj)
+
+    this.addFriendData("123EMIC-KIATKGP_Administrator", "192.168.111.111", "B8-EE-65-2C-FD-48")
+    this.addFriendData("MIC-KIATKGP_Apc", "222.222.111.111", "B8-EE-65-2C-FD-48")
     //let friendItemMenu = []
     //friendItemMenu.push('SendMessage')
     //friendItemMenu.push('Send File')
     this.friendData['menus'] = []
-    console.log(this.friendData)
+    this.friendData['id'] = "friendData"
+    this.$VueBus.$emit('onRefresh', this.friendData.id)
+    this.$VueBus.$on('onFriendItemDbClick', (val) => {
+        if(JSON.stringify(this.chatFrameObjs[val.uniqueId]) == '{}') {
+          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+            this.chatFrameObjs[val.uniqueId] = r
+            window.connectSignal(this.chatFrameObjs[val.uniqueId].loadStateChanged, (state, data) => {
+               if(state == 1){
+                  this.$Logger.log('!!!!!!!!!!!!!!!!!!')
+                  this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(val))
+                }
+            });
+          })
+        }
+        else {
+          this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_ShowWindow, JSON.stringify(val))
+        }
+    })
   },
   computed: {
       
   },
   methods: {
-    
+    addFriendData(name, ip, mac) {
+        let friendItemObj = {}
+        friendItemObj['name'] = name
+        friendItemObj['ip'] = ip
+        friendItemObj['mac'] = mac
+        let uniqueVal = (++this.uniqueId).toString()
+        friendItemObj['uniqueId'] = uniqueVal
+        this.friendData['items'].push(friendItemObj)
+        let chatObj = {}
+        this.chatFrameObjs[uniqueVal] = {}
+    } 
   }
 }
 </script>

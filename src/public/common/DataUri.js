@@ -8,6 +8,8 @@ class DataUri {
     static SettingFrame_ShowWindow = 'DataUri_SettingFrame_ShowWindow';
     static MainFrame_ResetWindow = 'DataUri_MainFrame_ResetWindow';
     static CalendarFrame_ShowWindow = 'DataUri_CalendarFrame_ShowWindow';
+    static ChatFrame_ShowWindow = 'DataUri_ChatFrame_ShowWindow';
+    static ChatFrame_SetData = 'DataUri_ChatFrame_SetData';
 }
 
 export const DataUriPlugin = {
