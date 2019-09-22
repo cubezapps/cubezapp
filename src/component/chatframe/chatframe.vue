@@ -3,7 +3,21 @@
   <div class="backgrounddiv">
      <tittlebar :tittle="$t('Chat')"></tittlebar>
      <div class="maindiv">
+         <div class="leftdiv">
+            <div class="infodiv"></div>
+            <div class="editdiv">
+               <div class="buttonsdiv">
+               </div>
+               <div class="textdiv">
+
+               </div>
+               
+            </div>
+            <div class="statusdiv"></div>
+          </div>
+          <div class="rightdiv">
          
+          </div>
       </div>
   </div>
 </template>
@@ -12,30 +26,24 @@
 import i18n from '@/i18n'
 import tittlebar from '@/component/common/tittlebar/tittlebar.vue'
 export default {
-  metaInfo: {
-        title: 'Chatframe', // set a title
-        meta: [{                 // set meta
-          name: 'keyWords',
-          content: 'My Example App'
-         }],
-        htmlAttrs: {
-          lang: 'zh-CN'
-        }
-  },
   components: {
-    tittlebar
+    tittlebar,
   },
   data () {
     return {
       chatData: {},
+      editor: null,
     }
   },
   mounted () {
     this.init()
   },
+  beforeDestroy() {
+
+  },
   methods: {
     init() {
-      this.$WebSDK('win.resize', 590, 360)
+      this.$WebSDK('win.resize', 600, 500)
       this.$WebSDK('win.move', 4)
       this.$WebSDK('win.needSystemAutoMinMax', false)
       this.$WebSDK('win.setResizeBorderWidth', 0)
@@ -113,15 +121,76 @@ $back-color: rgb(0, 137, 227);
   background: beige;
   margin: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  font-size: 12px;
 
-}
+  .leftdiv {
+    width: 70%;
+    flex: 1 1 auto;
+    background: beige;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-input[type=checkbox]{
-	height: 0;
-	width: 0;
-	visibility: hidden;
+    .infodiv {
+      height: 55%;
+      flex: 1 1 auto;
+      background: linear-gradient(to bottom, beige, rgb(245, 245, 209));
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid rgb(221, 221, 210);
+    }
+
+    .editdiv {
+      height: calc(45% - 40px);
+      flex: 1 1 auto;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .buttonsdiv {
+        height: 30px;
+        flex: 1 1 auto;
+        background: rgb(247, 247, 228);
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      .textdiv {
+        height: calc(100% - 30px);
+        flex: 1 1 auto;
+        background: rgb(247, 247, 228);
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+    .statusdiv {
+      height: 40px;
+      flex: 1 1 auto;
+      background: rgb(230, 230, 208);
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .rightdiv {
+    width: 30%;
+    flex: 1 1 auto;
+    background: linear-gradient(to bottom, beige, rgb(243, 243, 196));
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid rgb(221, 221, 210);
+  }
 }
 </style>
