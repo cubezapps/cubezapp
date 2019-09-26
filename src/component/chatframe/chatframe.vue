@@ -9,14 +9,23 @@
                <div class="buttonsdiv">
                </div>
                <div class="textdiv">
-
+                  <b-form-textarea id="textarea" v-model="editText" placeholder="" rows="10" max-rows="20" no-resize no-auto-shrink @Click="onClick($event)"></b-form-textarea>
                </div>
                
             </div>
-            <div class="statusdiv"></div>
+            <div class="statusdiv">
+                 <div class="statusdiv-1"></div>
+                 <div class="statusdiv-2">
+                     <b-button variant="danger" class="btn-ex">{{$t('Close')}}</b-button>
+                     <b-button variant="primary" class="btn-ex">{{$t('Send')}}</b-button>
+                 </div>
+            </div>
           </div>
           <div class="rightdiv">
-         
+              <div :style="{'height': '50%'}">
+                
+              </div>
+              <div :style="{'height': '50%'}"></div>
           </div>
       </div>
   </div>
@@ -26,13 +35,23 @@
 import i18n from '@/i18n'
 import tittlebar from '@/component/common/tittlebar/tittlebar.vue'
 export default {
+  metaInfo: {
+        title: 'ChatFrame', // set a title
+        meta: [{                 // set meta
+          name: 'keyWords',
+          content: 'My Example App'
+         }],
+        htmlAttrs: {
+          lang: 'zh-CN'
+        }
+  },
   components: {
     tittlebar,
   },
   data () {
     return {
-      chatData: {},
-      editor: null,
+      chatItem: {},
+      editText: 'input text!!!'
     }
   },
   mounted () {
@@ -58,19 +77,19 @@ export default {
         switch (uri) {
           case this.$DataUri.ChatFrame_SetData: {
             let obj = JSON.parse(data)
-            if(JSON.stringify(this.chatData) == '{}') {
-              this.chatData = obj
+            if(JSON.stringify(this.chatItem) == '{}') {
+              this.chatItem = obj
             }
-            else if(obj.uniqueId == this.chatData.uniqueId){
-              this.chatData = obj
+            else if(obj.uniqueId == this.chatItem.uniqueId){
+              this.chatItem = obj
             }
             break
           }
           case this.$DataUri.ChatFrame_ShowWindow:{
             let obj = JSON.parse(data)
-            this.$Logger.log('show window:' + this.chatData.uniqueId)
-            if(obj.uniqueId == this.chatData.uniqueId){
-              this.$Logger.log('ChatFrame_ShowWindow uniqueId: ' + this.chatData.uniqueId + ' name:' + this.chatData.name)
+            this.$Logger.log('show window:' + this.chatItem.uniqueId)
+            if(obj.uniqueId == this.chatItem.uniqueId){
+              this.$Logger.log('ChatFrame_ShowWindow uniqueId: ' + this.chatItem.uniqueId + ' name:' + this.chatItem.name)
               this.$WebSDK('win.show')
             }
             break
@@ -90,6 +109,9 @@ export default {
     setCaptionArea () {
       let areaTop = [0, 0, document.body.offsetWidth - 30,  30]
       this.$WebSDK('win.setDragArea', [areaTop])
+    },
+    onClick(event) {
+
     }
   }
 }
@@ -136,7 +158,7 @@ $back-color: rgb(0, 137, 227);
     .infodiv {
       height: 55%;
       flex: 1 1 auto;
-      background: linear-gradient(to bottom, beige, rgb(245, 245, 209));
+      background: rgb(255, 255, 255);
       margin: 0;
       display: flex;
       flex-direction: column;
@@ -153,16 +175,16 @@ $back-color: rgb(0, 137, 227);
       justify-content: center;
 
       .buttonsdiv {
-        height: 30px;
+        height: 22px;
         flex: 1 1 auto;
-        background: rgb(247, 247, 228);
+        background: rgb(245, 244, 244);
         margin: 0;
         display: flex;
         flex-direction: row;
         justify-content: center;
       }
       .textdiv {
-        height: calc(100% - 30px);
+        height: calc(100% - 22px);
         flex: 1 1 auto;
         background: rgb(247, 247, 228);
         margin: 0;
@@ -179,6 +201,25 @@ $back-color: rgb(0, 137, 227);
       display: flex;
       flex-direction: row;
       justify-content: center;
+
+      .statusdiv-1 {
+        width: calc(100% - 160px);
+        flex: 1 1 auto;
+        justify-content: center;
+      }
+      .statusdiv-2 {
+        width: 160px;
+        flex: 1 1 auto;
+        justify-content: center;
+        text-align:center;
+        margin-top: auto;
+        margin-bottom: auto;
+        
+        .btn-ex{
+          margin-right: 10px;
+          width: 70px;
+        }
+      }
     }
   }
 
