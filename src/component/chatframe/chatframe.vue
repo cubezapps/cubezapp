@@ -4,12 +4,25 @@
      <tittlebar :tittle="$t('Chat')"></tittlebar>
      <div class="maindiv">
          <div class="leftdiv">
-            <div class="infodiv"></div>
+            <div class="infodiv" ref="infodivRef" id="infodivId">
+                <ul>
+                    <li v-for="(item, index) in messageItems" :key="index">
+                        <p class="time">
+                            <span>{{ item.date | time }}</span>
+                        </p>
+                        <div class="main" :class="{ self: item.self }">
+                            <img class="avatar" width="32" height="32" :src="item.self ? selfImg : otherImg" />
+                            <div class="text">{{ item.content }}</div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
             <div class="editdiv">
                <div class="buttonsdiv">
                </div>
                <div class="textdiv">
-                  <b-form-textarea id="textarea" v-model="editText" placeholder="" rows="10" max-rows="20" no-resize no-auto-shrink @Click="onClick($event)"></b-form-textarea>
+                  <b-form-textarea id="textarea" ref="textareaRef" v-model="editText" placeholder="" rows="10" max-rows="20" no-resize no-auto-shrink autofocus @keydown="onKeydown"></b-form-textarea>
                </div>
                
             </div>
@@ -17,7 +30,7 @@
                  <div class="statusdiv-1"></div>
                  <div class="statusdiv-2">
                      <b-button variant="danger" class="btn-ex">{{$t('Close')}}</b-button>
-                     <b-button variant="primary" class="btn-ex">{{$t('Send')}}</b-button>
+                     <b-button variant="primary" class="btn-ex" @click="onClick($event)">{{$t('Send')}}</b-button>
                  </div>
             </div>
           </div>
@@ -48,10 +61,21 @@ export default {
   components: {
     tittlebar,
   },
+  filters: {
+        time (date) {
+            if (typeof date === 'string') {
+                date = new Date(date);
+            }
+            return date.getHours() + ':' + date.getMinutes();
+        }
+  },
   data () {
     return {
+      messageItems: [],
       chatItem: {},
-      editText: 'input text!!!'
+      editText: '',
+      selfImg: 'asserts/self.png',
+      otherImg: 'asserts/other.png'
     }
   },
   mounted () {
@@ -62,7 +86,7 @@ export default {
   },
   methods: {
     init() {
-      this.$WebSDK('win.resize', 600, 500)
+      this.$WebSDK('win.resize', 620, 500)
       this.$WebSDK('win.move', 4)
       this.$WebSDK('win.needSystemAutoMinMax', false)
       this.$WebSDK('win.setResizeBorderWidth', 0)
@@ -105,13 +129,34 @@ export default {
       document.body.oncontextmenu = (e) => {
           return false
       }
+      this.$refs.textareaRef.$el.placeholder = this.$t('Press Ctrl + Enter to send')
     },
     setCaptionArea () {
       let areaTop = [0, 0, document.body.offsetWidth - 30,  30]
       this.$WebSDK('win.setDragArea', [areaTop])
     },
     onClick(event) {
-
+        let tmpItem = {}
+        tmpItem["content"] = this.$refs.textareaRef.value
+        tmpItem["date"] = new Date()
+        tmpItem["self"] = false
+        this.messageItems.push(tmpItem)
+        let tmpItem1 = {}
+        tmpItem1["content"] = this.$refs.textareaRef.value
+        tmpItem1["date"] = new Date()
+        tmpItem1["self"] = true
+        this.messageItems.push(tmpItem1)
+        this.scrollBottom()
+    },
+    scrollBottom () {
+      this.$nextTick(() => {
+          this.$refs.infodivRef.scrollTop = this.$refs.infodivRef.scrollHeight - this.$refs.infodivRef.clientHeight
+      })
+    },
+    onKeydown (e) {
+        if (e.ctrlKey && e.keyCode === 13) {
+            this.onClick(e)
+        }
     }
   }
 }
@@ -156,7 +201,7 @@ $back-color: rgb(0, 137, 227);
     justify-content: center;
 
     .infodiv {
-      height: 55%;
+      height: 65%;
       flex: 1 1 auto;
       background: rgb(255, 255, 255);
       margin: 0;
@@ -164,18 +209,85 @@ $back-color: rgb(0, 137, 227);
       flex-direction: column;
       justify-content: center;
       border-bottom: 1px solid rgb(221, 221, 210);
+      padding: 10px 15px;
+      overflow-y: scroll;
+
+      li {
+        margin-bottom: 15px;
+      }
+      .time {
+          margin: 7px 0;
+          text-align: center;
+
+          > span {
+              display: inline-block;
+              padding: 0 18px;
+              font-size: 12px;
+              color: #fff;
+              border-radius: 2px;
+              background-color: #dcdcdc;
+          }
+      }
+      .avatar {
+          float: left;
+          margin: 0 10px 0 0;
+          border-radius: 3px;
+      }
+      .text {
+          display: inline-block;
+          position: relative;
+          padding: 0 10px;
+          max-width: calc(100% - 40px);
+          min-height: 30px;
+          line-height: 2.5;
+          font-size: 12px;
+          text-align: left;
+          word-break: break-all;
+          background-color: #a1bdc5;
+          border-radius: 4px;
+          white-space: normal;
+
+          &:before {
+              content: " ";
+              position: absolute;
+              top: 9px;
+              right: 100%;
+              border: 6px solid transparent;
+              border-right-color: #a1bdc5;
+          }
+      }
+
+      .self {
+          text-align: right;
+
+          .avatar {
+              float: right;
+              margin: 0 0 0 10px;
+          }
+          .text {
+              background-color: #b2e281;
+
+              &:before {
+                  right: inherit;
+                  left: 100%;
+                  border-right-color: transparent;
+                  border-left-color: #b2e281;
+              }
+          }
+      }
     }
 
     .editdiv {
-      height: calc(45% - 40px);
+      height: calc(35% - 40px);
       flex: 1 1 auto;
       margin: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
 
+      $buttonsDivWidth: 0px;
       .buttonsdiv {
-        height: 22px;
+        height: $buttonsDivWidth;
         flex: 1 1 auto;
         background: rgb(245, 244, 244);
         margin: 0;
@@ -184,7 +296,7 @@ $back-color: rgb(0, 137, 227);
         justify-content: center;
       }
       .textdiv {
-        height: calc(100% - 22px);
+        height: calc(100% - $buttonsDivWidth);
         flex: 1 1 auto;
         background: rgb(247, 247, 228);
         margin: 0;
