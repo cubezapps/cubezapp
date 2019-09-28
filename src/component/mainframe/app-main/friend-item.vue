@@ -1,6 +1,10 @@
 <template>
     <div class="frienditem-backpanel motion-class" ref="friendItem" @dblclick="onDoubleClick($event)">
-        <div class="name-div" ref="nameDivItem">{{this.$t(item.name)}}</div>
+        <div class="name-div" ref="nameDivItem">
+          <img class="avatar" v-if="index > 0" width="16" height="16" :src="item.isonline ? greenImg : redImg" />
+          <img class="avatar" v-if="item.ismyself && index > 0" width="16" height="16" :src="houseImg" />
+          <div class="text">{{ this.$t(item.name) }}</div>
+        </div>
         <div class="ip-div" ref="ipDivItem">{{this.$t(item.ip)}}</div>
         <div class="mac-div" ref="macDivItem">{{this.$t(item.mac)}}</div>
     </div> 
@@ -21,7 +25,9 @@ export default {
   },
   data () {
     return {
-      
+      redImg: 'asserts/red.png',
+      greenImg: 'asserts/green.png',
+      houseImg: 'asserts/house.png'
     }
   },
   mounted() {
@@ -47,14 +53,13 @@ export default {
 </style>
 
 <style lang='scss' scoped>
-  $height: 22px;
+  $height: 28px;
   .frienditem-backpanel {
     flex: 0 0 $height;
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    line-height: 20px;
     border-bottom: 1px solid rgb(245, 245, 220);
     user-select: none;
   }
@@ -68,7 +73,8 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 0px 3px 0px 3px;
+    padding: 0px 2px;
+    line-height: $height;
   }
   .ip-div {
     width: 30%;
@@ -76,6 +82,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    line-height: $height;
   }
   .mac-div {
     width: 38%;
@@ -83,5 +90,21 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    line-height: $height;
+  }
+  .avatar {
+      float: left;
+      margin-right: 2px;
+      border-radius: 3px;
+      margin-top: 6px;
+      margin-bottom: auto;
+  }
+  .text {
+    //display: inline-block;
+    //position: relative;
+    //padding-right: 0px;
+    //width: cal(100% - 116);
+    //margin-top: auto;
+    //margin-bottom: auto;
   }
 </style>

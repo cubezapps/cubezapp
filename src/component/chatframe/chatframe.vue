@@ -312,6 +312,7 @@ $back-color: rgb(0, 137, 227);
         background: rgb(247, 247, 228);
         margin: 0;
         display: flex;
+        padding-left: 1px;
         flex-direction: column;
         justify-content: center;
       }

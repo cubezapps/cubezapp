@@ -25,29 +25,32 @@ export default {
   mounted() {
     this.friendData['items'] = []
     let friendItemObj = {}
-    friendItemObj['name'] = this.$t("Computer Name")
+    friendItemObj['name'] = this.$t("Computer")
     friendItemObj['ip'] = this.$t("IP Address")
     friendItemObj['mac'] = this.$t("Mac Address")
-    this.friendData['items'].push(friendItemObj)
 
-    //this.addFriendData("123EMIC-KIATKGP_Administrator", "192.168.111.111", "B8-EE-65-2C-FD-48")
-    
-    window.Native.Network.addressEntries().then( r => {
-        this.myselfData = r
-    })
-    window.connectSignal(window.Native.Network.onBoardCast, (ip, port, computerName, macAddr) => {
-        this.addFriendData(computerName, ip, port, macAddr)
-    });
-    window.setTimeout(() => {
-       window.Native.Network.boardCast()
-    }, 1000)
-    
+    this.friendData['items'].push(friendItemObj)
+    //this.addFriendData("123EMIC-KIATKGP_Administrator", "192.168.111.111", 8888, "B8-EE-65-2C-FD-48")
     //let friendItemMenu = []
     //friendItemMenu.push('SendMessage')
     //friendItemMenu.push('Send File')
     this.friendData['menus'] = []
     this.friendData['id'] = "friendData"
-    this.$VueBus.$emit('onRefresh', this.friendData.id)
+    
+    window.Native.Network.addressEntries().then( r => {
+        this.myselfData = r
+    })
+    window.connectSignal(window.Native.Network.onBoardCast, (ip, port, computerName, macAddr) => {
+        this.updateFriendData(computerName, ip, port, macAddr)
+    });
+    window.setInterval(() => {
+       window.Native.Network.boardCast()
+    }, 1000)
+
+    window.setInterval(() => {
+       this.checkOnline()
+    }, 3000)
+    
     this.$VueBus.$on('onFriendItemDbClick', (val) => {
         if(JSON.stringify(this.chatFrameObjs[val.uniqueId]) == '{}') {
           this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
@@ -76,10 +79,14 @@ export default {
         friendItemObj['port'] = port
         friendItemObj['mac'] = mac
         friendItemObj['ismyself'] = false
+        friendItemObj['isonline'] = true
+        friendItemObj['updatetime'] = new Date().getTime()
+
         for(let i = 0; i < this.myselfData.length; i++) {
-          if(ip == this.myselfData[i].address.ip) {
+          //this.$Logger.log('ip:' + ip + ' myselfip:' + this.myselfData[i].address.ip)
+          //this.$Logger.log('mac:' + mac + ' myselfmac:' + this.myselfData[i].mac)
+          if(ip == this.myselfData[i].address.ip && mac == this.myselfData[i].mac) {
             friendItemObj['ismyself'] = true
-            this.$Logger.log('ismyself')
           }
         }
         let uniqueVal = (++this.uniqueId).toString()
@@ -87,6 +94,29 @@ export default {
         this.friendData['items'].push(friendItemObj)
         let chatObj = {}
         this.chatFrameObjs[uniqueVal] = {}
+    },
+    updateFriendData(name, ip, port, mac) {
+        let isExists = false
+        for(let i = 0; i < this.friendData.items.length; i++) {
+          if(this.friendData.items[i].ip == ip && this.friendData.items[i].mac == mac) {
+            this.friendData.items[i]['isonline'] = true
+            this.friendData.items[i]['updatetime'] = new Date().getTime()
+            isExists = true
+          }
+        }
+        if(!isExists) {
+          this.addFriendData(name, ip, port, mac)
+        }
+        this.$VueBus.$emit('onRefresh', this.friendData.id)
+    },
+    checkOnline() {
+        for(let i = 0; i < this.friendData.items.length; i++) {
+          let timeval = new Date().getTime()
+          if(timeval - this.friendData.items[i]['updatetime'] > 2500) {
+            this.friendData.items[i]['isonline'] = false
+            this.$Logger.log('checkOnline false: ' + this.friendData.items[i]['ip'])
+          }
+        }
     } 
   }
 }
