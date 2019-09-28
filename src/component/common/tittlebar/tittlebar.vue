@@ -72,6 +72,8 @@ $back-color: rgb(0, 137, 227);
   }
   .logo-link { 
       margin-left: 6px;
+      margin-top: auto;
+      margin-bottom: auto;
       color: rgb(252, 254, 255);
       font-size: 12px;
       flex: 1 1 auto;

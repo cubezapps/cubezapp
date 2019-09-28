@@ -18,7 +18,8 @@ export default {
     return {
       friendData: {},
       chatFrameObjs: {},
-      uniqueId: 0
+      uniqueId: 0,
+      myselfData: []
     }
   },
   mounted() {
@@ -29,8 +30,18 @@ export default {
     friendItemObj['mac'] = this.$t("Mac Address")
     this.friendData['items'].push(friendItemObj)
 
-    this.addFriendData("123EMIC-KIATKGP_Administrator", "192.168.111.111", "B8-EE-65-2C-FD-48")
-    this.addFriendData("MIC-KIATKGP_Apc", "222.222.111.111", "B8-EE-65-2C-FD-48")
+    //this.addFriendData("123EMIC-KIATKGP_Administrator", "192.168.111.111", "B8-EE-65-2C-FD-48")
+    
+    window.Native.Network.addressEntries().then( r => {
+        this.myselfData = r
+    })
+    window.connectSignal(window.Native.Network.onBoardCast, (ip, port, computerName, macAddr) => {
+        this.addFriendData(computerName, ip, port, macAddr)
+    });
+    window.setTimeout(() => {
+       window.Native.Network.boardCast()
+    }, 1000)
+    
     //let friendItemMenu = []
     //friendItemMenu.push('SendMessage')
     //friendItemMenu.push('Send File')
@@ -58,11 +69,19 @@ export default {
       
   },
   methods: {
-    addFriendData(name, ip, mac) {
+    addFriendData(name, ip, port, mac) {
         let friendItemObj = {}
         friendItemObj['name'] = name
         friendItemObj['ip'] = ip
+        friendItemObj['port'] = port
         friendItemObj['mac'] = mac
+        friendItemObj['ismyself'] = false
+        for(let i = 0; i < this.myselfData.length; i++) {
+          if(ip == this.myselfData[i].address.ip) {
+            friendItemObj['ismyself'] = true
+            this.$Logger.log('ismyself')
+          }
+        }
         let uniqueVal = (++this.uniqueId).toString()
         friendItemObj['uniqueId'] = uniqueVal
         this.friendData['items'].push(friendItemObj)

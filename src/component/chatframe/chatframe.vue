@@ -35,10 +35,21 @@
             </div>
           </div>
           <div class="rightdiv">
-              <div :style="{'height': '50%'}">
-                
+              <div :style="{'background': 'white', 'height': '40%', 'margin-top': '10px'}">
+                  <p class="label">
+                      <span>{{$t("Computer: ")}}</span>
+                      <span>{{this.$t(chatItem.name)}}</span>
+                  </p>
+                  <p class="label">
+                      <span>{{$t("IP: ")}}</span>
+                      <span>{{this.$t(chatItem.ip)}}</span>
+                  </p>
+                  <p class="label">
+                      <span>{{$t("Mac: ")}}</span>
+                      <span>{{this.$t(chatItem.mac)}}</span>
+                  </p>
               </div>
-              <div :style="{'height': '50%'}"></div>
+              <div :style="{'background': 'white', 'height': '60%'}"></div>
           </div>
       </div>
   </div>
@@ -91,7 +102,7 @@ export default {
       this.$WebSDK('win.needSystemAutoMinMax', false)
       this.$WebSDK('win.setResizeBorderWidth', 0)
       this.$WebSDK('win.show')
-      //this.$WebSDK('win.show')
+
       window.onresize = () => {
         this.setCaptionArea()
       }
@@ -237,18 +248,18 @@ $back-color: rgb(0, 137, 227);
           display: inline-block;
           position: relative;
           padding: 0 10px;
-          max-width: calc(100% - 40px);
-          min-height: 30px;
-          line-height: 2.5;
+          max-width: calc(100% - 42px);
+          min-height: 40px;
+          line-height: 2;
           font-size: 12px;
           text-align: left;
           word-break: break-all;
           background-color: #a1bdc5;
           border-radius: 4px;
-          white-space: normal;
+          white-space: pre-wrap;
 
           &:before {
-              content: " ";
+              content: "";
               position: absolute;
               top: 9px;
               right: 100%;
@@ -338,12 +349,26 @@ $back-color: rgb(0, 137, 227);
   .rightdiv {
     width: 30%;
     flex: 1 1 auto;
-    background: linear-gradient(to bottom, beige, rgb(243, 243, 196));
+    background: white;
     margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-left: 1px solid rgb(221, 221, 210);
+
+    .label {
+          margin: 15px 10px;
+          text-align: left;
+
+          > span {
+              //display: inline-block;
+              padding: 0 0px;
+              font-size: 12px;
+              color: rgb(108, 117, 125);
+              border-radius: 2px;
+              //background-color: #b37878;
+          }
+      }
   }
 }
 </style>
