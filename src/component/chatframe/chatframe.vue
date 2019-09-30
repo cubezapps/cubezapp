@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="backgrounddiv">
-     <tittlebar :tittle="$t('Chat')"></tittlebar>
+     <tittlebar :tittle="$t('MessageWindow')"></tittlebar>
      <div class="maindiv">
          <div class="leftdiv">
             <div class="infodiv" ref="infodivRef" id="infodivId">

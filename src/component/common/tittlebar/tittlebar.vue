@@ -56,7 +56,7 @@ $back-color: rgb(0, 137, 227);
   flex-direction: row;
 }
 .captiondiv {
-  flex: 0 0 120px;
+  flex: 0 0 150px;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;

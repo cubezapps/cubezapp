@@ -53,7 +53,7 @@ export default {
     
     this.$VueBus.$on('onFriendItemDbClick', (val) => {
         if(JSON.stringify(this.chatFrameObjs[val.uniqueId]) == '{}') {
-          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.chatFrameObjs[val.uniqueId] = r
             window.connectSignal(this.chatFrameObjs[val.uniqueId].loadStateChanged, (state, data) => {
                if(state == 1){
