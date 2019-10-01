@@ -29,8 +29,9 @@
             <div class="statusdiv">
                  <div class="statusdiv-1"></div>
                  <div class="statusdiv-2">
-                     <b-button variant="danger" class="btn-ex">{{$t('Close')}}</b-button>
-                     <b-button variant="primary" class="btn-ex" @click="onClick($event)">{{$t('Send')}}</b-button>
+                     <b-button variant="danger" class="btn-ex" @click="onClickClose($event)">{{$t('Close')}}</b-button>
+                     <b-button variant="primary" id="primaryId" class="btn-ex" @click="onClickSend($event)">{{$t('Send')}}</b-button>
+                     <b-tooltip target="primaryId" ref="tooltipRef" :disabled.sync="tooltipDisabled" variant="secondary" placement="top">{{tooltipText}}</b-tooltip>
                  </div>
             </div>
           </div>
@@ -48,8 +49,14 @@
                       <span>{{$t("Mac: ")}}</span>
                       <span>{{this.$t(chatItem.mac)}}</span>
                   </p>
+                  <div class="labelandimg">
+                      <span>{{$t("Online: ")}}</span>
+                      <img width="14" height="14" :style="{'margin-top': '-3px', 'margin-left': '3px'}" :src="chatItem.isonline ? greenImg : redImg" />
+                  </div>
               </div>
-              <div :style="{'background': 'white', 'height': '60%'}"></div>
+              <div class="transfile-div">
+                <transfileitem v-for="(item, index) of transFileItems" :key="index" :index="index" :item="item"></transfileitem>
+              </div>
           </div>
       </div>
   </div>
@@ -58,6 +65,8 @@
 <script>
 import i18n from '@/i18n'
 import tittlebar from '@/component/common/tittlebar/tittlebar.vue'
+import transfileitem from './transfile-item.vue'
+import SparkMd5 from 'spark-md5'
 export default {
   metaInfo: {
         title: 'ChatFrame', // set a title
@@ -71,13 +80,22 @@ export default {
   },
   components: {
     tittlebar,
+    transfileitem
   },
   filters: {
         time (date) {
             if (typeof date === 'string') {
                 date = new Date(date);
             }
-            return date.getHours() + ':' + date.getMinutes();
+            let hours = date.getHours()
+            if(hours < 10) {
+              hours = '0' + hours
+            }
+            let minuts = date.getMinutes()
+            if(minuts < 10) {
+              minuts = '0' + minuts
+            }
+            return hours + ':' + minuts;
         }
   },
   data () {
@@ -86,7 +104,12 @@ export default {
       chatItem: {},
       editText: '',
       selfImg: 'asserts/self.png',
-      otherImg: 'asserts/other.png'
+      otherImg: 'asserts/other.png',
+      tooltipDisabled: true,
+      tooltipText: '',
+      redImg: 'asserts/red.png',
+      greenImg: 'asserts/green.png',
+      transFileItems: []
     }
   },
   mounted () {
@@ -141,23 +164,70 @@ export default {
           return false
       }
       this.$refs.textareaRef.$el.placeholder = this.$t('Press Ctrl + Enter to send')
+      window.connectSignal(window.Native.Network.onMessage, (ip, port, message) => {
+           if(this.chatItem.ip == ip) {
+              let tmpItem = {}
+              tmpItem["content"] = message
+              tmpItem["date"] = new Date()
+              tmpItem["self"] = false
+              this.messageItems.push(tmpItem)
+              this.scrollBottom()
+           }
+      });
+      window.Win.winId().then(winId => {
+        window.Native.Sdk.cefBrowser(winId).then((browser) => {
+        window.connectSignal(browser.onDragNames, (names) => {
+          for(let i = 0; i < names.length; i++) {
+            let filesData = {}
+            filesData.items = []
+            let objFile = {}
+            objFile['path'] = names[i]
+            objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
+            let n = objFile['path'].lastIndexOf("\\")
+            objFile['name'] = objFile['path'].substr(n + 1)
+            filesData['items'].push(objFile)
+            objFile['status'] = 0
+            objFile['issendfile'] = true
+            this.$WebSDK('common.parseShortcutFiles', JSON.stringify(filesData)).then(r => {
+              this.transFileItems.push(objFile)
+            })
+          }
+        })
+      })
+      })
     },
     setCaptionArea () {
       let areaTop = [0, 0, document.body.offsetWidth - 30,  30]
       this.$WebSDK('win.setDragArea', [areaTop])
     },
-    onClick(event) {
-        let tmpItem = {}
-        tmpItem["content"] = this.$refs.textareaRef.value
-        tmpItem["date"] = new Date()
-        tmpItem["self"] = false
-        this.messageItems.push(tmpItem)
-        let tmpItem1 = {}
-        tmpItem1["content"] = this.$refs.textareaRef.value
-        tmpItem1["date"] = new Date()
-        tmpItem1["self"] = true
-        this.messageItems.push(tmpItem1)
-        this.scrollBottom()
+    onClickClose(event) {
+      window.Win.hide()
+    },
+    onClickSend(event) {
+      if(this.$refs.textareaRef.value == "") {
+        this.tooltipText = this.$t('Cannot Send Empty Message')
+        this.$refs.tooltipRef.$emit('open')
+        setTimeout(() => {
+          this.$refs.tooltipRef.$emit('close')
+        }, 2000);
+        return
+      }
+      else if (!this.chatItem.isonline) {
+        this.tooltipText = this.$t('Friend is not online')
+        this.$refs.tooltipRef.$emit('open')
+        setTimeout(() => {
+          this.$refs.tooltipRef.$emit('close')
+        }, 2000);
+        return
+      }
+      window.Native.Network.message(this.chatItem.ip, this.chatItem.port, this.$refs.textareaRef.value)
+      let tmpItem = {}
+      tmpItem["content"] = this.$refs.textareaRef.value
+      tmpItem["date"] = new Date()
+      tmpItem["self"] = true
+      this.messageItems.push(tmpItem)
+      this.editText = ""
+      this.scrollBottom()
     },
     scrollBottom () {
       this.$nextTick(() => {
@@ -166,7 +236,7 @@ export default {
     },
     onKeydown (e) {
         if (e.ctrlKey && e.keyCode === 13) {
-            this.onClick(e)
+            this.onClickSend(e)
         }
     }
   }
@@ -249,7 +319,7 @@ $back-color: rgb(0, 137, 227);
           position: relative;
           padding: 0 10px;
           max-width: calc(100% - 42px);
-          min-height: 40px;
+          min-height: 28px;
           line-height: 2;
           font-size: 12px;
           text-align: left;
@@ -358,18 +428,37 @@ $back-color: rgb(0, 137, 227);
     border-left: 1px solid rgb(221, 221, 210);
 
     .label {
-          margin: 15px 10px;
-          text-align: left;
+        margin: 10px 10px;
+        text-align: left;
 
-          > span {
-              //display: inline-block;
-              padding: 0 0px;
-              font-size: 12px;
-              color: rgb(108, 117, 125);
-              border-radius: 2px;
-              //background-color: #b37878;
-          }
-      }
+        > span {
+            //display: inline-block;
+            padding: 0 0px;
+            font-size: 12px;
+            color: rgb(108, 117, 125);
+            border-radius: 2px;
+            //background-color: #b37878;
+        }
+    }
+    .labelandimg {
+        margin: 10px 10px;
+        text-align: left;
+
+        > span {
+            //display: inline-block;
+            padding: 0 0px;
+            font-size: 12px;
+            color: rgb(108, 117, 125);
+            border-radius: 2px;
+            //background-color: #b37878;
+        }
+    }
+    .transfile-div {
+      background: white;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 </style>

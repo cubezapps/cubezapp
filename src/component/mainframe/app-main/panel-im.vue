@@ -85,7 +85,7 @@ export default {
         for(let i = 0; i < this.myselfData.length; i++) {
           //this.$Logger.log('ip:' + ip + ' myselfip:' + this.myselfData[i].address.ip)
           //this.$Logger.log('mac:' + mac + ' myselfmac:' + this.myselfData[i].mac)
-          if(ip == this.myselfData[i].address.ip && mac == this.myselfData[i].mac) {
+          if(mac == this.myselfData[i].mac) {
             friendItemObj['ismyself'] = true
           }
         }
@@ -98,8 +98,10 @@ export default {
     updateFriendData(name, ip, port, mac) {
         let isExists = false
         for(let i = 0; i < this.friendData.items.length; i++) {
-          if(this.friendData.items[i].ip == ip && this.friendData.items[i].mac == mac) {
+          if(this.friendData.items[i].mac == mac) {
             this.friendData.items[i]['isonline'] = true
+            this.friendData.items[i]['ip'] = ip
+            this.friendData.items[i]['name'] = name
             this.friendData.items[i]['updatetime'] = new Date().getTime()
             isExists = true
           }
