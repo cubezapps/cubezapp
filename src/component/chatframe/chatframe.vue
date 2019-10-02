@@ -177,6 +177,9 @@ export default {
       window.Win.winId().then(winId => {
         window.Native.Sdk.cefBrowser(winId).then((browser) => {
         window.connectSignal(browser.onDragNames, (names) => {
+          if (!this.checkOnline()) {
+            return
+          }
           for(let i = 0; i < names.length; i++) {
             let filesData = {}
             filesData.items = []
@@ -188,12 +191,32 @@ export default {
             filesData['items'].push(objFile)
             objFile['status'] = 0
             objFile['issendfile'] = true
+            objFile['ip'] = this.chatItem.ip
+            objFile['port'] = this.chatItem.port
             this.$WebSDK('common.parseShortcutFiles', JSON.stringify(filesData)).then(r => {
-              this.transFileItems.push(objFile)
+              window.Native.Network.sendFile(this.chatItem.ip, this.chatItem.port, objFile.path).then(jobId => {
+                objFile['jobid'] = jobId
+                this.transFileItems.push(objFile)
+              })
             })
           }
         })
       })
+      })
+      window.connectSignal(window.Native.Network.onTransFileReq, (ip, port, jobid, filename, type) => {
+        let objFile = {}
+        objFile['path'] = filename
+        objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
+        let n = objFile['path'].lastIndexOf("\\")
+        objFile['name'] = objFile['path'].substr(n + 1)
+        objFile['filename'] = filename
+        objFile['status'] = 0
+        objFile['type'] = type
+        objFile['jobid'] = jobid
+        objFile['issendfile'] = false
+        objFile['ip'] = this.chatItem.ip
+        objFile['port'] = this.chatItem.port
+        this.transFileItems.push(objFile)
       })
     },
     setCaptionArea () {
@@ -204,20 +227,9 @@ export default {
       window.Win.hide()
     },
     onClickSend(event) {
-      if(this.$refs.textareaRef.value == "") {
-        this.tooltipText = this.$t('Cannot Send Empty Message')
-        this.$refs.tooltipRef.$emit('open')
-        setTimeout(() => {
-          this.$refs.tooltipRef.$emit('close')
-        }, 2000);
+      if(!this.checkEmptyMessage())
         return
-      }
-      else if (!this.chatItem.isonline) {
-        this.tooltipText = this.$t('Friend is not online')
-        this.$refs.tooltipRef.$emit('open')
-        setTimeout(() => {
-          this.$refs.tooltipRef.$emit('close')
-        }, 2000);
+      if (!this.checkOnline()) {
         return
       }
       window.Native.Network.message(this.chatItem.ip, this.chatItem.port, this.$refs.textareaRef.value)
@@ -228,6 +240,28 @@ export default {
       this.messageItems.push(tmpItem)
       this.editText = ""
       this.scrollBottom()
+    },
+    checkEmptyMessage() {
+      if(this.$refs.textareaRef.value == "") {
+        this.tooltipText = this.$t('Cannot Send Empty Message')
+        this.$refs.tooltipRef.$emit('open')
+        setTimeout(() => {
+          this.$refs.tooltipRef.$emit('close')
+        }, 2000);
+        return false
+      }
+      return true
+    },
+    checkOnline() {
+      if (!this.chatItem.isonline) {
+        this.tooltipText = this.$t('Friend is not online')
+        this.$refs.tooltipRef.$emit('open')
+        setTimeout(() => {
+          this.$refs.tooltipRef.$emit('close')
+        }, 2000);
+        return false
+      }
+      return true
     },
     scrollBottom () {
       this.$nextTick(() => {
@@ -390,7 +424,7 @@ $back-color: rgb(0, 137, 227);
     .statusdiv {
       height: 40px;
       flex: 1 1 auto;
-      background: rgb(230, 230, 208);
+      background: rgb(250, 250, 250);
       margin: 0;
       display: flex;
       flex-direction: row;

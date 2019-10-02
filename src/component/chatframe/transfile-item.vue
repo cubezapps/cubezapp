@@ -6,11 +6,11 @@
             <img class="avatar" :src="greenImg"/>
             <div class="text">{{ item.name }}</div>
           </div>
-          <b-progress class="file-middle-div" :value="50" :max="max" show-progress animated></b-progress>
+          <b-progress class="file-middle-div" :value="50" :max="100" show-progress animated></b-progress>
           <div class="file-bottom-div">
             <div class="speedDiv">10KB/s</div>
-            <b-link>Recv</b-link>
-            <b-link>Cancel</b-link>
+            <b-link id="acceptBtn" v-if="!item.issendfile" @click="onAcceptClick">{{ $t("Accept")}}</b-link>
+            <b-link id="cancelBtn" @click="onCancelClick">{{ $t("Cancel")}}</b-link>
           </div>
         </div>
     </div> 
@@ -37,13 +37,27 @@ export default {
     }
   },
   mounted() {
-    
+    window.connectSignal(window.Native.Network.onTransFileRes, (ip, port, jobid, accept) => {
+      if(this.item.jobid == jobid) {
+        this.item.status = 1
+      }
+    })
   },
   computed: {
-
+    
   },
   methods: {
-
+    onAcceptClick(event) {
+      window.Native.Common.chooseFolder("", "").then(r => {
+        if(r.code == 0) {
+          window.Native.Network.recvFile(this.item.ip, this.item.port, this.item.jobid, r.folder, this.item.filename, this.item.type)
+          this.item.status = 1
+        }
+      })
+    },
+    onCancelClick(event) {
+      console.log("cancel")
+    }
   }
 }
 </script>
@@ -103,9 +117,19 @@ export default {
           flex: 1 1 auto;
           text-align: left;
         }
-        .b-link {
+        #acceptBtn {
           margin-left: 4px;
           margin-right: 4px;
+        }
+        #cancelBtn{
+          margin-left: 4px;
+          margin-right: 4px;
+        }
+        a:link { 
+          text-decoration: none;
+        }
+        a:hover {
+          color: rgb(187, 14, 14);
         }
       }
     }
