@@ -6,11 +6,11 @@
             <img class="avatar" :src="greenImg"/>
             <div class="text">{{ item.name }}</div>
           </div>
-          <b-progress class="file-middle-div" :value="50" :max="100" show-progress animated></b-progress>
+          <b-progress class="file-middle-div" ref="progressRef" :precision="2" :value="progressData" :max="100" show-progress animated></b-progress>
           <div class="file-bottom-div">
-            <div class="speedDiv">10KB/s</div>
-            <b-link id="acceptBtn" v-if="!item.issendfile" @click="onAcceptClick">{{ $t("Accept")}}</b-link>
-            <b-link id="cancelBtn" @click="onCancelClick">{{ $t("Cancel")}}</b-link>
+            <div class="speedDiv" ref="speedRef" v-if="item.status != 3" >{{ speedData }}</div>
+            <b-link id="acceptBtn" v-if="!item.issendfile && item.status == 0" @click="onAcceptClick">{{ $t("Accept")}}</b-link>
+            <b-link id="cancelBtn" @click="onCancelClick">{{ cancelText }}</b-link>
           </div>
         </div>
     </div> 
@@ -33,7 +33,9 @@ export default {
     return {
       redImg: 'asserts/red.png',
       greenImg: 'asserts/green.png',
-      houseImg: 'asserts/house.png'
+      houseImg: 'asserts/house.png',
+      speedData: '0MB/S',
+      progressData: 0
     }
   },
   mounted() {
@@ -42,9 +44,52 @@ export default {
         this.item.status = 1
       }
     })
+
+    window.connectSignal(window.Native.Network.onTransFileJobFinish, (ip, jobid) => {
+      if(this.item.jobid == jobid && this.item.issendfile) {
+        this.item.status = 2
+        this.progressData = 100.00
+      }
+    })
+
+    window.connectSignal(window.Native.Network.onRecvAllJobFinish, (ip, jobid) => {
+      if(this.item.jobid == jobid && !this.item.issendfile) {
+        this.item.status = 2
+        this.progressData = 100.00
+      }
+    })
+
+    window.connectSignal(window.Native.Network.onStaticst, (data) => {
+      console.log(data)
+      if(this.item.status == 1) {
+        if(this.item.issendfile) {
+          for(let i = 0; i < data.send.length; ++i) {
+            if(this.item.jobid == data.send[i].jobid) {
+              this.progressData = parseFloat(data.send[i].percent)
+              this.speedData = data.send[i].speed + 'MB/S'
+            }
+          }
+        }
+        else {
+          for(let i = 0; i < data.recv.length; ++i) {
+            if(this.item.jobid == data.recv[i].jobid) {
+              this.progressData = parseFloat(data.recv[i].percent)
+              this.speedData = data.recv[i].speed + 'MB/S'
+            }
+          }
+        }
+      }
+    })
   },
   computed: {
-    
+    cancelText() {
+      if(this.item.status == 2) {
+        return this.$t("Close")
+      }
+      else {
+        return this.$t("Cancel")
+      }
+    }
   },
   methods: {
     onAcceptClick(event) {
