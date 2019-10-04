@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="backgrounddiv">
-     <tittlebar :tittle="$t('MessageWindow')"></tittlebar>
+     <tittlebar :tittle="$t('MessageWindow')" :showmin="true"></tittlebar>
      <div class="maindiv">
          <div class="leftdiv">
             <div class="infodiv" ref="infodivRef" id="infodivId">
@@ -109,7 +109,8 @@ export default {
       tooltipText: '',
       redImg: 'asserts/red.png',
       greenImg: 'asserts/green.png',
-      transFileItems: []
+      transFileItems: [],
+      itemUniqueId: 0
     }
   },
   mounted () {
@@ -158,6 +159,15 @@ export default {
           case this.$DataUri.APP_LanguageChange:
             i18n.setLocale(data)
             break
+          case this.$DataUri.ChatFrame_ItemClose: {
+            let obj = JSON.parse(data)
+            for(let i = 0; i < this.transFileItems.length; i++) { 
+              if(obj.itemuniqueid == this.transFileItems[i].itemuniqueid) {
+                this.transFileItems.splice(i, 1)
+              }
+            }
+          }
+            break
           }
       })
       document.body.oncontextmenu = (e) => {
@@ -196,6 +206,7 @@ export default {
             this.$WebSDK('common.parseShortcutFiles', JSON.stringify(filesData)).then(r => {
               window.Native.Network.sendFile(this.chatItem.ip, this.chatItem.port, objFile.path).then(jobId => {
                 objFile['jobid'] = jobId
+                objFile['itemuniqueid'] = ++this.itemUniqueId
                 this.transFileItems.push(objFile)
               })
             })
@@ -216,11 +227,19 @@ export default {
         objFile['issendfile'] = false
         objFile['ip'] = this.chatItem.ip
         objFile['port'] = this.chatItem.port
+        objFile['itemuniqueid'] = ++this.itemUniqueId
         this.transFileItems.push(objFile)
+      })
+      window.connectSignal(window.Native.Network.onTransFileCancel, (ip, port, jobid) => {
+        for(let i = 0; i < this.transFileItems.length; i++) { 
+          if(jobid == this.transFileItems[i].jobid) {
+            this.transFileItems.splice(i, 1)
+          }
+        }
       })
     },
     setCaptionArea () {
-      let areaTop = [0, 0, document.body.offsetWidth - 30,  30]
+      let areaTop = [0, 0, document.body.offsetWidth - 60,  30]
       this.$WebSDK('win.setDragArea', [areaTop])
     },
     onClickClose(event) {
@@ -492,6 +511,7 @@ $back-color: rgb(0, 137, 227);
       height: 60%;
       display: flex;
       flex-direction: column;
+      overflow-y: scroll;
     }
   }
 }

@@ -43,5 +43,20 @@
   "【Paste Text】": "【粘贴文本】",
   "【Paste Image】": "【粘贴截图】",
   "【Paste Files】": "【粘贴文件】",
-  "Calendar": "万年历"
+  "Calendar": "万年历",
+  "MessageWindow": "消息窗口",
+  "Friend": "好友",
+  "Computer": "计算机",
+  "IP Address": "IP地址",
+  "Mac Address": "Mac地址",
+  "Send": "发送",
+  "Computer: ": "计算机: ",
+  "IP: ": "IP地址: ",
+  "Mac: ": "Mac地址: ",
+  "Online: ": "在线: ",
+  "Cancel": "取消",
+  "Cannot Send Empty Message": "不能发送空消息",
+  "Accept": "接受",
+  "Press Ctrl + Enter to send": "按键 Ctrl + Enter 发送",
+  "Friend is not online": "好友离线了"
 }

@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="backgrounddiv">
-     <tittlebar :tittle="$t('Setting')"></tittlebar>
+     <tittlebar :tittle="$t('Setting')" :showmin="false"></tittlebar>
      <div class="maindiv">
          <div class="linediv">
             <div>{{$t('Start with the system')}}</div><input type="checkbox" ref="boot" id="switch1" @click="onBootBtnClick()"/><label for="switch1">Toggle</label><div class="spacediv"></div>
@@ -155,7 +155,7 @@ $back-color: rgb(0, 137, 227);
     display: flex;
     flex-direction: row;
     justify-content: center;
-	  align-items: center;
+    align-items: center;
     margin-top: 10px;
     .spacediv {
       flex: 0 0 auto;

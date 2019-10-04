@@ -43,5 +43,19 @@
   "【Paste Text】": "【Paste Text】",
   "【Paste Image】": "【Paste Image】",
   "【Paste Files】": "【Paste Files】",
-  "Calendar": "Calendar"
+  "Calendar": "Calendar",
+  "MessageWindow": "MessageWindow",
+  "Friend": "Friend",
+  "Computer": "Computer",
+  "IP Address": "IP Address",
+  "Mac Address": "Mac Address",
+  "Send": "Send",
+  "IP: ": "IP: ",
+  "Mac: ": "Mac: ",
+  "Online: ": "Online: ",
+  "Cancel": "Cancel",
+  "Cannot Send Empty Message": "Cannot Send Empty Message",
+  "Accept": "Accept",
+  "Press Ctrl + Enter to send": "Press Ctrl + Enter to send",
+  "Friend is not online": "Friend is not online"
 }

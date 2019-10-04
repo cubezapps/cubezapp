@@ -4,13 +4,13 @@
           <div class="file-top-div">
             <img class="avatar" :src="redImg" />
             <img class="avatar" :src="greenImg"/>
-            <div class="text">{{ item.name }}</div>
+            <div class="text">{{ showText(item.name) }}</div>
           </div>
           <b-progress class="file-middle-div" ref="progressRef" :precision="2" :value="progressData" :max="100" show-progress animated></b-progress>
           <div class="file-bottom-div">
             <div class="speedDiv" ref="speedRef" v-if="item.status != 3" >{{ speedData }}</div>
             <b-link id="acceptBtn" v-if="!item.issendfile && item.status == 0" @click="onAcceptClick">{{ $t("Accept")}}</b-link>
-            <b-link id="cancelBtn" @click="onCancelClick">{{ cancelText }}</b-link>
+            <b-link id="cancelBtn" ref="cancelRef" @click="onCancelClick">{{ cancelText }}</b-link>
           </div>
         </div>
     </div> 
@@ -89,6 +89,17 @@ export default {
       else {
         return this.$t("Cancel")
       }
+    },
+    showText() {
+      return function(fileName) {
+          let text = fileName
+          if(fileName.length > 20) {
+              text = fileName.substr(0, 10)
+              text += "..."
+              text += fileName.substr(fileName.length - 8, 8)
+          }
+          return text
+      }
     }
   },
   methods: {
@@ -101,7 +112,12 @@ export default {
       })
     },
     onCancelClick(event) {
-      console.log("cancel")
+      if(this.$refs.cancelRef.$el.outerText == this.$t("Cancel")) {
+        window.Native.Network.cancelTransfile(this.item.ip, this.item.port, this.item.jobid)
+      }
+      let val = {}
+      val.itemuniqueid = this.item
+      this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_ItemClose, JSON.stringify(this.item))
     }
   }
 }

@@ -6,6 +6,9 @@
         <label class="logo-link">{{tittle}}</label>
       </div>
       <div class="blankdiv"></div>
+      <div class="btndiv" v-if="showmin">
+        <input type="button" @click="onMinBtnClick()" class="window-min-btn" v-tooltip="$t('Minimize')"/>
+      </div>
       <div class="btndiv">
         <input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="$t('Close')"/>
       </div>
@@ -20,6 +23,10 @@ export default {
     'tittle': {
         type: String,
         required: true
+    },
+    'showmin': {
+        type: Boolean,
+        required: false
     }
   },
   data () {
@@ -33,6 +40,9 @@ export default {
   methods: {
     onCloseBtnClick(event) {
        this.$WebSDK('win.hide')
+    },
+    onMinBtnClick(event) {
+       window.Win.minimize() 
     }
   }
 }
@@ -91,6 +101,21 @@ $back-color: rgb(0, 137, 227);
   height: 30px;
   margin: 0px;
   background: url(./img/window_close.png) 50% 50% no-repeat;
+  cursor: default;
+  outline: none;
+  &:hover {
+    filter: brightness(2);
+  }
+  &:active {
+    filter: brightness(1);
+  }
+}
+.window-min-btn {
+  border: none;
+  width: 30px;
+  height: 30px;
+  margin: 0px;
+  background: url(./img/window_min.png) 50% 50% no-repeat;
   cursor: default;
   outline: none;
   &:hover {
