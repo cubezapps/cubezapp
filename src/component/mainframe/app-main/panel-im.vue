@@ -1,12 +1,20 @@
 <template>
     <div class="backpanel">
-      <div class="item" ref="friendItem" @click="onClick($event)">{{this.$t('Friend')}}</div>
+      <div class="friendDiv" ref="friendItem" @click="onClick($event)">{{this.$t('Friend')}}
+        <div class="hintDiv" ref="hintRef" :style="{ 'margin-left': hintMarginLeft }">
+          <img class="avatar" id="imgid1" :src="greenImg"/>
+          <div class="text">{{ $t("online") }}</div>
+          <img class="avatar" id="imgid2" :src="houseImg"/>
+          <div class="text">{{ $t("myself") }}</div>
+        </div>
+      </div>
       <friendtag ref="friendTag" :tagdata="friendData"></friendtag>
     </div> 
 </template>
 
 <script>
 import friendtag from './friend-tag.vue'
+import i18n from '@/i18n'
 export default {
   components: {
     friendtag
@@ -19,7 +27,10 @@ export default {
       friendData: {},
       chatFrameObjs: {},
       uniqueId: 0,
-      myselfData: []
+      myselfData: [],
+      greenImg: 'asserts/green.png',
+      houseImg: 'asserts/house.png',
+      hintMarginLeft: 'calc(100% - 120px)'
     }
   },
   mounted() {
@@ -67,9 +78,29 @@ export default {
           this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_ShowWindow, JSON.stringify(val))
         }
     })
+    this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
+        switch (uri) {
+          case this.$DataUri.APP_LanguageChange: {
+              //i18n.setLocale(data)
+              if(data == 'cn') {
+                this.hintMarginLeft = "calc(100% - 120px)"
+              }
+              else if(data == 'en') {
+                this.hintMarginLeft = "calc(100% - 140px)"
+              }
+            }
+            break
+        }
+    })
+    if(i18n.locale == 'cn') {
+      this.hintMarginLeft = "calc(100% - 120px)"
+    }
+    else if(i18n.locale == 'en') {
+      this.hintMarginLeft = "calc(100% - 140px)"
+    }
   },
   computed: {
-      
+
   },
   methods: {
     addFriendData(name, ip, port, mac) {
@@ -138,7 +169,7 @@ export default {
     flex-direction: column;
   }
   $itemheigh: 28px;
-  .item {
+  .friendDiv {
     flex: 0 0 $itemheigh;
     height: $itemheigh;
     padding-left: 8px;
@@ -149,6 +180,30 @@ export default {
     cursor: default;
     &:hover{
       background-color: rgb(230, 230, 230);
+    }
+    display: flex;
+    flex-direction: row;
+
+    .hintDiv {
+      //margin-left: calc(100% - 120px);
+      .avatar {
+          float: left;
+          margin-right: 2px;
+          border-radius: 3px;
+          margin-top: 7px;
+          margin-bottom: auto;
+          width: 15px;
+          height: 15px;
+      }
+      .text {
+        float: left;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      #imgid2 {
+        margin-left: 5px;
+      }
     }
   }
 </style>

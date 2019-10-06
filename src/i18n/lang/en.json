@@ -1,10 +1,10 @@
 {
   "Cubez": "Shortcut",
-  "shortcut": "shortcut",
-  "clipboard": "clipboard",
-  "hash": "hash calculator",
-  "flying pigeon": "developing",
-  "developing": "undetermined",
+  "shortcut": "shortcut - Drag and drop the program icon to start quickly",
+  "clipboard": "clipboard - Records and operates clipboard history",
+  "hash": "calculator - Calculate file hash by drag operator",
+  "flying pigeon": "Fly message - P2P messaging on LAN",
+  "developing": "Function collecting",
   "Common": "Common",
   "System": "System",
   "Desktop": "Desktop",
@@ -21,7 +21,7 @@
   "When you need to press ": "When you need to press ",
   "Try": "Try",
   "instead": "instead",
-  "My Cubez": "My Shortcut",
+  "My Cubez": "Shortcut",
   "Show MainFrame": "Show MainFrame",
   "Reset MainFrame": "Reset MainFrame",
   "Setting": "Setting",
@@ -57,5 +57,7 @@
   "Cannot Send Empty Message": "Cannot Send Empty Message",
   "Accept": "Accept",
   "Press Ctrl + Enter to send": "Press Ctrl + Enter to send",
-  "Friend is not online": "Friend is not online"
+  "Friend is not online": "Friend is not online",
+  "online": "online",
+  "myself": "self"
 }

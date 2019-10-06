@@ -2,8 +2,8 @@
     <div class="transfileitem-backpanel">
         <div class="file-div" ref="fileDiv">
           <div class="file-top-div">
-            <img class="avatar" :src="redImg" />
-            <img class="avatar" :src="greenImg"/>
+            <img class="avatar" :src="item.issendfile ? sendImg : recvImg" />
+            <img class="avatar" :src="item.issendfile ? getIconUrl : folderImg"/>
             <div class="text">{{ showText(item.name) }}</div>
           </div>
           <b-progress class="file-middle-div" ref="progressRef" :precision="2" :value="progressData" :max="100" show-progress animated></b-progress>
@@ -34,6 +34,9 @@ export default {
       redImg: 'asserts/red.png',
       greenImg: 'asserts/green.png',
       houseImg: 'asserts/house.png',
+      sendImg: 'asserts/send.png',
+      recvImg: 'asserts/recv.png',
+      folderImg: 'asserts/folder.png',
       speedData: '0MB/S',
       progressData: 0
     }
@@ -100,6 +103,11 @@ export default {
           }
           return text
       }
+    },
+    getIconUrl() {
+      let tmpUrl = `http://localhost/local/res/${this.item.hash}.ico`
+      //console.log(tmpUrl)
+      return tmpUrl
     }
   },
   methods: {

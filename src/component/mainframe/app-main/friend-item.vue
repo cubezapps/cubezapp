@@ -1,13 +1,14 @@
 <template>
-    <div class="frienditem-backpanel motion-class" ref="friendItem" @dblclick="onDoubleClick($event)">
+    <div class="frienditem-backpanel motion-class" id="backpanelId" ref="friendItem" @dblclick="onDoubleClick($event)">
         <div class="name-div" ref="nameDivItem">
-          <img class="avatar" v-if="index > 0" width="16" height="16" :src="item.isonline ? greenImg : redImg" />
-          <img class="avatar" v-if="item.ismyself && index > 0" width="16" height="16" :src="houseImg" />
-          <div class="text">{{ this.$t(item.name) }}</div>
+          <img class="avatar" v-if="index > 0" width="15" height="15" :src="item.isonline ? greenImg : redImg" />
+          <img class="avatar" v-if="item.ismyself && index > 0" width="15" height="15" :src="houseImg" />
+          <div class="text" ref="textRef" id="textId">{{ this.$t(item.name) }}</div>
         </div>
         <div class="ip-div" ref="ipDivItem">{{this.$t(item.ip)}}</div>
         <div class="mac-div" ref="macDivItem">{{this.$t(item.mac)}}</div>
     </div> 
+    
 </template>
 
 <script>
@@ -68,17 +69,17 @@ export default {
     background-color: $color;
   }
   .name-div {
-    width: 30%;
+    width: 32%;
     background-color: rgb(236, 236, 214);
-    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: hidden;
     padding: 0px 2px;
     line-height: $height;
   }
   .ip-div {
     width: 30%;
-    background-color: rgb(230, 230, 204);
+    background-color: rgb(230, 230, 211);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -86,7 +87,7 @@ export default {
   }
   .mac-div {
     width: 38%;
-    background-color: rgb(219, 219, 194);
+    background-color: rgb(223, 223, 204);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -100,11 +101,8 @@ export default {
       margin-bottom: auto;
   }
   .text {
-    //display: inline-block;
-    //position: relative;
-    //padding-right: 0px;
-    //width: cal(100% - 116);
-    //margin-top: auto;
-    //margin-bottom: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 </style>
