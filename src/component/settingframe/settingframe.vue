@@ -4,13 +4,13 @@
      <tittlebar :tittle="$t('Setting')" :showmin="false"></tittlebar>
      <div class="maindiv">
          <div class="linediv">
-            <div>{{$t('Start with the system')}}</div><input type="checkbox" ref="boot" id="switch1" @click="onBootBtnClick()"/><label for="switch1">Toggle</label><div class="spacediv"></div>
+            <div :style="{'margin-right': '6px'}">{{$t('Start with the system')}}</div><input type="checkbox" ref="boot" id="switch1" @click="onBootBtnClick()"/><label for="switch1" :style="{'margin-top': 'auto', 'margin-bottom': 'auto'}">Toggle</label><div class="spacediv"></div>
          </div>
          <div class="linediv">
-            <div>{{$t('Switch to Chinese')}}</div><input type="checkbox" ref="chineseLang" id="switch2" @click="onChineseLangCheck($event)"/><label for="switch2">Toggle</label><div class="spacediv"></div>
+            <div :style="{'margin-right': '6px'}">{{$t('Switch to Chinese')}}</div><input type="checkbox" ref="chineseLang" id="switch2" @click="onChineseLangCheck($event)"/><label for="switch2" :style="{'margin-top': 'auto', 'margin-bottom': 'auto'}">Toggle</label><div class="spacediv"></div>
          </div>
          <div class="linediv">
-            <div>{{$t('Switch to English')}}</div><input type="checkbox" ref="englishLang" id="switch3" @click="onEnglishLangCheck($event)"/><label for="switch3">Toggle</label><div class="spacediv"></div>
+            <div :style="{'margin-right': '6px'}">{{$t('Switch to English')}}</div><input type="checkbox" ref="englishLang" id="switch3" @click="onEnglishLangCheck($event)"/><label for="switch3" :style="{'margin-top': 'auto', 'margin-bottom': 'auto'}">Toggle</label><div class="spacediv"></div>
          </div>
       </div>
   </div>
