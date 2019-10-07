@@ -17,12 +17,11 @@
 </template>
 
 <script>
-import logoImage from './img/logo.png'
 import i18n from '@/i18n'
 export default {
   data () {
     return {
-        logoImage: logoImage,
+        logoImage: 'asserts/logo.png',
         browserObj: null
     }
   },
@@ -125,7 +124,7 @@ $buttonswidth: 108px;
 
   .window-setting-btn {
     border: none;
-    background: url(./img/settting.png) 50% 50% no-repeat;
+    background: url(/asserts/settting.png) 50% 50% no-repeat;
     cursor: default;
     outline: none;
     &:hover {
@@ -137,7 +136,7 @@ $buttonswidth: 108px;
   }
   .window-min-btn {
     border: none;
-    background: url(./img/window_min.png) 50% 50% no-repeat;
+    background: url(/asserts/window_min.png) 50% 50% no-repeat;
     cursor: default;
     outline: none;
     &:hover {
@@ -149,7 +148,7 @@ $buttonswidth: 108px;
   }
   .window-close-btn {
     border: none;
-    background: url(./img/window_close.png) 50% 50% no-repeat;
+    background: url(/asserts/window_close.png) 50% 50% no-repeat;
     cursor: default;
     outline: none;
     &:hover {
@@ -161,7 +160,7 @@ $buttonswidth: 108px;
   }
   .calendar-btn {
     border: none;
-    background: url(./img/calendar.png) 50% 50% no-repeat;
+    background: url(/asserts/calendar.png) 50% 50% no-repeat;
     cursor: default;
     outline: none;
     &:hover {

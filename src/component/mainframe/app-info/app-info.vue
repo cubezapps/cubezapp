@@ -9,11 +9,10 @@
 </template>
 
 <script>
-import cubeImage from './img/cube.png'
 export default {
   data () {
     return {
-        cubeImage: cubeImage
+        cubeImage: '/asserts/logo.png'
     }
   }
 }

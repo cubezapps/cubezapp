@@ -16,11 +16,6 @@
 
 <script>
 import appbutton from './app-button.vue'
-import img0 from './img/img0.png'
-import img1 from './img/img1.png'
-import img2 from './img/img2.png'
-import img3 from './img/img3.png'
-import img4 from './img/img4.png'
 import shortcutpanel from './panel-shortcut.vue'
 import clipboardpanel from './panel-clipboard.vue'
 import hashpanel from './panel-hash.vue'
@@ -37,11 +32,11 @@ export default {
   },
   data () {
     return {
-        img0: img0,
-        img1: img1,
-        img2: img2,
-        img3: img3,
-        img4: img4,
+        img0: '/asserts/img0.png',
+        img1: '/asserts/img1.png',
+        img2: '/asserts/img2.png',
+        img3: '/asserts/img3.png',
+        img4: '/asserts/img4.png',
         btnItems: [],
         curId: 0
     }

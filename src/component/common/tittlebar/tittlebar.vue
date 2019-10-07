@@ -17,7 +17,6 @@
 
 <script>
 import i18n from '@/i18n'
-import logoImage from './img/logo.png'
 export default {
   props: {
     'tittle': {
@@ -31,7 +30,7 @@ export default {
   },
   data () {
     return {
-        logoImage: logoImage
+        logoImage: 'asserts/logo.png'
     }
   },
   mounted () {
@@ -100,7 +99,7 @@ $back-color: rgb(0, 137, 227);
   width: 30px;
   height: 30px;
   margin: 0px;
-  background: url(./img/window_close.png) 50% 50% no-repeat;
+  background: url(/asserts/window_close.png) 50% 50% no-repeat;
   cursor: default;
   outline: none;
   &:hover {
@@ -115,7 +114,7 @@ $back-color: rgb(0, 137, 227);
   width: 30px;
   height: 30px;
   margin: 0px;
-  background: url(./img/window_min.png) 50% 50% no-repeat;
+  background: url(/asserts/window_min.png) 50% 50% no-repeat;
   cursor: default;
   outline: none;
   &:hover {
