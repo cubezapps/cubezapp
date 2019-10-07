@@ -430,7 +430,7 @@ $back-color: rgb(0, 137, 227);
         justify-content: center;
       }
       .textdiv {
-        height: calc(100% - $buttonsDivWidth);
+        height: calc(100% - #{$buttonsDivWidth}) ;
         flex: 1 1 auto;
         background: rgb(247, 247, 228);
         margin: 0;
