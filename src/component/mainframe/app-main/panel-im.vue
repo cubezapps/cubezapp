@@ -52,15 +52,30 @@ export default {
         this.myselfData = r
     })
     window.connectSignal(window.Native.Network.onBoardCast, (ip, port, computerName, macAddr) => {
+        this.$Logger.log('onBoardCast computerName:' + computerName + ' ip:' + ip + ' port:' + port + ' mac:' + macAddr)
+        let ismyself = false
+        for(let i = 0; i < this.myselfData.length; i++) {
+          //this.$Logger.log('ip:' + ip + ' myselfip:' + this.myselfData[i].address.ip)
+          //this.$Logger.log('mac:' + mac + ' myselfmac:' + this.myselfData[i].mac)
+          if(macAddr == this.myselfData[i].mac) {
+            ismyself = true
+            break
+          }
+        }
+        if(!ismyself) {
+          window.Native.Network.uniCast(ip, port, this.myselfData[0]['computername'], this.myselfData[0]['mac'])
+        }
+        else {
+          this.updateFriendData(computerName, ip, port, macAddr)
+        }
+    });
+    window.connectSignal(window.Native.Network.onUniCast, (ip, port, computerName, macAddr) => {
+        this.$Logger.log('onUniCast computerName:' + computerName + ' ip:' + ip + ' port:' + port + ' mac:' + macAddr)
         this.updateFriendData(computerName, ip, port, macAddr)
     });
     window.setInterval(() => {
        window.Native.Network.boardCast()
-    }, 1000)
-
-    window.setInterval(() => {
-       this.checkOnline()
-    }, 3000)
+    }, 2000)
     
     this.$VueBus.$on('onFriendItemDbClick', (val) => {
         if(JSON.stringify(this.chatFrameObjs[val.uniqueId]) == '{}') {
@@ -125,6 +140,7 @@ export default {
         this.friendData['items'].push(friendItemObj)
         let chatObj = {}
         this.chatFrameObjs[uniqueVal] = {}
+        this.$Logger.log('addFriendData name:' + name + ' ip:' + ip + ' mac:' + mac)
     },
     updateFriendData(name, ip, port, mac) {
         let isExists = false
@@ -140,13 +156,15 @@ export default {
         if(!isExists) {
           this.addFriendData(name, ip, port, mac)
         }
+        this.checkOnline()
         this.$VueBus.$emit('onRefresh', this.friendData.id)
     },
     checkOnline() {
         for(let i = 0; i < this.friendData.items.length; i++) {
           let timeval = new Date().getTime()
-          if(timeval - this.friendData.items[i]['updatetime'] > 2500) {
-            this.friendData.items[i]['isonline'] = false
+          if(timeval - this.friendData.items[i]['updatetime'] > 2500 && !this.friendData.items[i]['ismyself']) {
+            //this.friendData.items[i]['isonline'] = false
+            this.$set(this.friendData.items[i], 'isonline', false)
             this.$Logger.log('checkOnline false: ' + this.friendData.items[i]['ip'])
           }
         }

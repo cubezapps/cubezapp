@@ -35,6 +35,9 @@ export default {
     if(this.index == 0) {
        this.$refs.friendItem.classList.remove("motion-class")
     }
+    this.$VueBus.$on('onRefresh', (id) => {
+      this.$forceUpdate()
+    })
   },
   computed: {
 
