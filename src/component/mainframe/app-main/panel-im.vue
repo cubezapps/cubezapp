@@ -62,21 +62,25 @@ export default {
             break
           }
         }
-        if(!ismyself) {
-          this.$Logger.log('doUnicast ===> ip:' + ip + ' port:' + port + ' computer:' + this.myselfData[0]['computername'] + ' mac:' + this.myselfData[0]['mac'])
-          window.Native.Network.uniCast(ip, port, this.myselfData[0]['computername'], this.myselfData[0]['mac'])
-        }
-        else {
+        //if(!ismyself) {
+          //this.$Logger.log('doUnicast ===> ip:' + ip + ' port:' + port + ' computer:' + this.myselfData[0]['computername'] + ' mac:' + this.myselfData[0]['mac'])
+        //  window.Native.Network.uniCast(ip, port, this.myselfData[0]['computername'], this.myselfData[0]['mac'])
+        //}
+        //else {
           this.updateFriendData(computerName, ip, port, macAddr)
-        }
+        //}
     });
     window.connectSignal(window.Native.Network.onUniCast, (ip, port, computerName, macAddr) => {
         this.$Logger.log('===> onUniCast computerName:' + computerName + ' ip:' + ip + ' port:' + port + ' mac:' + macAddr)
         this.updateFriendData(computerName, ip, port, macAddr)
     });
+    window.Native.Network.boardCast()
     window.setInterval(() => {
        window.Native.Network.boardCast()
-    }, 100)
+    }, 3000)
+    window.setInterval(() => {
+       this.keepAlive()
+    }, 1000)
     
     this.$VueBus.$on('onFriendItemDbClick', (val) => {
         window.Native.Network.uniCast(val.ip, val.port, this.myselfData[0]['computername'], this.myselfData[0]['mac'])
@@ -180,7 +184,15 @@ export default {
             //this.$set(this.friendData.items[i], 'isonline', false)
           }
         }
-    } 
+    },
+    keepAlive() {
+      for(let i = 1; i < this.friendData.items.length; i++) {
+          if(!this.friendData.items[i]['ismyself']) {
+            this.$Logger.log('doUnicast ===> ip:' + this.friendData.items[i]['ip'] + ' port:' + this.friendData.items[i]['port'] + ' computer:' + this.myselfData[0]['computername'] + ' mac:' + this.myselfData[0]['mac'])
+            window.Native.Network.uniCast(this.friendData.items[i]['ip'], this.friendData.items[i]['port'], this.myselfData[0]['computername'], this.myselfData[0]['mac'])
+          }
+        }
+    }
   }
 }
 </script>

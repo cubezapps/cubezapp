@@ -216,25 +216,31 @@ export default {
       })
       })
       window.connectSignal(window.Native.Network.onTransFileReq, (ip, port, jobid, filename, type) => {
-        let objFile = {}
-        objFile['path'] = filename
-        objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
-        let n = objFile['path'].lastIndexOf("\\")
-        objFile['name'] = objFile['path'].substr(n + 1)
-        objFile['filename'] = filename
-        objFile['status'] = 0
-        objFile['type'] = type
-        objFile['jobid'] = jobid
-        objFile['issendfile'] = false
-        objFile['ip'] = this.chatItem.ip
-        objFile['port'] = this.chatItem.port
-        objFile['itemuniqueid'] = ++this.itemUniqueId
-        this.transFileItems.push(objFile)
+        if(this.chatItem.ip == ip) {
+          let objFile = {}
+          objFile['path'] = filename
+          objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
+          let n = objFile['path'].lastIndexOf("\\")
+          objFile['name'] = objFile['path'].substr(n + 1)
+          objFile['filename'] = filename
+          objFile['status'] = 0
+          objFile['type'] = type
+          objFile['jobid'] = jobid
+          objFile['issendfile'] = false
+          objFile['ip'] = this.chatItem.ip
+          objFile['port'] = this.chatItem.port
+          objFile['itemuniqueid'] = ++this.itemUniqueId
+          this.transFileItems.push(objFile)
+          this.$WebSDK('win.forefront')
+          this.$WebSDK('win.show')
+        }
       })
       window.connectSignal(window.Native.Network.onTransFileCancel, (ip, port, jobid) => {
-        for(let i = 0; i < this.transFileItems.length; i++) { 
-          if(jobid == this.transFileItems[i].jobid) {
-            this.transFileItems.splice(i, 1)
+          if(this.chatItem.ip == ip) {
+            for(let i = 0; i < this.transFileItems.length; i++) { 
+            if(jobid == this.transFileItems[i].jobid) {
+              this.transFileItems.splice(i, 1)
+            }
           }
         }
       })
