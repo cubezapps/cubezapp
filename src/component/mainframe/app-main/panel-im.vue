@@ -63,6 +63,7 @@ export default {
           }
         }
         if(!ismyself) {
+          this.$Logger.log('doUnicast ===> ip:' + ip + ' port:' + port + ' computer:' + this.myselfData[0]['computername'] + ' mac:' + this.myselfData[0]['mac'])
           window.Native.Network.uniCast(ip, port, this.myselfData[0]['computername'], this.myselfData[0]['mac'])
         }
         else {
@@ -70,14 +71,15 @@ export default {
         }
     });
     window.connectSignal(window.Native.Network.onUniCast, (ip, port, computerName, macAddr) => {
-        this.$Logger.log('onUniCast computerName:' + computerName + ' ip:' + ip + ' port:' + port + ' mac:' + macAddr)
+        this.$Logger.log('===> onUniCast computerName:' + computerName + ' ip:' + ip + ' port:' + port + ' mac:' + macAddr)
         this.updateFriendData(computerName, ip, port, macAddr)
     });
     window.setInterval(() => {
        window.Native.Network.boardCast()
-    }, 2000)
+    }, 100)
     
     this.$VueBus.$on('onFriendItemDbClick', (val) => {
+        window.Native.Network.uniCast(val.ip, val.port, this.myselfData[0]['computername'], this.myselfData[0]['mac'])
         if(JSON.stringify(this.chatFrameObjs[val.uniqueId]) == '{}') {
           this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.chatFrameObjs[val.uniqueId] = r
@@ -144,28 +146,38 @@ export default {
     },
     updateFriendData(name, ip, port, mac) {
         let isExists = false
+        let updatedIndex = -1
         for(let i = 0; i < this.friendData.items.length; i++) {
           if(this.friendData.items[i].mac == mac) {
-            this.friendData.items[i]['isonline'] = true
-            this.friendData.items[i]['ip'] = ip
-            this.friendData.items[i]['name'] = name
+            if(this.friendData.items[i]['ip'] != ip || this.friendData.items[i]['name'] != name || !this.friendData.items[i]['isonline']) {
+              this.friendData.items[i]['isonline'] = true
+              this.friendData.items[i]['ip'] = ip
+              this.friendData.items[i]['name'] = name
+              updatedIndex = i
+            }
             this.friendData.items[i]['updatetime'] = new Date().getTime()
             isExists = true
+            break
           }
         }
         if(!isExists) {
           this.addFriendData(name, ip, port, mac)
         }
         this.checkOnline()
+        if(updatedIndex >= 0)
+          this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(this.friendData.items[updatedIndex]))
         this.$VueBus.$emit('onRefresh', this.friendData.id)
     },
     checkOnline() {
         for(let i = 0; i < this.friendData.items.length; i++) {
           let timeval = new Date().getTime()
           if(timeval - this.friendData.items[i]['updatetime'] > 2500 && !this.friendData.items[i]['ismyself']) {
-            //this.friendData.items[i]['isonline'] = false
-            this.$set(this.friendData.items[i], 'isonline', false)
-            this.$Logger.log('checkOnline false: ' + this.friendData.items[i]['ip'])
+            if(this.friendData.items[i]['isonline']) {
+              this.friendData.items[i]['isonline'] = false
+              this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(this.friendData.items[i]))
+              this.$Logger.log('OnlineStatus changed: ' + this.friendData.items[i]['ip'])
+            }
+            //this.$set(this.friendData.items[i], 'isonline', false)
           }
         }
     } 

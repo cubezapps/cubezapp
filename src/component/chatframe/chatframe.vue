@@ -141,6 +141,7 @@ export default {
             }
             else if(obj.uniqueId == this.chatItem.uniqueId){
               this.chatItem = obj
+              this.$forceUpdate()
             }
             break
           }
