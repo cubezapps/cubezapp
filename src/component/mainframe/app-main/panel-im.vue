@@ -80,10 +80,11 @@ export default {
     }, 3000)
     window.setInterval(() => {
        this.keepAlive()
-    }, 1000)
+    }, 500)
     
     this.$VueBus.$on('onFriendItemDbClick', (val) => {
-        window.Native.Network.uniCast(val.ip, val.port, this.myselfData[0]['computername'], this.myselfData[0]['mac'])
+        let index = this.getSelfDataIndex(val.ip)
+        window.Native.Network.uniCast(val.ip, val.port, this.friendData.items[index]['name'], this.friendData.items[index]['mac'])
         if(JSON.stringify(this.chatFrameObjs[val.uniqueId]) == '{}') {
           this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.chatFrameObjs[val.uniqueId] = r
@@ -185,11 +186,24 @@ export default {
           }
         }
     },
+    getSelfDataIndex(ip) {
+      let preStr = ip.substring(0, ip.lastIndexOf('.') + 1)
+      for(let i = 1; i < this.friendData.items.length; i++) {
+        if(this.friendData.items[i]['ismyself']) {
+          let tempStr = this.friendData.items[i]['ip'].substring(0, this.friendData.items[i]['ip'].lastIndexOf('.') + 1)
+          if(preStr == tempStr) {
+            return i
+          }
+        }
+      }
+      return 0
+    },
     keepAlive() {
       for(let i = 1; i < this.friendData.items.length; i++) {
           if(!this.friendData.items[i]['ismyself']) {
-            this.$Logger.log('doUnicast ===> ip:' + this.friendData.items[i]['ip'] + ' port:' + this.friendData.items[i]['port'] + ' computer:' + this.myselfData[0]['computername'] + ' mac:' + this.myselfData[0]['mac'])
-            window.Native.Network.uniCast(this.friendData.items[i]['ip'], this.friendData.items[i]['port'], this.myselfData[0]['computername'], this.myselfData[0]['mac'])
+            let index = this.getSelfDataIndex(this.friendData.items[i]['ip'])
+            this.$Logger.log('doUnicast ===> ip:' + this.friendData.items[i]['ip'] + ' port:' + this.friendData.items[i]['port'] + ' computer:' + this.friendData.items[index]['name'] + ' mac:' + this.friendData.items[index]['mac'])
+            window.Native.Network.uniCast(this.friendData.items[i]['ip'], this.friendData.items[i]['port'], this.friendData.items[index]['name'], this.friendData.items[index]['mac'])
           }
         }
     }
