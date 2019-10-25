@@ -125,7 +125,7 @@ export default {
       this.$WebSDK('win.move', 4)
       this.$WebSDK('win.needSystemAutoMinMax', false)
       this.$WebSDK('win.setResizeBorderWidth', 0)
-      this.$WebSDK('win.show')
+      //this.$WebSDK('win.show')
 
       window.onresize = () => {
         this.setCaptionArea()
@@ -490,7 +490,6 @@ $back-color: rgb(0, 137, 227);
     .label {
         margin: 10px 10px;
         text-align: left;
-
         > span {
             //display: inline-block;
             padding: 0 0px;

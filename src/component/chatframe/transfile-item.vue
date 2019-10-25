@@ -194,6 +194,10 @@ export default {
           margin-left: 4px;
           margin-right: 4px;
         }
+        a {
+          user-select: none;
+          -webkit-user-drag: none;
+        }
         a:link { 
           text-decoration: none;
         }
