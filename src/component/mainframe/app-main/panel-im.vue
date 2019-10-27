@@ -26,6 +26,7 @@ export default {
     return {
       friendData: {},
       chatFrameObjs: {},
+      chatTask: [],
       uniqueId: 0,
       myselfData: [],
       greenImg: 'asserts/green.png',
@@ -147,18 +148,38 @@ export default {
         this.friendData['items'].push(friendItemObj)
         let chatObj = {}
         this.chatFrameObjs[uniqueVal] = {}
+
+        let taskObj = {}
+        taskObj.uniqueId = uniqueVal
+        taskObj.index = this.friendData['items'].length - 1
+        taskObj.step = 0
+        this.chatTask.push(taskObj)
+
+        this.doChatTask()
+        this.$Logger.log('addFriendData name:' + name + ' ip:' + ip + ' mac:' + mac)
+    },
+    doChatTask() {
+      if(this.chatTask.length > 0) {
+        if(this.chatTask[0].step != 0)
+          return
+        this.chatTask[0].step = 1
+        let uniqueVal = this.chatTask[0].uniqueId
+        let index = this.chatTask[0].index
+
         if(JSON.stringify(this.chatFrameObjs[uniqueVal]) == '{}') {
           this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.chatFrameObjs[uniqueVal] = r
             window.connectSignal(this.chatFrameObjs[uniqueVal].loadStateChanged, (state, data) => {
                if(state == 1){
-                  this.$Logger.log('!!!!!!!!!!!!!!!!!!')
-                  this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(friendItemObj))
+                  this.$Logger.log('!!!doChatTask: ' + JSON.stringify(this.friendData['items'][index]))
+                  this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(this.friendData['items'][index]))
+                  this.chatTask.shift()
+                  this.doChatTask()
                 }
             });
           })
         }
-        this.$Logger.log('addFriendData name:' + name + ' ip:' + ip + ' mac:' + mac)
+      }
     },
     updateFriendData(name, ip, port, mac) {
         let isExists = false
