@@ -197,6 +197,10 @@ export default {
       cmdObj['path'] = systemDir + '\\cmd.exe'
       cmdObj['hash'] = SparkMd5.hash(cmdObj['path'].toLowerCase())
       cmdObj['name'] = 'Cmd'
+      let powerShellObj = {}
+      powerShellObj['path'] = systemDir + '\\WindowsPowerShell\\v1.0\\powershell.exe'
+      powerShellObj['hash'] = SparkMd5.hash(powerShellObj['path'].toLowerCase())
+      powerShellObj['name'] = 'Powershell'
       let mstscObj = {}
       mstscObj['path'] = systemDir + '\\mstsc.exe'
       mstscObj['hash'] = SparkMd5.hash(mstscObj['path'].toLowerCase())
@@ -217,17 +221,23 @@ export default {
       msinfo32Obj['path'] = systemDir + '\\msinfo32.exe'
       msinfo32Obj['hash'] = SparkMd5.hash(msinfo32Obj['path'].toLowerCase())
       msinfo32Obj['name'] = 'SysInfo'
+      let taskManagerObj = {}
+      taskManagerObj['path'] = systemDir + '\\Taskmgr.exe'
+      taskManagerObj['hash'] = SparkMd5.hash(taskManagerObj['path'].toLowerCase())
+      taskManagerObj['name'] = 'TaskManager'
 
       this.systemData['items'].push(notepadObj)
       this.systemData['items'].push(calcObj)
       this.systemData['items'].push(paintObj)
       this.systemData['items'].push(controlObj)
       this.systemData['items'].push(cmdObj)
+      this.systemData['items'].push(powerShellObj)
       this.systemData['items'].push(mstscObj)
       this.systemData['items'].push(regedtObj)
       this.systemData['items'].push(snippingtoolObj)
       this.systemData['items'].push(soundRecorderObj)
       this.systemData['items'].push(msinfo32Obj)
+      this.systemData['items'].push(taskManagerObj)
       this.systemData['menus'] = []
       this.systemData['id'] = 'systemTag'
       //console.log(JSON.stringify(this.systemData))
