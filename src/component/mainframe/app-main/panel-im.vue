@@ -81,7 +81,7 @@ export default {
     }, 3000)
     window.setInterval(() => {
        this.keepAlive()
-    }, 500)
+    }, 750)
     
     this.$VueBus.$on('onFriendItemDbClick', (val) => {
         let index = this.getSelfDataIndex(val.ip)
