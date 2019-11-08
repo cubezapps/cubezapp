@@ -39,7 +39,7 @@
               <div :style="{'background': 'white', 'height': '40%', 'margin-top': '10px'}">
                   <p class="label">
                       <span>{{$t("Computer: ")}}</span>
-                      <span>{{this.$t(chatItem.name)}}</span>
+                      <span>{{this.$t(chatItem.computer)}}</span>
                   </p>
                   <p class="label">
                       <span>{{$t("IP: ")}}</span>
@@ -149,7 +149,7 @@ export default {
             let obj = JSON.parse(data)
             this.$Logger.log('show window:' + this.chatItem.uniqueId)
             if(obj.uniqueId == this.chatItem.uniqueId){
-              this.$Logger.log('ChatFrame_ShowWindow uniqueId: ' + this.chatItem.uniqueId + ' name:' + this.chatItem.name)
+              this.$Logger.log('ChatFrame_ShowWindow uniqueId: ' + this.chatItem.uniqueId + ' computer:' + this.chatItem.computer)
               this.$WebSDK('win.show')
             }
             break

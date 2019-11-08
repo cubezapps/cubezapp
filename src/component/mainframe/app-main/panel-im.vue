@@ -37,7 +37,7 @@ export default {
   mounted() {
     this.friendData['items'] = []
     let friendItemObj = {}
-    friendItemObj['name'] = this.$t("Computer")
+    friendItemObj['computer'] = this.$t("Computer")
     friendItemObj['ip'] = this.$t("IP Address")
     friendItemObj['mac'] = this.$t("Mac Address")
 
@@ -63,10 +63,11 @@ export default {
             break
           }
         }
-        //if(!ismyself) {
-          //this.$Logger.log('doUnicast ===> ip:' + ip + ' port:' + port + ' computer:' + this.myselfData[0]['computername'] + ' mac:' + this.myselfData[0]['mac'])
-        //  window.Native.Network.uniCast(ip, port, this.myselfData[0]['computername'], this.myselfData[0]['mac'])
-        //}
+        if(!ismyself) {
+          let index = this.getSelfDataIndex(ip)
+          this.$Logger.log('doUnicast ===> ip:' + ip + ' port:' + port + ' computer:' + this.friendData.items[index]['computer'] + ' mac:' + this.friendData.items[index]['mac'])
+          window.Native.Network.uniCast(ip, port, this.friendData.items[index]['computer'], this.friendData.items[index]['mac'])
+        }
         //else {
           this.updateFriendData(computerName, ip, port, macAddr)
         //}
@@ -78,14 +79,14 @@ export default {
     window.Native.Network.boardCast()
     window.setInterval(() => {
        window.Native.Network.boardCast()
-    }, 3000)
-    window.setInterval(() => {
-       this.keepAlive()
-    }, 750)
+    }, 1000)
+    //window.setInterval(() => {
+      // this.keepAlive()
+    //}, 750)
     
     this.$VueBus.$on('onFriendItemDbClick', (val) => {
         let index = this.getSelfDataIndex(val.ip)
-        window.Native.Network.uniCast(val.ip, val.port, this.friendData.items[index]['name'], this.friendData.items[index]['mac'])
+        window.Native.Network.uniCast(val.ip, val.port, this.friendData.items[index]['computer'], this.friendData.items[index]['mac'])
         if(JSON.stringify(this.chatFrameObjs[val.uniqueId]) == '{}') {
           this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.chatFrameObjs[val.uniqueId] = r
@@ -126,9 +127,9 @@ export default {
 
   },
   methods: {
-    addFriendData(name, ip, port, mac) {
+    addFriendData(computer, ip, port, mac) {
         let friendItemObj = {}
-        friendItemObj['name'] = name
+        friendItemObj['computer'] = computer
         friendItemObj['ip'] = ip
         friendItemObj['port'] = port
         friendItemObj['mac'] = mac
@@ -156,7 +157,7 @@ export default {
         this.chatTask.push(taskObj)
 
         this.doChatTask()
-        this.$Logger.log('addFriendData name:' + name + ' ip:' + ip + ' mac:' + mac)
+        this.$Logger.log('addFriendData computer:' + computer + ' ip:' + ip + ' mac:' + mac)
     },
     doChatTask() {
       if(this.chatTask.length > 0) {
@@ -181,15 +182,15 @@ export default {
         }
       }
     },
-    updateFriendData(name, ip, port, mac) {
+    updateFriendData(computer, ip, port, mac) {
         let isExists = false
         let updatedIndex = -1
         for(let i = 0; i < this.friendData.items.length; i++) {
           if(this.friendData.items[i].mac == mac) {
-            if(this.friendData.items[i]['ip'] != ip || this.friendData.items[i]['name'] != name || !this.friendData.items[i]['isonline']) {
+            if(this.friendData.items[i]['ip'] != ip || this.friendData.items[i]['computer'] != computer || !this.friendData.items[i]['isonline']) {
               this.friendData.items[i]['isonline'] = true
               this.friendData.items[i]['ip'] = ip
-              this.friendData.items[i]['name'] = name
+              this.friendData.items[i]['computer'] = computer
               updatedIndex = i
             }
             this.friendData.items[i]['updatetime'] = new Date().getTime()
@@ -198,7 +199,7 @@ export default {
           }
         }
         if(!isExists) {
-          this.addFriendData(name, ip, port, mac)
+          this.addFriendData(computer, ip, port, mac)
         }
         this.checkOnline()
         if(updatedIndex >= 0)
@@ -208,7 +209,7 @@ export default {
     checkOnline() {
         for(let i = 0; i < this.friendData.items.length; i++) {
           let timeval = new Date().getTime()
-          if(timeval - this.friendData.items[i]['updatetime'] > 2500 && !this.friendData.items[i]['ismyself']) {
+          if(timeval - this.friendData.items[i]['updatetime'] > 5000 && !this.friendData.items[i]['ismyself']) {
             if(this.friendData.items[i]['isonline']) {
               this.friendData.items[i]['isonline'] = false
               this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(this.friendData.items[i]))
@@ -234,8 +235,8 @@ export default {
       for(let i = 1; i < this.friendData.items.length; i++) {
           if(!this.friendData.items[i]['ismyself']) {
             let index = this.getSelfDataIndex(this.friendData.items[i]['ip'])
-            this.$Logger.log('doUnicast ===> ip:' + this.friendData.items[i]['ip'] + ' port:' + this.friendData.items[i]['port'] + ' computer:' + this.friendData.items[index]['name'] + ' mac:' + this.friendData.items[index]['mac'])
-            window.Native.Network.uniCast(this.friendData.items[i]['ip'], this.friendData.items[i]['port'], this.friendData.items[index]['name'], this.friendData.items[index]['mac'])
+            this.$Logger.log('doUnicast ===> ip:' + this.friendData.items[i]['ip'] + ' port:' + this.friendData.items[i]['port'] + ' computer:' + this.friendData.items[index]['computer'] + ' mac:' + this.friendData.items[index]['mac'])
+            window.Native.Network.uniCast(this.friendData.items[i]['ip'], this.friendData.items[i]['port'], this.friendData.items[index]['computer'], this.friendData.items[index]['mac'])
           }
         }
     }

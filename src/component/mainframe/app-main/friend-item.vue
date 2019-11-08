@@ -1,9 +1,9 @@
 <template>
     <div class="frienditem-backpanel motion-class" id="backpanelId" ref="friendItem" @dblclick="onDoubleClick($event)">
-        <div class="name-div" ref="nameDivItem">
+        <div class="computer-div" ref="nameDivItem">
           <img class="avatar" v-if="index > 0" width="15" height="15" :src="item.isonline ? greenImg : redImg" />
           <img class="avatar" v-if="item.ismyself && index > 0" width="15" height="15" :src="houseImg" />
-          <div class="text" ref="textRef" id="textId">{{ this.$t(item.name) }}</div>
+          <div class="text" ref="textRef" id="textId">{{ this.$t(item.computer) }}</div>
         </div>
         <div class="ip-div" ref="ipDivItem">{{this.$t(item.ip)}}</div>
         <div class="mac-div" ref="macDivItem">{{this.$t(item.mac)}}</div>
@@ -71,7 +71,7 @@ export default {
   .motion-class:hover div{
     background-color: $color;
   }
-  .name-div {
+  .computer-div {
     width: 32%;
     background-color: rgb(236, 236, 214);
     text-overflow: ellipsis;
