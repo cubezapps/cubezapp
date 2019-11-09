@@ -123,7 +123,8 @@ export default {
     init() {
       this.$WebSDK('win.resize', 620, 500)
       this.$WebSDK('win.move', 4)
-      this.$WebSDK('win.needSystemAutoMinMax', true)
+      this.$WebSDK('win.needSystemMaximize', false)
+      this.$WebSDK('win.needSystemMinimize', true)
       this.$WebSDK('win.setResizeBorderWidth', 0)
       //this.$WebSDK('win.show')
 

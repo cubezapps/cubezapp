@@ -45,7 +45,8 @@ export default {
     init() {
       this.$WebSDK('win.resize', 360, 240)
       this.$WebSDK('win.move', 4)
-      this.$WebSDK('win.needSystemAutoMinMax', false)
+      this.$WebSDK('win.needSystemMaximize', false)
+      this.$WebSDK('win.needSystemMinimize', true)
       this.$WebSDK('win.setResizeBorderWidth', 0)
       //this.$WebSDK('win.show')
       window.onresize = () => {

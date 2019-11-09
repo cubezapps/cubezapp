@@ -88,7 +88,7 @@ export default {
         let index = this.getSelfDataIndex(val.ip)
         window.Native.Network.uniCast(val.ip, val.port, this.friendData.items[index]['computer'], this.friendData.items[index]['mac'])
         if(JSON.stringify(this.chatFrameObjs[val.uniqueId]) == '{}') {
-          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.chatFrameObjs[val.uniqueId] = r
             window.connectSignal(this.chatFrameObjs[val.uniqueId].loadStateChanged, (state, data) => {
                if(state == 1){
@@ -168,7 +168,7 @@ export default {
         let index = this.chatTask[0].index
 
         if(JSON.stringify(this.chatFrameObjs[uniqueVal]) == '{}') {
-          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.chatFrameObjs[uniqueVal] = r
             window.connectSignal(this.chatFrameObjs[uniqueVal].loadStateChanged, (state, data) => {
                if(state == 1){

@@ -70,12 +70,20 @@ export default {
     return Win.setTopHide(val)
   },
   /**
-   * 是否需要系统改变窗口大小(目前native禁止了WS_MAXIMIZEBOX 双击caption最大化)
+   * 是否需要系统拥有窗口WS_MAXIMIZEBOX属性
    * @param need {boolean}
    * @return {*}
    */
-  needSystemAutoMinMax (need = true) {
-    return winStyleControl(addStyleMap.get('resizable'), need)
+  needSystemMaximize (need = true) {
+    return winStyleControl(addStyleMap.get('maxresizable'), need)
+  },
+    /**
+   * 是否需要系统拥有窗口WS_MINIMIZEBOX属性
+   * @param need {boolean}
+   * @return {*}
+   */
+  needSystemMinimize (need = true) {
+    return winStyleControl(addStyleMap.get('minresizable'), need)
   },
   /**
    * 是否需要窗口无边框

@@ -105,6 +105,7 @@ export default {
         return false
       }
       this.$WebSDK('win.setResizeBorderWidth', 0)
+      this.$WebSDK('win.needAlwaysFront', true)
     },
     onPopupClick (event, name) {
       let obj = {}
