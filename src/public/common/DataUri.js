@@ -10,6 +10,8 @@ class DataUri {
     static CalendarFrame_ShowWindow = 'DataUri_CalendarFrame_ShowWindow';
     static ChatFrame_ShowWindow = 'DataUri_ChatFrame_ShowWindow';
     static ChatFrame_SetData = 'DataUri_ChatFrame_SetData';
+    static ChatFrame_OnMessage = 'DataUri_ChatFrame_OnMessage';
+    static ChatFrame_OnTransFileReq = 'DataUri_ChatFrame_OnTransFileReq';
     static ChatFrame_ItemClose = 'DataUri_ChatFrame_ItemClose';
 }
 

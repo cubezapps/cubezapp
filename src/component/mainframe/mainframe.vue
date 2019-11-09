@@ -143,12 +143,12 @@ export default {
     },
     showWindow() {
       this.$WebSDK('win.setTopHide', false)
-      this.$WebSDK('win.forefront')
+      this.$WebSDK('win.bringToFront')
       this.$WebSDK('win.show')
       this.timeId = window.setTimeout(() => {
           window.clearTimeout(this.timeId)
           this.$WebSDK('win.setTopHide', true)
-          this.$WebSDK('win.forefront')
+          this.$WebSDK('win.bringToFront')
           this.$WebSDK('win.show')
       }, 2000)
     },

@@ -151,8 +151,19 @@ export default {
             this.$Logger.log('show window:' + this.chatItem.uniqueId)
             if(obj.uniqueId == this.chatItem.uniqueId){
               this.$Logger.log('ChatFrame_ShowWindow uniqueId: ' + this.chatItem.uniqueId + ' computer:' + this.chatItem.computer)
+              this.$WebSDK('win.bringToFront')
               this.$WebSDK('win.show')
             }
+            break
+          }
+          case this.$DataUri.ChatFrame_OnMessage: {
+            let obj = JSON.parse(data)
+            this.onMessageWork(obj.ip, obj.port, obj.message)
+            break
+          }
+          case this.$DataUri.ChatFrame_OnTransFileReq: {
+            let obj = JSON.parse(data)
+            this.onTransFileReqWork(obj.ip, obj.port, obj.jobid, obj.filename, obj.type)
             break
           }
           case this.$DataUri.App_CloseAllWindow:
@@ -177,15 +188,8 @@ export default {
       }
       this.$refs.textareaRef.$el.placeholder = this.$t('Press Ctrl + Enter to send')
       window.connectSignal(window.Native.Network.onMessage, (ip, port, message) => {
-           if(this.chatItem.ip == ip) {
-              let tmpItem = {}
-              tmpItem["content"] = message
-              tmpItem["date"] = new Date()
-              tmpItem["self"] = false
-              this.messageItems.push(tmpItem)
-              this.scrollBottom()
-           }
-      });
+        this.onMessageWork(ip, port, message)
+      })
       window.Win.winId().then(winId => {
         window.Native.Sdk.cefBrowser(winId).then((browser) => {
         window.connectSignal(browser.onDragNames, (names) => {
@@ -217,27 +221,7 @@ export default {
       })
       })
       window.connectSignal(window.Native.Network.onTransFileReq, (ip, port, jobid, filename, type) => {
-        if(this.chatItem.ip == ip) {
-          if(!this.isExistsItem(ip, jobid)) {
-            let objFile = {}
-            objFile['path'] = filename
-            objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
-            let n = objFile['path'].lastIndexOf("\\")
-            objFile['name'] = objFile['path'].substr(n + 1)
-            objFile['filename'] = filename
-            objFile['status'] = 0
-            objFile['type'] = type
-            objFile['jobid'] = jobid
-            objFile['issendfile'] = false
-            objFile['ip'] = this.chatItem.ip
-            objFile['port'] = this.chatItem.port
-            objFile['itemuniqueid'] = ++this.itemUniqueId
-            this.transFileItems.push(objFile)
-            this.$WebSDK('win.forefront')
-            this.$WebSDK('win.flashTaskBar', 3)
-            this.$WebSDK('win.show')
-          }
-        }
+        this.onTransFileReqWork(ip, port, jobid, filename, type)
       })
       window.connectSignal(window.Native.Network.onTransFileCancel, (ip, port, jobid) => {
           if(this.chatItem.ip == ip) {
@@ -248,6 +232,40 @@ export default {
             }
           }
       })
+    },
+    onMessageWork(ip, port, message) {
+      if(this.chatItem.ip == ip) {
+        let tmpItem = {}
+        tmpItem["content"] = message
+        tmpItem["date"] = new Date()
+        tmpItem["self"] = false
+        this.messageItems.push(tmpItem)
+        this.scrollBottom()
+        this.$WebSDK('win.flashTaskBar', 12)
+        this.$WebSDK('win.minimize')
+      }
+    },
+    onTransFileReqWork(ip, port, jobid, filename, type) {
+      if(this.chatItem.ip == ip) {
+        if(!this.isExistsItem(ip, jobid)) {
+          let objFile = {}
+          objFile['path'] = filename
+          objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
+          let n = objFile['path'].lastIndexOf("\\")
+          objFile['name'] = objFile['path'].substr(n + 1)
+          objFile['filename'] = filename
+          objFile['status'] = 0
+          objFile['type'] = type
+          objFile['jobid'] = jobid
+          objFile['issendfile'] = false
+          objFile['ip'] = this.chatItem.ip
+          objFile['port'] = this.chatItem.port
+          objFile['itemuniqueid'] = ++this.itemUniqueId
+          this.transFileItems.push(objFile)
+          this.$WebSDK('win.flashTaskBar', 12)
+          this.$WebSDK('win.minimize')
+        }
+      }
     },
     isExistsItem(ip, jobid) {
       for(let i = 0; i < this.transFileItems.length; i++) {

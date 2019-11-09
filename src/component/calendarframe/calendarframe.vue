@@ -53,7 +53,7 @@ export default {
         case this.$DataUri.CalendarFrame_ShowWindow:
           this.$WebSDK('win.move', 4)
           this.$WebSDK('win.show')
-          this.$WebSDK('win.forefront')
+          this.$WebSDK('win.bringToFront')
           break
         case this.$DataUri.App_CloseAllWindow:
           window.close()

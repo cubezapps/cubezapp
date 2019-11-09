@@ -78,7 +78,7 @@ export default class TrayIcon {
   static popupAppMenu () {
     this.calcWinPos().then((resp) => {
       WebSDK('win.move', resp.x, resp.y)
-      WebSDK('win.forefront')
+      WebSDK('win.bringToFront')
       WebSDK('win.show')
     })
   }

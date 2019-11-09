@@ -92,8 +92,9 @@ export default {
             this.chatFrameObjs[val.uniqueId] = r
             window.connectSignal(this.chatFrameObjs[val.uniqueId].loadStateChanged, (state, data) => {
                if(state == 1){
-                  this.$Logger.log('!!!!!!!!!!!!!!!!!!')
+                  this.$Logger.log('!!!onFriendItemDbClick!!')
                   this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(val))
+                  this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_ShowWindow, JSON.stringify(val))
                 }
             });
           })
@@ -101,6 +102,46 @@ export default {
         else {
           this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_ShowWindow, JSON.stringify(val))
         }
+    })
+    window.connectSignal(window.Native.Network.onMessage, (ip, port, message) => {
+         var index = this.getFriendItemIndexByIp(ip)
+         var uniqueId = this.friendData.items[index]['uniqueId']
+         if(JSON.stringify(this.chatFrameObjs[uniqueId]) == '{}') {
+          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+            this.chatFrameObjs[uniqueId] = r
+            window.connectSignal(this.chatFrameObjs[uniqueId].loadStateChanged, (state, data) => {
+               if(state == 1){
+                  this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(this.friendData.items[index]))
+                  var msgObj = {}
+                  msgObj['ip'] = ip
+                  msgObj['port'] = port
+                  msgObj['message'] = message
+                  this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_OnMessage, JSON.stringify(msgObj))
+                }
+            });
+          })
+        }
+    })
+    window.connectSignal(window.Native.Network.onTransFileReq, (ip, port, jobid, filename, type) => {
+         var index = this.getFriendItemIndexByIp(ip)
+         var uniqueId = this.friendData.items[index]['uniqueId']
+         if(JSON.stringify(this.chatFrameObjs[uniqueId]) == '{}') {
+          this.$WebSDK('sdk.openWindow', '/#/chatframe', 'charframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+            this.chatFrameObjs[uniqueId] = r
+            window.connectSignal(this.chatFrameObjs[uniqueId].loadStateChanged, (state, data) => {
+               if(state == 1){
+                  this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_SetData, JSON.stringify(this.friendData.items[index]))
+                  var msgObj = {}
+                  msgObj['ip'] = ip
+                  msgObj['port'] = port
+                  msgObj['jobid'] = jobid
+                  msgObj['filename'] = filename
+                  msgObj['type'] = type
+                  this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.ChatFrame_OnTransFileReq, JSON.stringify(msgObj))
+                }
+            });
+          })
+        }  
     })
     this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
         switch (uri) {
@@ -150,14 +191,21 @@ export default {
         let chatObj = {}
         this.chatFrameObjs[uniqueVal] = {}
 
-        let taskObj = {}
+        /*let taskObj = {}
         taskObj.uniqueId = uniqueVal
         taskObj.index = this.friendData['items'].length - 1
         taskObj.step = 0
         this.chatTask.push(taskObj)
 
-        this.doChatTask()
+        this.doChatTask()*/port
         this.$Logger.log('addFriendData computer:' + computer + ' ip:' + ip + ' mac:' + mac)
+    },
+    getFriendItemIndexByIp(ip) {
+        for(let i = 1; i < this.friendData.items.length; i++) {
+          if(this.friendData.items[i].ip == ip) {
+            return i
+          }
+        }
     },
     doChatTask() {
       if(this.chatTask.length > 0) {

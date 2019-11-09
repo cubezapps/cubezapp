@@ -144,7 +144,7 @@ export default {
    * 设置窗口位于最顶端
    * @return {*}
    */
-  forefront () {
+  bringToFront () {
     return Win.bringToFront()
   },
   /**
