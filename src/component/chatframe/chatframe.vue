@@ -22,7 +22,7 @@
                <div class="buttonsdiv">
                </div>
                <div class="textdiv">
-                  <b-form-textarea id="textarea" ref="textareaRef" v-model="editText" placeholder="" rows="10" max-rows="20" no-resize no-auto-shrink autofocus @keydown="onKeydown"></b-form-textarea>
+                  <b-form-textarea id="textarea" ref="textareaRef" v-model="editText" placeholder="" rows="30" max-rows="50" no-resize no-auto-shrink autofocus @keydown="onKeydown"></b-form-textarea>
                </div>
                
             </div>
@@ -123,7 +123,7 @@ export default {
     init() {
       this.$WebSDK('win.resize', 620, 500)
       this.$WebSDK('win.move', 4)
-      this.$WebSDK('win.needSystemAutoMinMax', false)
+      this.$WebSDK('win.needSystemAutoMinMax', true)
       this.$WebSDK('win.setResizeBorderWidth', 0)
       //this.$WebSDK('win.show')
 
@@ -217,33 +217,44 @@ export default {
       })
       window.connectSignal(window.Native.Network.onTransFileReq, (ip, port, jobid, filename, type) => {
         if(this.chatItem.ip == ip) {
-          let objFile = {}
-          objFile['path'] = filename
-          objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
-          let n = objFile['path'].lastIndexOf("\\")
-          objFile['name'] = objFile['path'].substr(n + 1)
-          objFile['filename'] = filename
-          objFile['status'] = 0
-          objFile['type'] = type
-          objFile['jobid'] = jobid
-          objFile['issendfile'] = false
-          objFile['ip'] = this.chatItem.ip
-          objFile['port'] = this.chatItem.port
-          objFile['itemuniqueid'] = ++this.itemUniqueId
-          this.transFileItems.push(objFile)
-          this.$WebSDK('win.forefront')
-          this.$WebSDK('win.show')
+          if(!this.isExistsItem(ip, jobid)) {
+            let objFile = {}
+            objFile['path'] = filename
+            objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
+            let n = objFile['path'].lastIndexOf("\\")
+            objFile['name'] = objFile['path'].substr(n + 1)
+            objFile['filename'] = filename
+            objFile['status'] = 0
+            objFile['type'] = type
+            objFile['jobid'] = jobid
+            objFile['issendfile'] = false
+            objFile['ip'] = this.chatItem.ip
+            objFile['port'] = this.chatItem.port
+            objFile['itemuniqueid'] = ++this.itemUniqueId
+            this.transFileItems.push(objFile)
+            this.$WebSDK('win.forefront')
+            this.$WebSDK('win.flashTaskBar', 3)
+            this.$WebSDK('win.show')
+          }
         }
       })
       window.connectSignal(window.Native.Network.onTransFileCancel, (ip, port, jobid) => {
           if(this.chatItem.ip == ip) {
             for(let i = 0; i < this.transFileItems.length; i++) { 
-            if(jobid == this.transFileItems[i].jobid) {
-              this.transFileItems.splice(i, 1)
+              if(jobid == this.transFileItems[i].jobid) {
+                this.transFileItems.splice(i, 1)
+              }
             }
           }
-        }
       })
+    },
+    isExistsItem(ip, jobid) {
+      for(let i = 0; i < this.transFileItems.length; i++) {
+        if(jobid == this.transFileItems[i].jobid && ip == this.transFileItems[i].ip) {
+          return true
+        }
+      }
+      return false
     },
     setCaptionArea () {
       let areaTop = [0, 0, document.body.offsetWidth - 60,  30]

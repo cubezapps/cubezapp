@@ -70,7 +70,7 @@ export default {
     return Win.setTopHide(val)
   },
   /**
-   * 是否需要拖动改变窗口大小
+   * 是否需要系统改变窗口大小(目前native禁止了WS_MAXIMIZEBOX 双击caption最大化)
    * @param need {boolean}
    * @return {*}
    */
