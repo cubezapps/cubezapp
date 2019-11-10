@@ -28,6 +28,7 @@ export default {
     }
   },
   async mounted() {
+    /* eslint-disable */ 
     let mainBrowser = await this.$WebSDK('sdk.cefBrowser', 0)
     //console.log(mainBrowser)
     this.$refs.commonTag.$el.style.display = 'flex'
