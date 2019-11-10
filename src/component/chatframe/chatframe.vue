@@ -241,8 +241,16 @@ export default {
         tmpItem["self"] = false
         this.messageItems.push(tmpItem)
         this.scrollBottom()
-        this.$WebSDK('win.flashTaskBar', 12)
-        this.$WebSDK('win.minimize')
+        window.Win.isVisible().then(visible => {
+          if(visible) {
+            this.$WebSDK('win.flashTaskBar', 12)
+          }
+          else {
+            this.$WebSDK('win.minimize').then(r => {
+                this.$WebSDK('win.flashTaskBar', 12)
+            })
+          }
+        })
       }
     },
     onTransFileReqWork(ip, port, jobid, filename, type) {
@@ -262,8 +270,16 @@ export default {
           objFile['port'] = this.chatItem.port
           objFile['itemuniqueid'] = ++this.itemUniqueId
           this.transFileItems.push(objFile)
-          this.$WebSDK('win.flashTaskBar', 12)
-          this.$WebSDK('win.minimize')
+          window.Win.isVisible().then(visible => {
+            if(visible) {
+              this.$WebSDK('win.flashTaskBar', 12)
+            }
+            else {
+              this.$WebSDK('win.minimize').then(r => {
+                this.$WebSDK('win.flashTaskBar', 12)
+              })
+            }
+          })
         }
       }
     },
