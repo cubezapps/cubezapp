@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="backgrounddiv">
-     <tittlebar :tittle="$t('Calendar')"></tittlebar>
+     <tittlebar :tittle="$t('Calendar')" :showmin="false"></tittlebar>
      <div class="maindiv">
         <iframe src="/calendar.html" width=100% height=100% frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
       </div>
@@ -40,7 +40,8 @@ export default {
     init() {
       this.$WebSDK('win.resize', 812, 550)
       this.$WebSDK('win.move', 4)
-      this.$WebSDK('win.needSystemAutoMinMax', false)
+      this.$WebSDK('win.needSystemMaximize', false)
+      this.$WebSDK('win.needSystemMinimize', true)
       this.$WebSDK('win.setResizeBorderWidth', 0)
       //this.$WebSDK('win.show')
       window.onresize = () => {
@@ -52,7 +53,7 @@ export default {
         case this.$DataUri.CalendarFrame_ShowWindow:
           this.$WebSDK('win.move', 4)
           this.$WebSDK('win.show')
-          this.$WebSDK('win.forefront')
+          this.$WebSDK('win.bringToFront')
           break
         case this.$DataUri.App_CloseAllWindow:
           window.close()

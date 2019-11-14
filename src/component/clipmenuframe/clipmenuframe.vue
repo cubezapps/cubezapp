@@ -112,7 +112,7 @@ export default {
                 this.$WebSDK('win.move', this.x, this.y)
               }
               this.$WebSDK('win.show')
-              this.$WebSDK('win.forefront')
+              this.$WebSDK('win.bringToFront')
               //this.$forceUpdate()
             })
           })  

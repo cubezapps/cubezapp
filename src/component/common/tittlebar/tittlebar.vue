@@ -6,6 +6,9 @@
         <label class="logo-link">{{tittle}}</label>
       </div>
       <div class="blankdiv"></div>
+      <div class="btndiv" v-if="showmin">
+        <input type="button" @click="onMinBtnClick()" class="window-min-btn" v-tooltip="$t('Minimize')"/>
+      </div>
       <div class="btndiv">
         <input type="button" @click="onCloseBtnClick()" class="window-close-btn" v-tooltip="$t('Close')"/>
       </div>
@@ -14,17 +17,20 @@
 
 <script>
 import i18n from '@/i18n'
-import logoImage from './img/logo.png'
 export default {
   props: {
     'tittle': {
         type: String,
         required: true
+    },
+    'showmin': {
+        type: Boolean,
+        required: false
     }
   },
   data () {
     return {
-        logoImage: logoImage
+        logoImage: 'asserts/logo.png'
     }
   },
   mounted () {
@@ -33,6 +39,9 @@ export default {
   methods: {
     onCloseBtnClick(event) {
        this.$WebSDK('win.hide')
+    },
+    onMinBtnClick(event) {
+       window.Win.minimize() 
     }
   }
 }
@@ -56,7 +65,7 @@ $back-color: rgb(0, 137, 227);
   flex-direction: row;
 }
 .captiondiv {
-  flex: 0 0 120px;
+  flex: 0 0 150px;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
@@ -72,6 +81,8 @@ $back-color: rgb(0, 137, 227);
   }
   .logo-link { 
       margin-left: 6px;
+      margin-top: auto;
+      margin-bottom: auto;
       color: rgb(252, 254, 255);
       font-size: 12px;
       flex: 1 1 auto;
@@ -88,7 +99,22 @@ $back-color: rgb(0, 137, 227);
   width: 30px;
   height: 30px;
   margin: 0px;
-  background: url(./img/window_close.png) 50% 50% no-repeat;
+  background: url(/asserts/window_close.png) 50% 50% no-repeat;
+  cursor: default;
+  outline: none;
+  &:hover {
+    filter: brightness(2);
+  }
+  &:active {
+    filter: brightness(1);
+  }
+}
+.window-min-btn {
+  border: none;
+  width: 30px;
+  height: 30px;
+  margin: 0px;
+  background: url(/asserts/window_min.png) 50% 50% no-repeat;
   cursor: default;
   outline: none;
   &:hover {

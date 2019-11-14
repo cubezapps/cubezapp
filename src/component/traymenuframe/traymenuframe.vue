@@ -47,7 +47,7 @@ export default {
         }
       }, this)
       this.$WebSDK('common.trayIconRightClickListener', () => {
-        this.$WebSDK('win.forefront')
+        this.$WebSDK('win.bringToFront')
         this.PoupuMenu()
         this.$WebSDK('win.show')
        }, this)

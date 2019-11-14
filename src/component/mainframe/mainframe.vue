@@ -50,7 +50,8 @@ export default {
     this.$WebSDK('win.setResizeBorderWidth', 3)
     this.$WebSDK('win.setMinSize', 342, 600)
     this.$WebSDK('win.setMaxSize', 508, 1000)
-    this.$WebSDK('win.needSystemAutoMinMax', false)
+    this.$WebSDK('win.needSystemMinimize', false)
+    this.$WebSDK('win.needSystemMaximize', false)
     this.$WebSDK('win.needTaskBar', false)
     this.$WebSDK('win.needShadow', true)
     this.$WebSDK('win.setTopHide', true)
@@ -86,34 +87,34 @@ export default {
 
     window.setTimeout(() => {
         if(this.trayWindow == null) {
-          this.$WebSDK('sdk.openWindow', '/#/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(r =>{
+          this.$WebSDK('sdk.openWindow', '/#/traymenu', 'traymenuframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(r =>{
             this.trayWindow = r
           })
         }
         if(this.settingWindow == null) {
-          this.$WebSDK('sdk.openWindow', '/#/setting', 'settingframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+          this.$WebSDK('sdk.openWindow', '/#/setting', 'settingframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.settingWindow = r
           })
         }
         if(this.calendarWindow == null) {
-          this.$WebSDK('sdk.openWindow', '/#/calendar', 'calendarframe', 'left=9999,top=9999,resizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+          this.$WebSDK('sdk.openWindow', '/#/calendar', 'calendarframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,forbidsystemclose:1,titlebar:0,topmost:0,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.calendarWindow = r
           })
         }
         if(this.popupWindow == null){
-          this.$WebSDK('sdk.openWindow', '/#/popupmenu', 'popupmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(r => {
+          this.$WebSDK('sdk.openWindow', '/#/popupmenu', 'popupmenuframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(r => {
             this.popupWindow = r
           })
         }
         if(this.clipWindow == null) {
-          this.$WebSDK('sdk.openWindow', '/#/clipmenu', 'clipmenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+          this.$WebSDK('sdk.openWindow', '/#/clipmenu', 'clipmenuframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.clipWindow = r
           })
         }
     }, 1000)
     
    //this.trayMenuId = await browserObj.winId()
-    /* this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,resizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(
+    /* this.$WebSDK('sdk.openWindow', '/traymenu', 'traymenuframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,shadow:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:1,guardapp:0').then(
         (ret) => {
           ret.winId().then(
             (id) => {
@@ -142,12 +143,12 @@ export default {
     },
     showWindow() {
       this.$WebSDK('win.setTopHide', false)
-      this.$WebSDK('win.forefront')
+      this.$WebSDK('win.bringToFront')
       this.$WebSDK('win.show')
       this.timeId = window.setTimeout(() => {
           window.clearTimeout(this.timeId)
           this.$WebSDK('win.setTopHide', true)
-          this.$WebSDK('win.forefront')
+          this.$WebSDK('win.bringToFront')
           this.$WebSDK('win.show')
       }, 2000)
     },

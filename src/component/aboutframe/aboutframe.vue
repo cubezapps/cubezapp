@@ -33,7 +33,6 @@ export default {
       this.$WebSDK('win.move', 4)
       this.setCaptionArea()
       this.$WebSDK('win.show')
-      this.$WebSDK('win.needSystemAutoMinMax', true)
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.App_CloseAllWindow:
@@ -67,7 +66,7 @@ export default {
     width: 12px;
     height: 12px;
     margin: 0;
-    background: url('./img/close-bt.png');
+    background: url('/asserts/close-bt.png');
     background-position: 0px -72px;
     position: absolute;
     top: 10px;

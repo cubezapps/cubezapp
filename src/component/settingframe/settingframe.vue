@@ -1,16 +1,16 @@
 /* eslint-disable */
 <template>
   <div class="backgrounddiv">
-     <tittlebar :tittle="$t('Setting')"></tittlebar>
+     <tittlebar :tittle="$t('Setting')" :showmin="false"></tittlebar>
      <div class="maindiv">
          <div class="linediv">
-            <div>{{$t('Start with the system')}}</div><input type="checkbox" ref="boot" id="switch1" @click="onBootBtnClick()"/><label for="switch1">Toggle</label><div class="spacediv"></div>
+            <div :style="{'margin-right': '6px'}">{{$t('Start with the system')}}</div><input type="checkbox" ref="boot" id="switch1" @click="onBootBtnClick()"/><label for="switch1" :style="{'margin-top': 'auto', 'margin-bottom': 'auto'}">Toggle</label><div class="spacediv"></div>
          </div>
          <div class="linediv">
-            <div>{{$t('Switch to Chinese')}}</div><input type="checkbox" ref="chineseLang" id="switch2" @click="onChineseLangCheck($event)"/><label for="switch2">Toggle</label><div class="spacediv"></div>
+            <div :style="{'margin-right': '6px'}">{{$t('Switch to Chinese')}}</div><input type="checkbox" ref="chineseLang" id="switch2" @click="onChineseLangCheck($event)"/><label for="switch2" :style="{'margin-top': 'auto', 'margin-bottom': 'auto'}">Toggle</label><div class="spacediv"></div>
          </div>
          <div class="linediv">
-            <div>{{$t('Switch to English')}}</div><input type="checkbox" ref="englishLang" id="switch3" @click="onEnglishLangCheck($event)"/><label for="switch3">Toggle</label><div class="spacediv"></div>
+            <div :style="{'margin-right': '6px'}">{{$t('Switch to English')}}</div><input type="checkbox" ref="englishLang" id="switch3" @click="onEnglishLangCheck($event)"/><label for="switch3" :style="{'margin-top': 'auto', 'margin-bottom': 'auto'}">Toggle</label><div class="spacediv"></div>
          </div>
       </div>
   </div>
@@ -45,7 +45,8 @@ export default {
     init() {
       this.$WebSDK('win.resize', 360, 240)
       this.$WebSDK('win.move', 4)
-      this.$WebSDK('win.needSystemAutoMinMax', false)
+      this.$WebSDK('win.needSystemMaximize', false)
+      this.$WebSDK('win.needSystemMinimize', true)
       this.$WebSDK('win.setResizeBorderWidth', 0)
       //this.$WebSDK('win.show')
       window.onresize = () => {
@@ -155,7 +156,7 @@ $back-color: rgb(0, 137, 227);
     display: flex;
     flex-direction: row;
     justify-content: center;
-	  align-items: center;
+    align-items: center;
     margin-top: 10px;
     .spacediv {
       flex: 0 0 auto;

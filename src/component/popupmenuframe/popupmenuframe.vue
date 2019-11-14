@@ -47,7 +47,7 @@ export default {
           console.log('popup resize: ' + tmp.offsetWidth + ' ' + tmp.offsetHeight)
           this.$WebSDK('win.move', this.x, this.y)
           this.$WebSDK('win.show')
-          this.$WebSDK('win.forefront')
+          this.$WebSDK('win.bringToFront')
           this.clearDelay()
           this._mouseenter = true
         }
@@ -105,6 +105,7 @@ export default {
         return false
       }
       this.$WebSDK('win.setResizeBorderWidth', 0)
+      this.$WebSDK('win.needAlwaysFront', true)
     },
     onPopupClick (event, name) {
       let obj = {}
