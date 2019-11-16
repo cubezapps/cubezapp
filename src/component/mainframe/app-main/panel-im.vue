@@ -152,6 +152,11 @@ export default {
               else if(data == 'en') {
                 this.hintMarginLeft = "calc(100% - 140px)"
               }
+              setTimeout(() => {
+                this.friendData['items'][0]['computer'] = this.$t("Computer")
+                this.friendData['items'][0]['ip'] = this.$t("IP Address")
+                this.friendData['items'][0]['mac'] = this.$t("Mac Address")
+              }, 1);
             }
             break
         }
