@@ -1,6 +1,7 @@
 # cubez-web 
 A product, based on cef, QT and native-c++, provide easy access to computer.
-execute the readme/cubez.exe to install product, you can:
+execute the readme/cubez.exe to install product, 
+you can:
 ```
 1、Drag and drop the program icon to start quickly
 2、Record and operate clipboard history
@@ -10,7 +11,9 @@ execute the readme/cubez.exe to install product, you can:
 ```
 
 ![picture](readme/install.png)
+
 ![picture](readme/ui01.png)
+
 ![picture](readme/im.png)
 
 ## Project setup
