@@ -1,5 +1,15 @@
-# cubez-web
+# cubez-web 
+A product, based on cef, QT and native-c++, provide easy access to computer.
+execute the readme/cubez.exe to install product, you can:
+1, Drag and drop the program icon to start quickly
+2, Record and operate clipboard history
+3, Drag file to calculate fingerprint
+4, High performance file transfer and message on LAN
+5, Other convenience function
 
+![picture](reame/install.png)
+![picture](reame/ui01.png)
+![picture](reame/im.png)
 ## Project setup
 ```
 1、Install nvm from https://github.com/coreybutler/nvm-windows/releases
