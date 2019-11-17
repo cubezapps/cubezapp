@@ -13,6 +13,7 @@ class DataUri {
     static ChatFrame_OnMessage = 'DataUri_ChatFrame_OnMessage';
     static ChatFrame_OnTransFileReq = 'DataUri_ChatFrame_OnTransFileReq';
     static ChatFrame_ItemClose = 'DataUri_ChatFrame_ItemClose';
+    static AboutFrame_ShowWindow = 'DataUri_AboutFrame_ShowWindow';
 }
 
 export const DataUriPlugin = {

@@ -1,13 +1,21 @@
 <template>
-  <div class="app-about">
-    <div class="app-about-title">关于</div>
-    <div class="app-about-close" @click.stop = "closeWindow"></div>
-    <div class="app-about-copyright"></div>
-    <div class="app-about-protocol"></div>
+  <div class="backgrounddiv">
+     <tittlebar :tittle="$t('About')" :showmin="false"></tittlebar>
+     <div class="maindiv">
+        <div class="maindiv-topdiv"></div>
+        <div class="maindiv-middlediv">
+          <p>{{$t("The software")}}<b-link href="https://bitbucket.org/woaicide/cubez-web/src/master/" target="_blank">{{$t("here")}}</b-link></p>
+          <p>{{$t("Feedback and comments")}}</p>
+          <p>{{$t("If you")}}<b-link href="https://new.crcf.org.cn/donations/PayLove.aspx" target="_blank">{{$t("Red Cross foundation")}}</b-link></p>
+        </div>
+        <div class="maindiv-bottomdiv"></div>
+    </div>
   </div>
 </template>
 
 <script>
+import i18n from '@/i18n'
+import tittlebar from '@/component/common/tittlebar/tittlebar.vue'
 export default {
   metaInfo: {
         title: 'Aboutframe', // set a title
@@ -19,6 +27,9 @@ export default {
           lang: 'zh-CN'
         }
   },
+  components: {
+    tittlebar
+  },
   data () {
     return {
 
@@ -29,21 +40,29 @@ export default {
   },
   methods: {
     init () {
-      this.$WebSDK('win.resize', 500, 350)
+      this.$WebSDK('win.resize', 360, 260)
       this.$WebSDK('win.move', 4)
-      this.setCaptionArea()
-      this.$WebSDK('win.show')
+      window.onresize = () => {
+        this.setCaptionArea()
+      }
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
         case this.$DataUri.App_CloseAllWindow:
           window.close()
           break
+        case this.$DataUri.AboutFrame_ShowWindow:
+          this.$WebSDK('win.move', 4)
+          this.$WebSDK('win.show')
+          break
+        case this.$DataUri.APP_LanguageChange:
+            i18n.setLocale(data)
+            break
       }
     }, this)
     },
     setCaptionArea () {
-      const w = 500 - 35
-      this.$WebSDK('win.setDragArea', [[0, 0, w, 50]])
+      let areaTop = [0, 0, document.body.offsetWidth - 30,  30]
+      this.$WebSDK('win.setDragArea', [areaTop])
     }
   }
 }
@@ -54,56 +73,47 @@ export default {
 </style>
 
 <style lang='scss' scoped>
-.app-about{
+$back-color: rgb(0, 137, 227);
+.backgrounddiv{
   position: relative;
-  width: 500px;
+  width: 100%;
   margin: 0;
-  height: 350px;
-  background: #282b30;
-  border-radius: 0px;
-  &-close{
-    border: none;
-    width: 12px;
-    height: 12px;
+  height: 100%;
+  background: $back-color;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  //background: url('./img/back.png') no-repeat;
+  //border-radius: 0px;
+  //background-size: 100% 100%
+
+  .maindiv {
+    height: 100%;
+    flex: 1 1 auto;
+    background: beige;
     margin: 0;
-    background: url('/asserts/close-bt.png');
-    background-position: 0px -72px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    z-index: 9;
-  }
-  &-protocol{
-    text-align: center;
-    position: absolute;
-    left: 75px;
-    right: 75px;
-    bottom: 20px;
-    color: #f29400;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: normal;
-  }
-  &-copyright{
-    text-align: center;
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: 41px;
-    color: #a0a2a4;
-    font-size: 12px;
-    font-weight: normal;
-    display: inline-block;
-    max-width: 100%;
-  }
-  &-title{
-    color: #ebebeb;
-    position: absolute;
-    left: 15px;
-    top: 15px;
-    font-weight: bold;
-    font-size: 14px;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
+
+    .maindiv-topdiv {
+      height: calc(25%);
+      width: 100%;
+      flex: 1 1 auto;
+    }
+
+    .maindiv-middlediv {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+
+    .maindiv-bottomdiv {
+      height: calc(25%);
+      flex: 1 1 auto;
+    }
   }
 }
 </style>

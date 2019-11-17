@@ -4,6 +4,7 @@
         <li @click.stop="showMainFrame">{{$t('Show MainFrame')}}</li>
         <li @click.stop="resetMainFrame">{{$t('Reset MainFrame')}}</li>
         <li @click.stop="showSettingFrame">{{$t('Setting')}}</li>
+        <li @click.stop="showAboutFrame">{{$t('About Us')}}</li>
         <li class="quit" @click.stop="quitClick">{{$t('Exit')}}</li>
     </ul>
   </div>
@@ -91,6 +92,10 @@ export default {
     },
     showSettingFrame() {
        this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.SettingFrame_ShowWindow, '')
+       this.$WebSDK('win.hide')
+    },
+    showAboutFrame() {
+       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.AboutFrame_ShowWindow, '')
        this.$WebSDK('win.hide')
     },
     clearDelay () {

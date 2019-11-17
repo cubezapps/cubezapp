@@ -12,7 +12,11 @@ you can:
 
 ![picture](readme/install.png)
 
-![picture](readme/ui01.png)
+![picture](readme/system.png)
+
+![picture](readme/filefingerprint.png)
+
+![picture](readme/impanel.png.png)
 
 ![picture](readme/im.png)
 

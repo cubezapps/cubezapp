@@ -2,7 +2,7 @@
   "Cubez": "快捷助手",
   "shortcut": "快捷方式 - 拖拽程序图标快速启动",
   "clipboard": "剪贴板 - 操作剪贴板历史记录",
-  "hash": "计算器 - 拖拽文件计算哈希",
+  "hash": "计算器 - 拖拽文件计算指纹",
   "flying pigeon": "飞书 - 局域网高性能文件传输与即时通讯",
   "developing": "功能征集中",
   "Common": "常用",
@@ -62,5 +62,12 @@
   "Press Ctrl + Enter to send": "按键 Ctrl + Enter 发送",
   "Friend is not online": "好友离线了",
   "online": "在线",
-  "myself": "自己"
+  "myself": "自己",
+  "About Us": "关于我们",
+  "About": "关于",
+  "The software": "本软件是免费和开源软件, 你可以下载源码从",
+  "here": "这里",
+  "Feedback and comments": "反馈和意见请联系 76712818@qq.com",
+  "If you": "如果你想要捐赠,请捐助 ",
+  "Red Cross foundation": "红十字基金会"
 }

@@ -39,7 +39,8 @@ export default {
       trayWindow: null,
       popupWindow: null,
       clipWindow: null,
-      calendarWindow: null
+      calendarWindow: null,
+      aboutWindow: null
     }
   },
   async mounted () {
@@ -94,6 +95,11 @@ export default {
         if(this.settingWindow == null) {
           this.$WebSDK('sdk.openWindow', '/#/setting', 'settingframe', 'left=9999,top=9999,minimizeresizable:0,maximizeresizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:0,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
             this.settingWindow = r
+          })
+        }
+        if(this.aboutWindow == null) {
+          this.$WebSDK('sdk.openWindow', '/#/about', 'aboutframe', 'left=9999,top=9999,minimizeresizable:1,maximizeresizable:0,forbidsystemclose:1,titlebar:0,topmost:1,taskbaricon:1,windowvisible:0,offscreenrendering:0,guardapp:0').then(r => {
+            this.aboutWindow = r
           })
         }
         if(this.calendarWindow == null) {

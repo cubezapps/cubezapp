@@ -2,7 +2,7 @@
   "Cubez": "Shortcut",
   "shortcut": "shortcut - Drag and drop the program icon to start quickly",
   "clipboard": "clipboard - Records and operates clipboard history",
-  "hash": "calculator - Calculate file hash by drag operator",
+  "hash": "calculator - Calculate file fingerprint by drag operator",
   "flying pigeon": "Fly message - High performance File transfer and messaging on LAN",
   "developing": "Function collecting",
   "Common": "Common",
@@ -61,5 +61,12 @@
   "Press Ctrl + Enter to send": "Press Ctrl + Enter to send",
   "Friend is not online": "Friend is not online",
   "online": "online",
-  "myself": "self"
+  "myself": "self",
+  "About Us": "About Us",
+  "About": "About",
+  "The software": "The software is free and open source, you can get the source code from ",
+  "here": "here",
+  "Feedback and comments": "Feedback and comments please contact 76712818@qq.com",
+  "If you": "If you would like to donate, please donate ",
+  "Red Cross foundation": "Red Cross foundation"
 }
