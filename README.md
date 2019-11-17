@@ -16,7 +16,7 @@ you can:
 
 ![picture](readme/filefingerprint.png)
 
-![picture](readme/impanel.png.png)
+![picture](readme/impanel.png)
 
 ![picture](readme/im.png)
 
