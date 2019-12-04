@@ -244,6 +244,9 @@ export default {
   async deleteFiles (pathArr) {
     return Native.Common.deleteFiles(pathArr)
   },
+  async fileExists (filepath) {
+    return Native.Common.fileExists(filepath)
+  },
   /**
    * 打开文件夹
    * @param path {string} 文件夹绝对路径
@@ -271,6 +274,9 @@ export default {
   async getSystemDir () {
     return Native.Common.getSystemDir()
   },
+  async getProgramFileDir () {
+    return Native.Common.getProgramFileDir()
+  },
   async getDesktopFilePath() {
     return Native.Common.getDesktopFilePath()
   },
@@ -288,9 +294,6 @@ export default {
   },
   async stopMonitor() {
     return Native.Common.ClipBoard.stopMonitor()
-  },
-  async setClipBoard() {
-    return Native.Common.ClipBoard.setClipBoard()
   },
   async getCursorPos() {
     return Native.Common.getCursorPos()

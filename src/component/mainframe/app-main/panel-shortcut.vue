@@ -174,14 +174,19 @@ export default {
       return false
     },
     async createSystemShortcut() {
-      let notepadObj = {}
       this.systemData['items'] = []
       let systemDir = (await this.$WebSDK('common.getSystemDir')).trim()
       let n = systemDir.lastIndexOf("\\")
       let windowDir = systemDir.substr(0, n)
+      let programfileDir = (await this.$WebSDK('common.getProgramFileDir')).trim()
+      let notepadObj = {}
       notepadObj['path'] = systemDir + '\\notepad.exe'
       notepadObj['hash'] = SparkMd5.hash(notepadObj['path'].toLowerCase())
       notepadObj['name'] = 'Notepad'
+      let wordpadObj = {}
+      wordpadObj['path'] = programfileDir + '\\Windows NT\\Accessories\\wordpad.exe'
+      wordpadObj['hash'] = SparkMd5.hash(wordpadObj['path'].toLowerCase())
+      wordpadObj['name'] = 'Wordpad'
       let calcObj = {}
       calcObj['path'] = systemDir + '\\calc.exe'
       calcObj['hash'] = SparkMd5.hash(calcObj['path'].toLowerCase())
@@ -218,6 +223,14 @@ export default {
       soundRecorderObj['path'] = windowDir + '\\Sysnative\\SoundRecorder.exe'
       soundRecorderObj['hash'] = SparkMd5.hash(soundRecorderObj['path'].toLowerCase())
       soundRecorderObj['name'] = 'SoundRecorder'
+      let charmapObj = {}
+      charmapObj['path'] = windowDir + '\\Sysnative\\charmap.exe'
+      charmapObj['hash'] = SparkMd5.hash(charmapObj['path'].toLowerCase())
+      charmapObj['name'] = 'CharacterMap'
+      let mipObj = {}
+      mipObj['path'] = programfileDir + '\\Common Files\\Microsoft Shared\\Ink\\mip.exe'
+      mipObj['hash'] = SparkMd5.hash(mipObj['path'].toLowerCase())
+      mipObj['name'] = 'MathRef'
       let msinfo32Obj = {}
       msinfo32Obj['path'] = systemDir + '\\msinfo32.exe'
       msinfo32Obj['hash'] = SparkMd5.hash(msinfo32Obj['path'].toLowerCase())
@@ -226,19 +239,43 @@ export default {
       taskManagerObj['path'] = systemDir + '\\Taskmgr.exe'
       taskManagerObj['hash'] = SparkMd5.hash(taskManagerObj['path'].toLowerCase())
       taskManagerObj['name'] = 'TaskManager'
+      let faxObj = {}
+      faxObj['path'] = windowDir + '\\Sysnative\\WFS.exe'
+      faxObj['hash'] = SparkMd5.hash(faxObj['path'].toLowerCase())
+      faxObj['name'] = 'Fax Scan'
 
-      this.systemData['items'].push(notepadObj)
-      this.systemData['items'].push(calcObj)
-      this.systemData['items'].push(paintObj)
-      this.systemData['items'].push(controlObj)
-      this.systemData['items'].push(cmdObj)
-      this.systemData['items'].push(powerShellObj)
-      this.systemData['items'].push(mstscObj)
-      this.systemData['items'].push(regedtObj)
-      this.systemData['items'].push(snippingtoolObj)
-      this.systemData['items'].push(soundRecorderObj)
-      this.systemData['items'].push(msinfo32Obj)
-      this.systemData['items'].push(taskManagerObj)
+      if(await this.$WebSDK('common.fileExists', notepadObj["path"]))
+        this.systemData['items'].push(notepadObj)
+      if(await this.$WebSDK('common.fileExists', wordpadObj["path"]))
+        this.systemData['items'].push(wordpadObj);
+      if(await this.$WebSDK('common.fileExists', calcObj["path"]))
+        this.systemData['items'].push(calcObj)
+      if(await this.$WebSDK('common.fileExists', paintObj["path"]))
+        this.systemData['items'].push(paintObj)
+      if(await this.$WebSDK('common.fileExists', controlObj["path"]))
+        this.systemData['items'].push(controlObj)
+      if(await this.$WebSDK('common.fileExists', cmdObj["path"]))
+        this.systemData['items'].push(cmdObj)
+      if(await this.$WebSDK('common.fileExists', powerShellObj["path"]))
+        this.systemData['items'].push(powerShellObj)
+      if(await this.$WebSDK('common.fileExists', mstscObj["path"]))
+        this.systemData['items'].push(mstscObj)
+      if(await this.$WebSDK('common.fileExists', regedtObj["path"]))
+        this.systemData['items'].push(regedtObj)
+      if(await this.$WebSDK('common.fileExists', snippingtoolObj["path"]))
+        this.systemData['items'].push(snippingtoolObj)
+      if(await this.$WebSDK('common.fileExists', soundRecorderObj["path"]))
+        this.systemData['items'].push(soundRecorderObj)
+      if(await this.$WebSDK('common.fileExists', charmapObj["path"]))
+        this.systemData['items'].push(charmapObj)
+      if(await this.$WebSDK('common.fileExists', mipObj["path"]))
+        this.systemData['items'].push(mipObj)
+      if(await this.$WebSDK('common.fileExists', msinfo32Obj["path"]))
+        this.systemData['items'].push(msinfo32Obj)
+      if(await this.$WebSDK('common.fileExists', taskManagerObj["path"]))
+        this.systemData['items'].push(taskManagerObj)
+      if(await this.$WebSDK('common.fileExists', faxObj["path"]))
+        this.systemData['items'].push(faxObj)
       this.systemData['menus'] = []
       this.systemData['id'] = 'systemTag'
       //console.log(JSON.stringify(this.systemData))
