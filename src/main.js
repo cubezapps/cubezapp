@@ -8,6 +8,7 @@ import Logger, { LoggerPlugin } from '@/public/base/Logger'
 import i18n from '@/i18n'
 import store from './store'
 import BootstrapVue from 'bootstrap-vue'
+import VueParticles from 'vue-particles'
 //import { TrayIconPlugin } from '@/public/common/TrayIcon'
 
 Vue.config.productionTip = false
@@ -15,6 +16,7 @@ Vue.use(WebSDKPlugin)
 Vue.use(DataUriPlugin)
 Vue.use(LoggerPlugin)
 Vue.use(BootstrapVue)
+Vue.use(VueParticles)
 Vue.prototype.$VueBus = new Vue();
 //Vue.use(TrayIconPlugin)
 install(Vue)

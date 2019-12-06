@@ -1,6 +1,6 @@
 <template>
   <div class="app-bottombar">
-     
+     <vue-particles class="particles" color="#dedede" :moveSpeed="2" :particleSize="3" shapeType="circle" :particlesNumber="80"></vue-particles>
   </div>
 </template>
 
@@ -29,5 +29,9 @@ $back-color: linear-gradient(to bottom, rgb(2, 137, 240), rgb(2, 145, 223));
     margin: auto;
     width: 100%;
     flex: 0 0 $height;
+    .particles {
+      width: 100%;
+      height: $height - 3;
+    }
   }
 </style>

@@ -10,6 +10,7 @@
          <clipboardpanel v-show="curId == 1"></clipboardpanel>
          <hashpanel v-show="curId == 2"></hashpanel>
          <impanel v-show="curId == 3"></impanel>
+         <devpanel v-show="curId == 4"></devpanel>
      </div>
   </div>
 </template>
@@ -20,6 +21,7 @@ import shortcutpanel from './panel-shortcut.vue'
 import clipboardpanel from './panel-clipboard.vue'
 import hashpanel from './panel-hash.vue'
 import impanel from './panel-im.vue'
+import devpanel from './panel-dev.vue'
 import i18n from '@/i18n'
 
 export default {
@@ -28,7 +30,8 @@ export default {
     shortcutpanel,
     clipboardpanel,
     hashpanel,
-    impanel
+    impanel,
+    devpanel
   },
   data () {
     return {
