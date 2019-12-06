@@ -200,7 +200,7 @@ export default {
             let filesData = {}
             filesData.items = []
             let objFile = {}
-            objFile['path'] = names[i]
+            objFile['path'] = names[i].link
             objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
             let n = objFile['path'].lastIndexOf("\\")
             objFile['name'] = objFile['path'].substr(n + 1)

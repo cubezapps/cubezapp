@@ -268,8 +268,8 @@ export default {
   async parseShortcutFiles (data) {
     return Native.Common.parseShortcutFiles(data)
   },
-  async executeFile(file) {
-    return Native.Common.executeFile(file)
+  async executeFile(file, params, isAdmin) {
+    return Native.Common.executeFile(file, params, isAdmin)
   },
   async getSystemDir () {
     return Native.Common.getSystemDir()

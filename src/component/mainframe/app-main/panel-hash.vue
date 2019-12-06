@@ -34,7 +34,11 @@ export default {
       if(curId != 2)
         return
       this.firstFlag = false
-      this.$WebSDK('common.getCryptographyHash', names).then(ret => {
+      let namesStr = []
+      for(var i = 0; i < names.length; i++) {
+        namesStr.push(names[i].link)
+      }
+      this.$WebSDK('common.getCryptographyHash', namesStr).then(ret => {
         this.fileList = Object.keys(ret)
         this.fileObj = ret
         for(let i = 0; i < this.tags.length; i++) {

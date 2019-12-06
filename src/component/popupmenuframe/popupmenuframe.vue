@@ -27,6 +27,7 @@ export default {
       hash: '',
       menus: [],
       path: '',
+      param: '',
       langChanged: false
     }
   },
@@ -74,6 +75,7 @@ export default {
             this.hash = obj.hash
             this.menus = obj.menus
             this.path = obj.path
+            this.param = obj.param
             break
           }
           case this.$DataUri.APP_LanguageChange:
@@ -110,6 +112,7 @@ export default {
     onPopupClick (event, name) {
       let obj = {}
       obj['path'] = this.path
+      obj['param'] = this.param
       obj['hash'] = this.hash
       obj['name'] = name
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenuClick, JSON.stringify(obj))

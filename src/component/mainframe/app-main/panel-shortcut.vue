@@ -43,10 +43,10 @@ export default {
           let addNew = false
           for(let i = 0; i < names.length; i++) {
             let objFile = {}
-            objFile['path'] = names[i]
+            objFile['path'] = names[i].original
+            objFile['param'] = names[i].param
             objFile['hash'] = SparkMd5.hash(objFile['path'].toLowerCase())
-            let n = objFile['path'].lastIndexOf("\\")
-            objFile['name'] = objFile['path'].substr(n + 1)
+            objFile['name'] = names[i].linkname
             if(!this.isExist(objFile, this.commonData['items'])) {
               this.commonData['items'].push(objFile)
               addNew = true
@@ -106,6 +106,7 @@ export default {
 
     let commonMenu = []
     commonMenu.push('Open')
+    commonMenu.push('Admin Open')
     commonMenu.push('Open Path...')
     commonMenu.push('Rename')
     commonMenu.push('Delete')
@@ -276,7 +277,12 @@ export default {
         this.systemData['items'].push(taskManagerObj)
       if(await this.$WebSDK('common.fileExists', faxObj["path"]))
         this.systemData['items'].push(faxObj)
-      this.systemData['menus'] = []
+      
+      let systemMenu = []
+      systemMenu.push('Open')
+      systemMenu.push('Admin Open')
+      this.systemData['menus'] = systemMenu
+
       this.systemData['id'] = 'systemTag'
       //console.log(JSON.stringify(this.systemData))
       await this.$WebSDK('common.parseShortcutFiles', JSON.stringify(this.systemData))
@@ -295,6 +301,7 @@ export default {
       }
       let desktopMenu = []
       desktopMenu.push('Open')
+      desktopMenu.push('Admin Open')
       desktopMenu.push('Open Path...')
       this.desktopData['menus'] = desktopMenu
       this.desktopData['id'] = 'desktopTag'

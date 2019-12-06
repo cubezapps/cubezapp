@@ -35,11 +35,13 @@ export default {
            if(this.item.hash == obj.hash) {
              console.log('onclickpopup: ' + data)
              if(obj.name == 'Open') {
-               this.$WebSDK('common.executeFile', obj.path)
+               this.$WebSDK('common.executeFile', obj.path, obj.param, false)
+             }
+             else if(obj.name =='Admin Open') {
+               this.$WebSDK('common.executeFile', obj.path, obj.param, true)
              }
              else if(obj.name =='Open Path...') {
-               let n = obj.path.lastIndexOf("\\")
-               this.$WebSDK('common.openFolder', obj.path.substr(0, n), true)
+               this.$WebSDK('common.openFolder', obj.path, true)
              }
              else if(obj.name == 'Rename') {
                 this.$refs.textItem.removeAttribute('readonly')
@@ -79,10 +81,15 @@ export default {
       obj.hash = this.item.hash
       obj.menus = this.menus
       obj.path = this.item.path
+      if(!this.item.hasOwnProperty('param'))
+          this.item.param = ""
+      obj.param = this.item.param
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, JSON.stringify(obj))
     },
     onDdblClick(event) {
-      this.$WebSDK('common.executeFile', this.item.path)
+      if(!this.item.hasOwnProperty('param'))
+          this.item.param = ""
+      this.$WebSDK('common.executeFile', this.item.path, this.item.param, false)
     },
     onChange(event) {
       this.$refs.textItem.setAttribute('readonly', true)
