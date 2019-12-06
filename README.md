@@ -31,14 +31,7 @@ you can:
 ```
 npm install -g @vue/cli
 #vue init webpack myapp
-npm install node-sass --save-dev
-npm install sass-loader --save-dev
-npm install --save @efox/websdk
-npm install vue-router
-npm install vue-meta
-npm install vue-clipboard2
-npm install --save v-tooltip
-npm install --save spark-md5
+npm install
 ```
 
 ### Compiles and minifies for production

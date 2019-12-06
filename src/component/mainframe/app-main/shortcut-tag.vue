@@ -38,6 +38,9 @@ export default {
       if(this.tagdata.id != 'commonTag')  {
         this.disableDrag = true;
       }
+      else {
+        this.disableDrag = false;
+      }
       if(this.tagdata.id == id) {
         //console.log('refresh tagdata: ' + JSON.stringify(this.tagdata))
         this.$forceUpdate()

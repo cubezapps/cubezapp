@@ -16,8 +16,6 @@ export default function CreateShortcutItem (hashObj, fileName, index, callback) 
     app.$data.hashObj = hashObj
     app.$data.fileName = fileName
     app.$data.index = index
-  } else {
-    
   }
 
   app.$mount()
