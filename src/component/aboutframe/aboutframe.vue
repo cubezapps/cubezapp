@@ -4,7 +4,7 @@
      <div class="maindiv">
         <div class="maindiv-topdiv"></div>
         <div class="maindiv-middlediv">
-          <p>{{$t("The software")}}<b-link href="https://bitbucket.org/woaicide/cubez-web/src/master/" target="_blank">{{$t("here")}}</b-link></p>
+          <p>{{$t("The software")}}<b-link href="https://github.com/woaicide/cubez-web" target="_blank">{{$t("here")}}</b-link></p>
           <p>{{$t("Feedback and comments")}}</p>
           <p>{{$t("If you")}}<b-link href="https://new.crcf.org.cn/donations/PayLove.aspx" target="_blank">{{$t("Red Cross foundation")}}</b-link></p>
         </div>
