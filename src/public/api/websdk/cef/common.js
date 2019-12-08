@@ -141,9 +141,9 @@ export default {
       r.unregisterNHotkey(name)
     })
   },
-  registerNHotkey (name, key, b) {
+  registerNHotkey (name, key, b, holdTime) {
     return Native.Common.nhotKey().then((r) => {
-      r.registerNHotkey(name, key, b)
+      r.registerNHotkey(name, key, b, holdTime)
     })
   },
   onKeyPressed (callback, caller) {
