@@ -135,6 +135,12 @@ export default {
     document.body.oncontextmenu = (e) => {
         return false
     }
+    this.$WebSDK('common.registerNHotkey', 'mainframe', 115, false, 100)
+      this.$WebSDK('common.onKeyPressed', (name) => {
+        if(name == 'mainframe') {
+          this.showWindow()
+        }
+      })
   },
   computed: {
     trayTip_I18n() {
@@ -154,8 +160,6 @@ export default {
       this.timeId = window.setTimeout(() => {
           window.clearTimeout(this.timeId)
           this.$WebSDK('win.setTopHide', true)
-          this.$WebSDK('win.bringToFront')
-          this.$WebSDK('win.show')
       }, 2000)
     },
     setCaptionArea () {

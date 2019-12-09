@@ -244,6 +244,10 @@ export default {
       faxObj['path'] = windowDir + '\\Sysnative\\WFS.exe'
       faxObj['hash'] = SparkMd5.hash(faxObj['path'].toLowerCase())
       faxObj['name'] = 'Fax Scan'
+      let hostsObj = {}
+      hostsObj['path'] = systemDir + '\\drivers\\etc\\hosts'
+      hostsObj['hash'] = SparkMd5.hash(hostsObj['path'].toLowerCase())
+      hostsObj['name'] = 'Hosts'
 
       if(await this.$WebSDK('common.fileExists', notepadObj["path"]))
         this.systemData['items'].push(notepadObj)
@@ -277,6 +281,8 @@ export default {
         this.systemData['items'].push(taskManagerObj)
       if(await this.$WebSDK('common.fileExists', faxObj["path"]))
         this.systemData['items'].push(faxObj)
+      if(await this.$WebSDK('common.fileExists', hostsObj["path"]))
+        this.systemData['items'].push(hostsObj)
       
       let systemMenu = []
       systemMenu.push('Open')

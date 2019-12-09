@@ -93,7 +93,9 @@ export default {
             break
         }
       }, this)
-      this.$WebSDK('common.registerNHotkey', 'clipboard', 162, false, 1000)
+      this.$WebSDK('common.registerNHotkey', 'clipboard', 162, false, 100)
+      this.$WebSDK('common.registerNHotkey', 'clipboard', 164, false, 100)
+      this.$WebSDK('common.registerNHotkey', 'clipboard', 86, false, 100)
       this.$WebSDK('common.onKeyPressed', (name) => {
         if(name == 'clipboard') {
           this.$WebSDK('common.getForegroundWindow').then(winId => {
