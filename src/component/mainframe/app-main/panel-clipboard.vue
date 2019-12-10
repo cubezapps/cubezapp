@@ -1,8 +1,8 @@
 <template>
     <div class="clipboard-backpanel">
         <div class="clipboard-notice" ref="noticeTag">
-          <p class="notice" :style="{'color': 'gray'}">{{$t('When you need to press ')}} <span :style="{ 'color': 'deeppink' }">Ctrl v</span></p>
-          <p class="notice" :style="{'color': 'gray'}">{{$t("Try")}} <span :style="{ 'color': 'deeppink' }">Ctrl ~</span> {{$t(" instead")}}</p>
+          <p class="notice" :style="{'color': 'gray'}">{{$t('When need to press ')}} <span :style="{ 'color': 'deeppink' }">Ctrl + v</span></p>
+          <p class="notice" :style="{'color': 'gray'}">{{$t("Try")}} <span :style="{ 'color': 'deeppink' }">Ctrl + Alt + v</span> {{$t(" instead")}}</p>
         </div>
         <div class="memoDiv">
            <textarea class="memo" ref="memoTag" spellcheck="false"></textarea>

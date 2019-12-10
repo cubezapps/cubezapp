@@ -47,7 +47,7 @@ export default {
       showText() {
         return function(clipdata) {
             let text = ""
-            if(clipdata.type === 1) {
+            if(clipdata.type === 13) {
               //text
               text = this.$t("【Paste Text】")
               text += clipdata.text
@@ -99,8 +99,8 @@ export default {
       this.$WebSDK('common.onKeyPressed', (name) => {
         if(name == 'clipboard') {
           this.$WebSDK('common.getForegroundWindow').then(winId => {
-            this.winId = winId
-            console.log('winid:' + this.winId)
+            this.targetWinId = winId
+            console.log('targetWinId:' + this.targetWinId)
             this.$WebSDK('common.getCursorPos').then(pos => {
               this.clearDelay()
               this._mouseenter = true
@@ -159,7 +159,7 @@ export default {
       this.$WebSDK('common.setClipBoard', clipdata.id)
       console.log(this.x)
       console.log(this.y)
-      this.$WebSDK('common.executeClipBoard', this.winId)
+      this.$WebSDK('common.executeClipBoard', this.targetWinId)
     },
   }
 }
