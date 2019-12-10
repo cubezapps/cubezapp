@@ -1,24 +1,29 @@
-# cubez-web 
-A product, based on cef, QT and native-c++, provide easy access to computer.
-execute the readme/cubez.exe to install product, 
-you can:
+# cubezapp 
+The cubezapp, based on cef, QT and native-c++, provide easy access to computer on Windows.
+It can improve your working efficiency, especially for programmers. 
+Download the product/cubez.exe to install the APP, press F4 to call mainpanel.
+Vital function:
 ```
-1、Drag and drop the program icon to start quickly
-2、Record and operate clipboard history
-3、Drag file to calculate fingerprint
-4、High performance file transfer and message on LAN
-5、Other convenience function
+1、Drag and drop the program shortcut to start quickly.
+2、Sort out common operations of the system so that you don't have to go back to the desktop when using the desktop shortcut.
+3、Record and operate clipboard history, just use Ctrl+Alt+v shortcut instead of the paster action.
+4、Drag files to calculate fingerprint, Such as: Md5,Sha1,Sha256,sha3_256
+5、High performance files transfer and message on LAN, Support fro large files transfer.
+6、Support Chinese and English instant switch.
+7、Other convenience function
 ```
 
-![picture](readme/install.png)
+![picture](product/install.png)
 
-![picture](readme/system.png)
+![picture](product/system.png)
 
-![picture](readme/filefingerprint.png)
+![picture](product/clipboard.png)
 
-![picture](readme/impanel.png)
+![picture](product/filefingerprint.png)
 
-![picture](readme/im.png)
+![picture](product/impanel.png)
+
+![picture](product/im.png)
 
 ## Project setup
 ```

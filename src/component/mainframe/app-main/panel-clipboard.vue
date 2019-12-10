@@ -39,7 +39,7 @@ export default {
   methods: {
       addMemo(clipdata) {
           let text = ''
-          if(clipdata.type === 1) {
+          if(clipdata.type === 13) {
             //text
             text = this.$t('【CopyText】')
             text += clipdata.text
