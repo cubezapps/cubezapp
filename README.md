@@ -1,7 +1,8 @@
 # cubezapp 
 The cubezapp, based on cef, QT and native-c++, provide easy access to computer on Windows.
 It can improve your working efficiency, especially for programmers. 
-Download the product/cubez.exe to install the APP, press F4 to call mainpanel.
+Download the product/cubez.exe to install the APP.
+After started, it will automatically hide at the top of the screen,press F4 or mouse touch to call/hide mainpanel.
 Vital function:
 ```
 1、Drag and drop the program shortcut to start quickly.

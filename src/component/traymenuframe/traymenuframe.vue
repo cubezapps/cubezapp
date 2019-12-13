@@ -25,8 +25,7 @@ export default {
         }
   },
   updated() {
-      let tmp = this.$refs.appmenu
-      this.$WebSDK('win.resize', tmp.offsetWidth, tmp.offsetHeight)
+
   },
   mounted () {
     this.init()
@@ -142,6 +141,7 @@ export default {
           x = Math.floor(Math.min(Math.max(x, 0), info.screenW - menuWidth))
           y = Math.floor(Math.min(Math.max(y, 0), info.screenH - menuHeight))
           console.log(menuWidth, menuHeight, x, y, iconPos, border)
+          this.$WebSDK('win.resize', menuWidth, menuHeight)
           this.$WebSDK('win.move', x, y)
         })
       })

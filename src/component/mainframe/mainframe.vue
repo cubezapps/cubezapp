@@ -135,10 +135,32 @@ export default {
     document.body.oncontextmenu = (e) => {
         return false
     }
+
     this.$WebSDK('common.registerNHotkey', 'mainframe', 115, false, 100)
       this.$WebSDK('common.onKeyPressed', (name) => {
         if(name == 'mainframe') {
-          this.showWindow()
+          window.Win.isTopHide().then(isTopHide => {
+            window.Win.size().then(list => {
+                if(list[1] < 0) {
+                  if(isTopHide)  {
+                    this.showWindow()
+                  }
+                  else {
+                    this.$WebSDK('win.show')
+                  }
+                }
+                else {
+                  window.Win.isVisible().then(isVisible => {
+                    if(!isVisible)  {
+                      this.showWindow()
+                    }
+                    else {
+                      this.$WebSDK('win.hide')
+                    }
+                  })
+                }
+            })
+          })
         }
       })
   },
