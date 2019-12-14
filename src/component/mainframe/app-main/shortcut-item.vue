@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-
+      /*empty */
     }
   },
   mounted() {
@@ -81,13 +81,13 @@ export default {
       obj.hash = this.item.hash
       obj.menus = this.menus
       obj.path = this.item.path
-      if(!this.item.hasOwnProperty('param'))
+      if(!Object.prototype.hasOwnProperty.call(this.item, 'param'))
           this.item.param = ""
       obj.param = this.item.param
       this.$WebSDK('ipc.dispatchWindowEvent', this.$DataUri.APP_PopupMenu, JSON.stringify(obj))
     },
     onDdblClick(event) {
-      if(!this.item.hasOwnProperty('param'))
+      if(!Object.prototype.hasOwnProperty.call(this.item, 'param'))
           this.item.param = ""
       this.$WebSDK('common.executeFile', this.item.path, this.item.param, false)
     },

@@ -10,18 +10,6 @@ module.exports = {
   },
   runtimeCompiler: isProd,
   publicPath: './',
-  css: {
-    // extract CSS in components into a single CSS file (only in production)
-    extract: isProd,
-    modules: true,
-    sourceMap: !isProd,
-    loaderOptions: {
-      css: {
-        localIdentName: isProd ? '_[hash:base64:8]' : '[local]_[hash:base64:8]',
-        camelCase: true
-      }
-    }
-  },
   productionSourceMap: !isProd,
   configureWebpack (config) {
     switch (config.mode) {

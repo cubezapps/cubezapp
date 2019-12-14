@@ -1,30 +1,24 @@
-import WebSDK, { WebSDKBOM } from '@efox/websdk'
+import WebSDk from '@efox/websdk'
 
-const local = {
-  dev: true
-}
+const local = {}
 if (window.Native) {
   local.sdk = require('./cef').default
   local.env = 'Native'
-  WebSDK.isCef = true
 } else {
   local.sdk = require('./web').default
   local.env = 'web'
-  WebSDK.isWeb = true
 }
-WebSDKBOM.config({
-  ...local
-})
+const sdk = new WebSDk(local.sdk, local.env)
 
+const method = sdk.get
+method.isCef = local.env === 'cef'
+
+export {
+  method as default,
+  sdk
+}
 export const WebSDKPlugin = {
   install (Vue) {
-    Vue.prototype.$WebSDK = WebSDK
+    Vue.prototype.$WebSDK = method
   }
-}
-
-// example:
-// vue.$WebSDK('test.env', 'name', {obj: 1})
-export {
-  WebSDK as default,
-  WebSDKBOM
 }
