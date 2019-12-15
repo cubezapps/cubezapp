@@ -42,27 +42,27 @@ export default {
     }
   },
   mounted() {
-    window.connectSignal(window.Native.Network.onTransFileRes, (ip, port, jobid, accept) => {
+    this.$WebSDK('network.onTransFileRes', (ip, port, jobid, accept) => {
       if(this.item.jobid == jobid) {
         this.item.status = 1
       }
     })
 
-    window.connectSignal(window.Native.Network.onTransFileJobFinish, (ip, jobid) => {
+    this.$WebSDK('network.onTransFileJobFinish', (ip, jobid) => {
       if(this.item.jobid == jobid && this.item.issendfile) {
         this.item.status = 2
         this.progressData = 100.00
       }
     })
 
-    window.connectSignal(window.Native.Network.onRecvAllJobFinish, (ip, jobid) => {
+    this.$WebSDK('network.onRecvAllJobFinish', (ip, jobid) => {
       if(this.item.jobid == jobid && !this.item.issendfile) {
         this.item.status = 2
         this.progressData = 100.00
       }
     })
 
-    window.connectSignal(window.Native.Network.onStaticst, (data) => {
+    this.$WebSDK('network.onStaticst', (data) => {
       console.log(data)
       if(this.item.status == 1) {
         if(this.item.issendfile) {
@@ -114,14 +114,14 @@ export default {
     onAcceptClick(event) {
       window.Native.Common.chooseFolder("", "").then(r => {
         if(r.code == 0) {
-          window.Native.Network.recvFile(this.item.ip, this.item.port, this.item.jobid, r.folder, this.item.filename, this.item.type)
+          this.$WebSDK('network.recvFile', this.item.ip, this.item.port, this.item.jobid, r.folder, this.item.filename, this.item.type)
           this.item.status = 1
         }
       })
     },
     onCancelClick(event) {
       if(this.$refs.cancelRef.$el.outerText == this.$t("Cancel")) {
-        window.Native.Network.cancelTransfile(this.item.ip, this.item.port, this.item.jobid)
+        this.$WebSDK('network.cancelTransfile', this.item.ip, this.item.port, this.item.jobid)
       }
       let val = {}
       val.itemuniqueid = this.item

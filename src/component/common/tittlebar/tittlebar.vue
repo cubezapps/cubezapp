@@ -41,7 +41,7 @@ export default {
        this.$WebSDK('win.hide')
     },
     onMinBtnClick(event) {
-       window.Win.minimize() 
+       this.$WebSDK('win.minimize') 
     }
   }
 }

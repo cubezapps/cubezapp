@@ -187,10 +187,10 @@ export default {
           return false
       }
       this.$refs.textareaRef.$el.placeholder = this.$t('Press Ctrl + Enter to send')
-      window.connectSignal(window.Native.Network.onMessage, (ip, port, message) => {
+      this.$WebSDK('network.onMessage', (ip, port, message) => {
         this.onMessageWork(ip, port, message)
       })
-      window.Win.winId().then(winId => {
+      this.$WebSDK('win.winId').then(winId => {
         window.Native.Sdk.cefBrowser(winId).then((browser) => {
         window.connectSignal(browser.onDragNames, (names) => {
           if (!this.checkOnline()) {
@@ -210,7 +210,7 @@ export default {
             objFile['ip'] = this.chatItem.ip
             objFile['port'] = this.chatItem.port
             this.$WebSDK('common.parseShortcutFiles', JSON.stringify(filesData)).then(r => {
-              window.Native.Network.sendFile(this.chatItem.ip, this.chatItem.port, objFile.path).then(jobId => {
+              this.$WebSDK('network.sendFile', this.chatItem.ip, this.chatItem.port, objFile.path).then(jobId => {
                 objFile['jobid'] = jobId
                 objFile['itemuniqueid'] = ++this.itemUniqueId
                 this.transFileItems.push(objFile)
@@ -220,10 +220,10 @@ export default {
         })
       })
       })
-      window.connectSignal(window.Native.Network.onTransFileReq, (ip, port, jobid, filename, type) => {
+      this.$WebSDK('network.onTransFileReq', (ip, port, jobid, filename, type) => {
         this.onTransFileReqWork(ip, port, jobid, filename, type)
       })
-      window.connectSignal(window.Native.Network.onTransFileCancel, (ip, port, jobid) => {
+      this.$WebSDK('network.onTransFileCancel', (ip, port, jobid) => {
           if(this.chatItem.ip == ip) {
             for(let i = 0; i < this.transFileItems.length; i++) { 
               if(jobid == this.transFileItems[i].jobid) {
@@ -241,7 +241,7 @@ export default {
         tmpItem["self"] = false
         this.messageItems.push(tmpItem)
         this.scrollBottom()
-        window.Win.isVisible().then(visible => {
+        this.$WebSDK('win.isVisible').then(visible => {
           if(visible) {
             this.$WebSDK('win.flashTaskBar', 12)
           }
@@ -270,7 +270,7 @@ export default {
           objFile['port'] = this.chatItem.port
           objFile['itemuniqueid'] = ++this.itemUniqueId
           this.transFileItems.push(objFile)
-          window.Win.isVisible().then(visible => {
+          this.$WebSDK('win.isVisible').then(visible => {
             if(visible) {
               this.$WebSDK('win.flashTaskBar', 12)
             }
@@ -296,7 +296,7 @@ export default {
       this.$WebSDK('win.setDragArea', [areaTop])
     },
     onClickClose(event) {
-      window.Win.hide()
+      this.$WebSDK('win.hide')
     },
     onClickSend(event) {
       if(!this.checkEmptyMessage())
@@ -304,7 +304,7 @@ export default {
       if (!this.checkOnline()) {
         return
       }
-      window.Native.Network.message(this.chatItem.ip, this.chatItem.port, this.$refs.textareaRef.value)
+      this.$WebSDK('network.message', this.chatItem.ip, this.chatItem.port, this.$refs.textareaRef.value)
       let tmpItem = {}
       tmpItem["content"] = this.$refs.textareaRef.value
       tmpItem["date"] = new Date()

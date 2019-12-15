@@ -111,31 +111,6 @@ export default {
   setAutoRun (value) {
     Native.Common.setAutoRun(value)
   },
-  //= ============
-  onAudioChatKeyPressed (callback, caller) {
-    Native.Common.nhotKey().then((r) => {
-      connectSignal(r.nhotkeyPressed, (name) => {
-        if (!callback) return
-        if (caller) {
-          callback.apply(caller, [name])
-        } else {
-          callback(name)
-        }
-      })
-    })
-  },
-  onAudioChatKeyReleased (callback, caller) {
-    Native.Common.nhotKey().then((r) => {
-      connectSignal(r.nhotkeyReleased, (name) => {
-        if (!callback) return
-        if (caller) {
-          callback.apply(caller, [name])
-        } else {
-          callback(name)
-        }
-      })
-    })
-  },
   unregisterNHotkey (name) {
     return Native.Common.nhotKey().then((r) => {
       r.unregisterNHotkey(name)

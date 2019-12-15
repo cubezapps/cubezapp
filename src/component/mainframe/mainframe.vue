@@ -139,8 +139,8 @@ export default {
     this.$WebSDK('common.registerNHotkey', 'mainframe', 115, false, 100)
       this.$WebSDK('common.onKeyPressed', (name) => {
         if(name == 'mainframe') {
-          window.Win.isTopHide().then(isTopHide => {
-            window.Win.size().then(list => {
+          this.$WebSDK('win.isTopHide').then(isTopHide => {
+            this.$WebSDK('win.size').then(list => {
                 if(list[1] < 0) {
                   if(isTopHide)  {
                     this.showWindow()
@@ -150,7 +150,7 @@ export default {
                   }
                 }
                 else {
-                  window.Win.isVisible().then(isVisible => {
+                  this.$WebSDK('win.isVisible').then(isVisible => {
                     if(!isVisible)  {
                       this.showWindow()
                     }

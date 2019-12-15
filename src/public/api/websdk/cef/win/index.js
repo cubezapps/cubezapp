@@ -164,6 +164,18 @@ export default {
   regEvent (type, listener) {
     return Win.regEvent(type, listener)
   },
+  winId()  {
+    return Win.winId()
+  },
+  isVisible()  {
+    return Win.isVisible()
+  },
+  isTopHide() {
+    return Win.isTopHide()
+  },
+  size() {
+    return Win.size()
+  },
   /**
    * 注入窗口
    */
