@@ -4,9 +4,10 @@
      <div class="maindiv">
         <div class="maindiv-topdiv"></div>
         <div class="maindiv-middlediv">
-          <p>{{$t("The software")}}<b-link href="https://github.com/woaicide/cubezapp" target="_blank">{{$t("here")}}</b-link></p>
+          <p>{{$t("The software")}}<b-link href="https://bitbucket.org/woaicide/cubezapp" target="_blank">{{$t("here")}}</b-link></p>
           <p>{{$t("Feedback and comments")}}</p>
           <p>{{$t("If you")}}<b-link href="https://new.crcf.org.cn/donations/PayLove.aspx" target="_blank">{{$t("Red Cross foundation")}}</b-link></p>
+          <p>{{$t("Version: ")}}<span :style="{'color': 'red'}">{{versionStr}}</span></p>
         </div>
         <div class="maindiv-bottomdiv"></div>
     </div>
@@ -32,7 +33,7 @@ export default {
   },
   data () {
     return {
-
+      versionStr : String
     }
   },
   mounted () {
@@ -47,23 +48,29 @@ export default {
       }
       this.$WebSDK('ipc.addWindowEventListener', ({ uri, data }) => {
       switch (uri) {
-        case this.$DataUri.App_CloseAllWindow:
-          window.close()
-          break
-        case this.$DataUri.AboutFrame_ShowWindow:
-          this.$WebSDK('win.move', 4)
-          this.$WebSDK('win.show')
-          break
-        case this.$DataUri.APP_LanguageChange:
-            i18n.setLocale(data)
+          case this.$DataUri.App_CloseAllWindow:
+            window.close()
             break
-      }
-    }, this)
+          case this.$DataUri.AboutFrame_ShowWindow:
+            this.$WebSDK('win.move', 4)
+            this.$WebSDK('win.show')
+            break
+          case this.$DataUri.APP_LanguageChange:
+              i18n.setLocale(data)
+              break
+        }
+      }, this)
+      this.$WebSDK('sdk.getSdkVersion').then((r) => {
+        this.versionStr = r
+      })
     },
     setCaptionArea () {
       let areaTop = [0, 0, document.body.offsetWidth - 30,  30]
       this.$WebSDK('win.setDragArea', [areaTop])
-    }
+    },
+  },
+  computed: {
+
   }
 }
 </script>

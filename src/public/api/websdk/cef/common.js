@@ -276,6 +276,9 @@ export default {
   async setClipBoard(id) {
     return Native.Common.ClipBoard.setClipBoard(id)
   },
+  async checkMonitor() {
+    return Native.Common.ClipBoard.checkMonitor()
+  },
   async executeClipBoard(winId) {
     return Native.Common.ClipBoard.executeClipBoard(winId)
   },

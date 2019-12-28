@@ -10,7 +10,7 @@ export default {
   async openWindow () {
     return Native.Sdk.open(...arguments)
   },
-  getSdkVersion () {
+  async getSdkVersion () {
     return Native.Sdk.getSdkVersion(...arguments)
   },
   getCurLang () {

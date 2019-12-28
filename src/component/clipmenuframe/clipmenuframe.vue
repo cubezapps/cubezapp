@@ -141,7 +141,10 @@ export default {
         return false
       }
       this.$WebSDK('win.setResizeBorderWidth', 0)
-    },
+      setInterval(() => {
+          this.$WebSDK('common.checkMonitor')
+        }, 10000)
+      },
     clearDelay () {
       if (this._timeId !== undefined && this._timeId > 0) {
         clearTimeout(this._timeId)
